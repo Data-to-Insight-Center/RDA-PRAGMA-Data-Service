@@ -1,0 +1,62 @@
+{
+   "identifier" : "198.202.88.203/6.2/sorted_seasia_gbif/30sec-present-future-SEA-p29_1/1.0.2.lw",
+   "name" : "LM instance",
+   "description" : "Lifemapper instance",
+   "manifest": {
+	"imageManifest":
+	{
+     	   "hostname" : "rocks-203.sdsc.edu",
+       	   "hostip" : "198.202.88.203",
+           "rocksVersion" : "6.2",
+           "speciesDataset" : "sorted_seasia_gbif",
+           "environmentalDataset" : "30sec-present-future-SEA",
+           "rollVersion" : "p29_1",
+           "lmVersion" : "1.0.2.lw"
+	},
+	"diskManifest":
+	[{
+	    "identifier":"0x0002de91",
+ 	    "name":"/dev/sda",
+     	    "capacity": "52.4GB",
+            "partitionManifest":[{
+               "deviceBoot": "/dev/sda1",
+               "blocks":"16384000",
+	       "FileData":[{
+		   "path":"/opt/lifemapper",
+		   "description":"Lifemapper codes",
+		   "checksum":"149254022bba062bf7a36df4f97656a3"
+		}]
+	     },
+	     {
+		"deviceBoot":"/dev/sda5",
+		"blocks":"29693952",
+	   	"FileData":[{
+		    "path":"/state/partition1/share/lmserver/data",
+		    "description":"Lifemapper data archive",
+		    "checksum":"d0c9e7bfd9101f2a7cf81a714cde0b89"
+		}]
+	     }]
+	}]
+   },
+   "provenance" : {
+     "agent":[{
+	  "name":"Nadya Williams",
+	  "email":"nadya@sdsc.edu",
+	  "affiliation":"SDSC"
+     }],
+     "derivation":{
+	  "VM_PID":"",
+	  "VM_identifier":"",
+	  "relation":"be revision of/be quotation of",
+ 	  "annotation":"Update GBIF species data in /lmserver/data dir"
+     },
+     "idFieldsOrder" : "hostip/rocksVersion/speciesDataset/environmentalDataset/rollVersion/lmVersion",
+     "creationDate" : "2016-01-10 00:00:00",
+     "lastModificationDate" : "2016-01-10 14:00:00"
+   },
+   "keywords":
+   {
+       "keyword": "GBIF",
+       "keyword": "SEA"
+   },
+}
