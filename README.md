@@ -45,7 +45,7 @@ mvn clean install
 
 ##Deploy Data Service server using nohup
 ```
-nohup java -jar ./target/Data-Service-server-0.1.1-SNAPSHOT.jar &
+nohup java -jar ./target/Data-Service-server-0.1.2-SNAPSHOT.jar &
 ```
 
 ##Deploy Data Service client frontend layer UI
@@ -63,6 +63,7 @@ python SimpleServer.py
 This software release is under ISC licence.
 
 ##Release History
+* 0.1.2 4th release
 * 0.1.1 3rd release
 * 0.1.0 2nd release
 * 0.0.1 Initial release 
