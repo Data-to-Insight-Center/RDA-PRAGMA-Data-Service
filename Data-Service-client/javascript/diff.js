@@ -6,7 +6,7 @@ $('#validate').submit(function(e) {
     var vmPID = $("#VMPID").val();
     $.ajax({
             type:'GET',
-            url: restURL+'/validation?projPID='+projPID+'&vmPID='+vmPID,
+            url: 'http://pragma8.cs.indiana.edu:9001/validation?projPID='+projPID+'&vmPID='+vmPID,
             crossDomain:true,
             dataType:'json',
             success: function(data){

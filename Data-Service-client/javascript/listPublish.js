@@ -2,19 +2,20 @@ $(document).ready(
 function() {
     $.ajax({
             type:'GET',
-            url: restURL+'/DO/list',
+            url: restURL+'/publish/list',
             crossDomain:true,
                 dataType:'json',
                 success: function(data){
                     if(data.success)
                     {
-                        if(data.dolist.length!=0)
+                        if(data.publishList.length!=0)
                         {
                             var content = "";
-                            for(var i=0;i<data.dolist.length;i++)
+                            for(var i=0;i<data.publishList.length;i++)
                             {
                                 content+="<div class='item'><div class='well'>";
-                                content+="<a href='"+host+"objectpage.html?ID="+data.dolist[i].objectID+"&DOname="+data.dolist[i].doname+"' target='_blank'>"+data.dolist[i].doname+"</a>";
+                                content+="<p>"+data.publishList[i].title+"</p>";
+                                content+="<a href='"+host+"landingpage.html?ID="+data.publishList[i].objectID+"&revid="+data.publishList[i].objectRevID+"' target='_blank'>"+data.publishList[i].pid+"</a>";
                                 content+="</div></div>";
                             }
                             $('#objectlist').html(content);

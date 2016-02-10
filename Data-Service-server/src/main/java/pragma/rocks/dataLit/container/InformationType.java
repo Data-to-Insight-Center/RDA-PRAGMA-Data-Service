@@ -4,7 +4,7 @@ package pragma.rocks.dataLit.container;
  * Information Type Definition for PID metadata
  */
 public class InformationType {
-	private String ID;
+	private String dbID;
 	private String revID;
 	private String title;
 	private String creator;
@@ -22,12 +22,12 @@ public class InformationType {
 	public InformationType() {
 	}
 
-	public String getID() {
-		return ID;
+	public String getdbID() {
+		return dbID;
 	}
 
-	public void setID(String ID) {
-		this.ID = ID;
+	public void setdbID(String dbID) {
+		this.dbID = dbID;
 	}
 
 	public String getRevID() {

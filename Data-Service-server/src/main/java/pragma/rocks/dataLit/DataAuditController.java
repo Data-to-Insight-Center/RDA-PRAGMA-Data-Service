@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
-public class ValidationController {
+public class DataAuditController {
 	@Autowired
 	private VMRepository vm_repository;
 

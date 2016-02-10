@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <title>Data Object List Service</title>
+    <title>Data Object Upload Service</title>
 </head>
 <body>
 
@@ -15,9 +15,8 @@
    
 <script type="text/javascript" src="vis/dist/vis.js"></script>
 <link href="vis/dist/vis.css" rel="stylesheet" type="text/css"/>
-<link href="commons/box.css" rel="stylesheet" type="text/css"/>
 <script src="javascript/config.js"></script>
-<script src="javascript/listObject.js"></script>
+<script src="javascript/objectupload.js"></script>
 
 <div id="wrapper" align = "center">
 	<div style = "display : inline-block">
@@ -27,18 +26,16 @@
 	</div>
     
     <div id="page-wrapper" align = "center">
-    	<h2>RDA-PRAGMA Data Service</h2>
+    	<h3>Data Object Upload Service</h3>
 	<br><br>
         <div class="container float" align = "center">
-            <h3 align = "left">Data Object List Service</h3>
-            <br>
-            <div class="container">
-                <div class="row" id="objectlist">
-                </div>
+            <div id = "DOpage">
             </div>
-            <td style="line-height:20px;" colspan=3>&nbsp;</td>
         </div>
-        </div>
+        <br>
+        <form action="http://localhost:9002/listObject.html">
+        <input type="submit" value="Finish" name="finish" class="btn btn-primary">
+        </form>
     </div>
 </div>
 

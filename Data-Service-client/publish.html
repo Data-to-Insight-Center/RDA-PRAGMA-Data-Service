@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <title>Data Object List Service</title>
+</head>
+<body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="commons/bootstrap.min.js"></script>
+<script src="commons/jquery-latest.js" type="text/javascript">
+</script>
+<script src="commons/jquery.min.js"></script>
+   
+<script type="text/javascript" src="vis/dist/vis.js"></script>
+<link href="vis/dist/vis.css" rel="stylesheet" type="text/css"/>
+<script src="javascript/config.js"></script>
+<script src="javascript/publish.js"></script>
+
+
+<div id="wrapper" align = "center">
+	<div style = "display : inline-block">
+  		<img align = "left" src="images/rda_logo.png"  style="position: relative; float: left; width: 40%; height: 40%;"/>
+		<img align = "center" src="images/lm_logo.png"  style="position: relative; float: center; width: 30%; height: 30%;"/>
+  		<img align = "right"  src="images/pragma_logo.png"  style="position: relative; float: right; width: 15%; height: 15%"/>
+	</div>
+    
+    <div id="page-wrapper" align = "center">
+    	<h2>RDA-PRAGMA Data Service</h2>
+	<br><br>
+        <div class="container float" align = "center">
+            <div id="object"></div>
+            <br>
+            <form id="publish" Method="POST">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">*Title</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="title">
+               </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">*Creator</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="creator">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">*Creation Date</span>
+                    <input type="text" class="form-control" placeholder="2016/01/01T12:00:00" aria-describedby="basic-addon1" class="100px" id="creationdate">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">*Checksum</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="checksum">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">*Data Identifier</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="dataID">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Parent Identifier</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="parentID">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Child Identifier</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="childID">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Predecessor Identifier</span>
+                        <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="predecessorID">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Successor Identifier</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="successorID">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">License</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" class="100px" id="license">
+                </div>
+
+               <br><br>
+               <input type="submit" value="Publish!" name="submit" class="btn btn-primary">
+           </form>
+            <br>
+            <div id="result"></div>
+
+        </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

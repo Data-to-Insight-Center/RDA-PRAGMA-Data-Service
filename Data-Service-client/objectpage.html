@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <title>Data Object List Service</title>
+    <title>Data Object Page</title>
 </head>
 <body>
 
@@ -15,9 +15,17 @@
    
 <script type="text/javascript" src="vis/dist/vis.js"></script>
 <link href="vis/dist/vis.css" rel="stylesheet" type="text/css"/>
-<link href="commons/box.css" rel="stylesheet" type="text/css"/>
+<script src="javascript/objectpage.js"></script>
 <script src="javascript/config.js"></script>
-<script src="javascript/listObject.js"></script>
+
+<style>
+    #mynetwork {
+        width: 500px;
+        height: 500px;
+        border: 1px solid #444444;
+        background-color: #222222;
+    }
+</style>
 
 <div id="wrapper" align = "center">
 	<div style = "display : inline-block">
@@ -27,16 +35,13 @@
 	</div>
     
     <div id="page-wrapper" align = "center">
-    	<h2>RDA-PRAGMA Data Service</h2>
+    	<h2 id="DOname"></h2>
 	<br><br>
-        <div class="container float" align = "center">
-            <h3 align = "left">Data Object List Service</h3>
-            <br>
-            <div class="container">
-                <div class="row" id="objectlist">
-                </div>
-            </div>
-            <td style="line-height:20px;" colspan=3>&nbsp;</td>
+        <div class="container float" align = "center" id="object">
+        </div>
+        <td style="line-height:20px;" colspan=3>&nbsp;</td>
+        <h2 align ="center">Data Object Revision List</h2>
+        <div class="container float" align = "center" id="revision">
         </div>
         </div>
     </div>

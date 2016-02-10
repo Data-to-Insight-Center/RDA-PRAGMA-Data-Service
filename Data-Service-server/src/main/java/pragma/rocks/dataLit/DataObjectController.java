@@ -1,14 +1,16 @@
 package pragma.rocks.dataLit;
 
 import java.net.MalformedURLException;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.CouchDbInstance;
+import org.ektorp.Options;
+import org.ektorp.ViewQuery;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
 import org.ektorp.impl.StdCouchDbInstance;
@@ -20,14 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pragma.rocks.dataLit.container.DOType;
 import pragma.rocks.dataLit.container.InformationType;
 import pragma.rocks.dataLit.container.PublishType;
+import pragma.rocks.dataLit.response.DOListResponse;
+import pragma.rocks.dataLit.response.MessageListResponse;
 import pragma.rocks.dataLit.response.MessageResponse;
+import pragma.rocks.dataLit.response.PublishBoolean;
+import pragma.rocks.dataLit.response.PublishBooleanResponse;
 import pragma.rocks.dataLit.utils.DataTypeUtils;
 import pragma.rocks.dataLit.utils.PITUtils;
 
 /**
- * Handles requests for the occurrence set upload and query
+ * Handles requests for Data Object upload/query/publish
  * 
  */
 @RestController
@@ -86,12 +93,15 @@ public class DataObjectController {
 
 	@RequestMapping("/DO/upload")
 	@ResponseBody
-	public MessageResponse DOupload(@RequestParam(value = "DataType", required = true) String datatype) {
+	public MessageResponse DOupload(@RequestParam(value = "DataType", required = true) String datatype,
+			@RequestParam(value = "DOname", required = true) String DOname) {
 		JsonNodeFactory nodeFactory = JsonNodeFactory.instance;
 		ObjectNode doc = new ObjectNode(nodeFactory);
 
 		try {
 			DataTypeUtils.getDoc(datatype, doc, dtr_uri);
+			doc.put("DOname", DOname);
+			doc.put("DataType", datatype);
 
 			// Connect to couch DB and create document with document ID as
 			// return
@@ -104,7 +114,7 @@ public class DataObjectController {
 			CouchDbConnector db = dbInstance.createConnector(couchdb_db_object, true);
 
 			db.create(doc);
-			String id = doc.findPath("_id").toString();
+			String id = doc.findPath("_id").toString().replace("\"", "");
 
 			MessageResponse response = new MessageResponse(true, id);
 			return response;
@@ -144,6 +154,155 @@ public class DataObjectController {
 
 	}
 
+	@RequestMapping("/DO/find/version")
+	@ResponseBody
+	public MessageListResponse DOfindversion(@RequestParam(value = "ID", required = true) String ID) {
+		// Connect to couch DB and create document with document ID as
+		// return
+		HttpClient authenticatedHttpClient;
+		try {
+			authenticatedHttpClient = new StdHttpClient.Builder().url(couchdb_uri).build();
+			CouchDbInstance dbInstance = new StdCouchDbInstance(authenticatedHttpClient);
+			// if the second parameter is true, the database will be created if
+			// it doesn't exists
+			CouchDbConnector db = dbInstance.createConnector(couchdb_db_object, false);
+
+			Options options = new Options().includeRevisions();
+			JsonNode doc = db.get(JsonNode.class, ID, options);
+
+			JsonNode revisions = doc.findPath("_revisions");
+			JsonNode ids = revisions.findPath("ids");
+			String rev_info = ids.toString().replace("\"", "");
+			rev_info = rev_info.replace("[", "");
+			rev_info = rev_info.replace("]", "");
+
+			String[] revs = rev_info.split(",");
+
+			List<String> revs_list = new ArrayList<String>();
+			for (int i = 0; i < revs.length; i++) {
+				int rev_num = i + 1;
+				revs_list.add(rev_num + "-" + revs[0]);
+			}
+
+			// Convert Json Node to message response type
+			MessageListResponse response = new MessageListResponse(true, revs_list);
+			return response;
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			MessageListResponse response = new MessageListResponse(false, null);
+			return response;
+		}
+
+	}
+
+	@RequestMapping("/DO/find/versionpublish")
+	@ResponseBody
+	public PublishBooleanResponse DOfindversionpublish(@RequestParam(value = "ID", required = true) String ID) {
+		// Connect to couch DB and create document with document ID as
+		// return
+		HttpClient authenticatedHttpClient;
+		try {
+			authenticatedHttpClient = new StdHttpClient.Builder().url(couchdb_uri).build();
+			CouchDbInstance dbInstance = new StdCouchDbInstance(authenticatedHttpClient);
+			// if the second parameter is true, the database will be created if
+			// it doesn't exists
+			CouchDbConnector db = dbInstance.createConnector(couchdb_db_object, false);
+
+			Options options = new Options().includeRevisions();
+			JsonNode doc = db.get(JsonNode.class, ID, options);
+
+			JsonNode revisions = doc.findPath("_revisions");
+			JsonNode ids = revisions.findPath("ids");
+			String rev_info = ids.toString().replace("\"", "");
+			rev_info = rev_info.replace("[", "");
+			rev_info = rev_info.replace("]", "");
+
+			String[] revs = rev_info.split(",");
+
+			CouchDbInstance publish_dbInstance = new StdCouchDbInstance(authenticatedHttpClient);
+			// if the second parameter is true, the database will be created if
+			// it doesn't exists
+			CouchDbConnector publish_db = publish_dbInstance.createConnector(couchdb_db_publish, false);
+
+			List<PublishBoolean> publishbooleanlist = new ArrayList<PublishBoolean>();
+			for (int i = 0; i < revs.length; i++) {
+				PublishBoolean publishboolean = new PublishBoolean();
+
+				int rev_num = revs.length - i;
+				String rev_id = rev_num + "-" + revs[i];
+
+				ViewQuery q = new ViewQuery().allDocs().includeDocs(true);
+				List<JsonNode> bulkLoaded = publish_db.queryView(q, JsonNode.class);
+
+				for (JsonNode publish_doc : bulkLoaded) {
+					if (publish_doc.findPath("objectID").toString().replaceAll("\"", "").equalsIgnoreCase(ID)) {
+						if (publish_doc.findPath("objectRevID").toString().replace("\"", "").equalsIgnoreCase(rev_id)) {
+							String pid = publish_doc.findPath("pid").toString().replace("\"", "");
+							publishboolean.setSuccess(true);
+							publishboolean.setPid(pid);
+							publishboolean.setRev(rev_id);
+							publishboolean.setId(ID);
+						}
+					}
+				}
+
+				if (!publishboolean.isSuccess()) {
+					publishboolean.setRev(rev_id);
+					publishboolean.setId(ID);
+				}
+
+				publishbooleanlist.add(publishboolean);
+			}
+
+			// Convert Json Node to message response type
+			PublishBooleanResponse response = new PublishBooleanResponse(true, publishbooleanlist);
+			return response;
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			PublishBooleanResponse response = new PublishBooleanResponse(false, null);
+			return response;
+		}
+
+	}
+
+	@RequestMapping("/DO/list")
+	@ResponseBody
+	public DOListResponse DOlist() {
+		// Connect to couch DB and create document with document ID as
+		// return
+		HttpClient authenticatedHttpClient;
+		try {
+			authenticatedHttpClient = new StdHttpClient.Builder().url(couchdb_uri).build();
+			CouchDbInstance dbInstance = new StdCouchDbInstance(authenticatedHttpClient);
+			// if the second parameter is true, the database will be created if
+			// it doesn't exists
+			CouchDbConnector db = dbInstance.createConnector(couchdb_db_object, false);
+
+			ViewQuery q = new ViewQuery().allDocs().includeDocs(true);
+			List<JsonNode> bulkLoaded = db.queryView(q, JsonNode.class);
+
+			List<DOType> DOList = new ArrayList<DOType>();
+
+			for (JsonNode doc : bulkLoaded) {
+				DOType dotype = new DOType(doc.findPath("_id").toString().replace("\"", ""),
+						doc.findPath("_rev").toString().replace("\"", ""),
+						doc.findPath("DOname").toString().replace("\"", ""));
+				DOList.add(dotype);
+			}
+
+			// Convert Json Node to message response type
+			DOListResponse response = new DOListResponse(true, DOList);
+			return response;
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			DOListResponse response = new DOListResponse(false, null);
+			return response;
+		}
+
+	}
+
 	@RequestMapping("/DO/delete")
 	@ResponseBody
 	public MessageResponse DOdelete(@RequestParam(value = "ID", required = true) String ID,
@@ -177,8 +336,6 @@ public class DataObjectController {
 
 		// Connect to couch DB and create document with document ID as return
 		// response
-
-		System.out.println("hello" + informationtype.getID());
 		HttpClient authenticatedHttpClient;
 		try {
 			authenticatedHttpClient = new StdHttpClient.Builder().url(couchdb_uri).build();
@@ -186,7 +343,7 @@ public class DataObjectController {
 			// if the second parameter is true, the database will be created if
 			// it doesn't exists
 			CouchDbConnector object_db = dbInstance.createConnector(couchdb_db_object, false);
-			if (object_db.contains(informationtype.getID())) {
+			if (object_db.contains(informationtype.getdbID())) {
 
 				// Construct minimum metadata associated with PID for DO
 				// publication
@@ -224,10 +381,12 @@ public class DataObjectController {
 
 				// Public DO with minimum metadata to PIT in order to generate a
 				// PID
-				String pid = PITUtils.registerPID(pit_uri, doc);
+				String pid = PITUtils.registerPID("http://pragma8.cs.indiana.edu:8008/rdapit-0.1/pitapi/pid", doc);
+				// System.out.println(pid);
 
 				// Put publish record to publish db
-				PublishType publish_do = new PublishType(pid, informationtype.getID(), informationtype.getRevID());
+				PublishType publish_do = new PublishType(pid, informationtype.getdbID(), informationtype.getRevID(),
+						informationtype.getTitle());
 
 				CouchDbConnector publishdb = dbInstance.createConnector(couchdb_db_publish, true);
 				publishdb.create(publish_do);

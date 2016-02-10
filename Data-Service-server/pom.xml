@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>pragma.rocks</groupId>
   <artifactId>dataLit</artifactId>
-  <version>0.2.0</version>
+  <version>0.1.2</version>
   <name>dataLit</name>
   <parent>
         <groupId>org.springframework.boot</groupId>
