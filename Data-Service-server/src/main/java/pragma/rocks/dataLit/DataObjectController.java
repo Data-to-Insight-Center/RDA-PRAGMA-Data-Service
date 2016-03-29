@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
 import org.ektorp.CouchDbConnector;
@@ -30,7 +31,6 @@ import pragma.rocks.dataLit.response.MessageListResponse;
 import pragma.rocks.dataLit.response.MessageResponse;
 import pragma.rocks.dataLit.response.PublishBoolean;
 import pragma.rocks.dataLit.response.PublishBooleanResponse;
-import pragma.rocks.dataLit.utils.DataTypeUtils;
 import pragma.rocks.dataLit.utils.PITUtils;
 
 /**
@@ -58,29 +58,17 @@ public class DataObjectController {
 	@Value("${pit.record.title}")
 	private String pit_title;
 
-	@Value("${pit.record.creator}")
-	private String pit_creator;
-
 	@Value("${pit.record.landingpageAddr}")
 	private String pit_landingpageAddr;
-
-	@Value("${pit.record.publicationDate}")
-	private String pit_publicationdate;
 
 	@Value("${pit.record.creationDate}")
 	private String pit_creationdate;
 
+	@Value("${pit.record.datatype}")
+	private String pit_datatype;
+
 	@Value("${pit.record.checksum}")
 	private String pit_checksum;
-
-	@Value("${pit.record.dataIdentifier}")
-	private String pit_dataID;
-
-	@Value("${pit.record.parentID}")
-	private String pit_parentID;
-
-	@Value("${pit.record.childID}")
-	private String pit_childID;
 
 	@Value("${pit.record.predecessorID}")
 	private String pit_predecessorID;
@@ -91,15 +79,16 @@ public class DataObjectController {
 	@Value("${pit.record.license}")
 	private String pit_license;
 
-	@RequestMapping("/DO/upload")
+	@RequestMapping(value = "/DO/upload", method = RequestMethod.POST)
 	@ResponseBody
 	public MessageResponse DOupload(@RequestParam(value = "DataType", required = true) String datatype,
-			@RequestParam(value = "DOname", required = true) String DOname) {
+			@RequestParam(value = "DOname", required = true) String DOname, @RequestBody String metadata) {
 		JsonNodeFactory nodeFactory = JsonNodeFactory.instance;
 		ObjectNode doc = new ObjectNode(nodeFactory);
+		ObjectMapper mapper = new ObjectMapper();
 
 		try {
-			DataTypeUtils.getDoc(datatype, doc, dtr_uri);
+			doc = (ObjectNode) mapper.readTree(metadata);
 			doc.put("DOname", DOname);
 			doc.put("DataType", datatype);
 
@@ -115,8 +104,9 @@ public class DataObjectController {
 
 			db.create(doc);
 			String id = doc.findPath("_id").toString().replace("\"", "");
+			String revid = doc.findPath("_rev").toString().replace("\"", "");
 
-			MessageResponse response = new MessageResponse(true, id);
+			MessageResponse response = new MessageResponse(true, id + "," + revid);
 			return response;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -195,7 +185,7 @@ public class DataObjectController {
 
 	}
 
-	@RequestMapping("/DO/find/versionpublish")
+	@RequestMapping("/DO/find/registerVersion")
 	@ResponseBody
 	public PublishBooleanResponse DOfindversionpublish(@RequestParam(value = "ID", required = true) String ID) {
 		// Connect to couch DB and create document with document ID as
@@ -330,7 +320,7 @@ public class DataObjectController {
 
 	}
 
-	@RequestMapping(value = "/DO/publish", method = RequestMethod.POST)
+	@RequestMapping(value = "/DO/register", method = RequestMethod.POST)
 	@ResponseBody
 	public MessageResponse DOpublish(@RequestBody InformationType informationtype) {
 
@@ -355,28 +345,19 @@ public class DataObjectController {
 				// Put core required types
 				doc.put("URL", informationtype.getLandingpageAddr());
 				doc.put(pit_title, informationtype.getTitle());
-				doc.put(pit_creator, informationtype.getCreator());
-				doc.put(pit_publicationdate, informationtype.getPublicationDate());
 				doc.put(pit_creationdate, informationtype.getCreationDate());
-				doc.put(pit_checksum, informationtype.getChecksum());
-				doc.put(pit_dataID, informationtype.getDataIdentifier());
 				doc.put(pit_landingpageAddr, informationtype.getLandingpageAddr());
+				doc.put(pit_datatype, informationtype.getDatatype());
 
 				// Put optional types
-				if (informationtype.getParentID() != "") {
-					doc.put(pit_parentID, informationtype.getParentID());
-				}
-				if (informationtype.getChildID() != "") {
-					doc.put(pit_childID, informationtype.getChildID());
+				if (informationtype.getChecksum() != "") {
+					doc.put(pit_checksum, informationtype.getChecksum());
 				}
 				if (informationtype.getPredecessorID() != "") {
 					doc.put(pit_predecessorID, informationtype.getPredecessorID());
 				}
 				if (informationtype.getSuccessorID() != "") {
 					doc.put(pit_successorID, informationtype.getSuccessorID());
-				}
-				if (informationtype.getLicense() != "") {
-					doc.put(pit_license, informationtype.getLicense());
 				}
 
 				// Public DO with minimum metadata to PIT in order to generate a

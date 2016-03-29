@@ -7,17 +7,12 @@ public class InformationType {
 	private String dbID;
 	private String revID;
 	private String title;
-	private String creator;
+	private String datatype;
 	private String landingpageAddr;
-	private String publicationDate;
 	private String creationDate;
 	private String checksum;
-	private String dataIdentifier;
-	private String parentID;
-	private String childID;
 	private String predecessorID;
 	private String successorID;
-	private String license;
 
 	public InformationType() {
 	}
@@ -46,22 +41,6 @@ public class InformationType {
 		this.title = title;
 	}
 
-	public String getPublicationDate() {
-		return publicationDate;
-	}
-
-	public void setPublicationDate(String publicationDate) {
-		this.publicationDate = publicationDate;
-	}
-
-	public String getCreator() {
-		return creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
-
 	public String getLandingpageAddr() {
 		return landingpageAddr;
 	}
@@ -86,30 +65,6 @@ public class InformationType {
 		this.checksum = checksum;
 	}
 
-	public String getDataIdentifier() {
-		return dataIdentifier;
-	}
-
-	public void setDataIdentifier(String dataIdentifier) {
-		this.dataIdentifier = dataIdentifier;
-	}
-
-	public String getParentID() {
-		return parentID;
-	}
-
-	public void setParentID(String parentID) {
-		this.parentID = parentID;
-	}
-
-	public String getChildID() {
-		return childID;
-	}
-
-	public void setChildID(String childID) {
-		this.childID = childID;
-	}
-
 	public String getPredecessorID() {
 		return predecessorID;
 	}
@@ -126,11 +81,11 @@ public class InformationType {
 		this.successorID = successorID;
 	}
 
-	public String getLicense() {
-		return license;
+	public String getDatatype() {
+		return datatype;
 	}
 
-	public void setLicense(String license) {
-		this.license = license;
+	public void setDatatype(String datatype) {
+		this.datatype = datatype;
 	}
 }

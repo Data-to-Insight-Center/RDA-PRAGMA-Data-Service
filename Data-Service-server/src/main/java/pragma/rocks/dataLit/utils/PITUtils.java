@@ -19,6 +19,20 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 
+import net.handle.hdllib.AbstractMessage;
+import net.handle.hdllib.AbstractResponse;
+import net.handle.hdllib.AuthenticationInfo;
+import net.handle.hdllib.ErrorResponse;
+import net.handle.hdllib.GenericResponse;
+import net.handle.hdllib.HandleException;
+import net.handle.hdllib.HandleResolver;
+import net.handle.hdllib.HandleValue;
+import net.handle.hdllib.ModifyValueRequest;
+import net.handle.hdllib.ResolutionRequest;
+import net.handle.hdllib.ResolutionResponse;
+import net.handle.hdllib.SecretKeyAuthenticationInfo;
+import net.handle.hdllib.Util;
+
 public class PITUtils {
 
 	public static String registerPID(String pit_uri, ObjectNode informationType) {
@@ -106,6 +120,53 @@ public class PITUtils {
 			return null;
 		}
 
+	}
+
+	public static String setResourceLink(String pid, String url, String admin_record, Integer admin_id,
+			String admin_pkey) throws HandleException {
+		// Get the UTF8 encoding of the desired handle.
+		byte someHandle[] = Util.encodeString(pid);
+		// Create a resolution request.
+		// (without specifying any types, indexes, or authentication info)
+
+		ResolutionRequest request = new ResolutionRequest(someHandle, null, null, null);
+		HandleResolver resolver = new HandleResolver();
+		// Create a resolver that will send the request and return the response.
+		AbstractResponse response = resolver.processRequest(request);
+		// Check the response to see if the operation was successful.
+		if (response.responseCode == AbstractMessage.RC_SUCCESS) {
+			// The resolution was successful, so we'll cast the response
+			// and get the handle values.
+			HandleValue values[] = ((ResolutionResponse) response).getHandleValues();
+			for (int i = 0; i < values.length; i++) {
+				System.out.println(String.valueOf(values[i]));
+			}
+		}
+
+		AuthenticationInfo auth = new SecretKeyAuthenticationInfo(Util.encodeString(admin_record), admin_id,
+				Util.encodeString(admin_pkey));
+		HandleValue new_value = new HandleValue(1, Util.encodeString("URL"), Util.encodeString(url));
+		ModifyValueRequest modify = new ModifyValueRequest(someHandle, new_value, auth);
+
+		AbstractResponse response_modify = resolver.processRequestGlobally(modify);
+
+		String result = "";
+		if (response_modify.responseCode == AbstractMessage.RC_SUCCESS) {
+			// The resolution was successful, so we'll cast the response
+			// and get the handle values.
+			byte values[] = ((GenericResponse) response_modify).getEncodedMessage();
+
+			for (int i = 0; i < values.length; i++) {
+				result += String.valueOf(values[i]);
+			}
+		} else if (response_modify.responseCode == AbstractMessage.RC_ERROR) {
+			byte values[] = ((ErrorResponse) response_modify).message;
+			for (int i = 0; i < values.length; i++) {
+				result += String.valueOf(values[i]);
+			}
+		}
+
+		return result;
 	}
 
 	/*
