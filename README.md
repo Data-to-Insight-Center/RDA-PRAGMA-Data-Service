@@ -25,9 +25,14 @@ hdl.handle.net/11723/23f927b5-f72f-42cd-a464-788e9941fa39
 
 1. Apache Maven V3.0 or higher
 2. JDK V1.6 or higher
-3. Python V2.6 or higher with SimpleHttpServer module
+3. Python V2.6 or higher 
 4. MongoDB Server V3.0 or higher
 5. JavaScript V1.8.0 or higher
+
+## Hardware Requirements
+
+1. This software can be deployed on physical resources or VM instance with public network interface.
+2. For public access, it requires 3 ports (backend repo, web service APIs, UIs) which iptables rules allow traffic through the firewall.
 
 ##Building the Source
 Check Out Source Codes:
