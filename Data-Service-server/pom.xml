@@ -1,82 +1,83 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>pragma.rocks</groupId>
-  <artifactId>dataLit</artifactId>
-  <version>0.1.5</version>
-  <name>dataLit</name>
-  <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.0.RELEASE</version>
-  </parent>
-  
-  <dependencies>
-       <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-       </dependency>
-       <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-       </dependency>
-       <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>pragma.rocks</groupId>
+	<artifactId>dataIdentity.server</artifactId>
+	<version>0.1.5</version>
+	<name>dataLit.server</name>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.0.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-	    <dependency>
-    		<groupId>org.ektorp</groupId>
-    		<artifactId>org.ektorp</artifactId>
-    		<version>1.3.0</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>com.flipkart.zjsonpatch</groupId>
+		<dependency>
+			<groupId>org.ektorp</groupId>
+			<artifactId>org.ektorp</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.flipkart.zjsonpatch</groupId>
 			<artifactId>zjsonpatch</artifactId>
 			<version>0.2.1</version>
-  		</dependency>
-   </dependencies>
-   <properties>
-        <!-- The main class to start by executing java -jar -->
-        <start-class>landingpage.lm.Application</start-class>
-   </properties>
-    <build>
-      <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-	    <plugin>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-jar-plugin</artifactId>
-			<version>2.4</version>
-               <configuration>  
-          	<archive>
-            	    <manifest>
-              		<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              		<addClasspath>true</addClasspath>
-              		<mainClass>landingpage.lm.Application</mainClass>
-                     </manifest>
-         	</archive>
-       	       </configuration>
-      	     </plugin>
-	  </plugins>
-    </build>
+		</dependency>
+	</dependencies>
+	<properties>
+		<!-- The main class to start by executing java -jar -->
+		<start-class>landingpage.lm.Application</start-class>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addClasspath>true</addClasspath>
+							<mainClass>landingpage.lm.Application</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </repository>
-        <repository>
-  			<id>clojars</id>
-  			<name>Clojars repository</name>
-  			<url>https://clojars.org/repo</url>
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
 		</repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </pluginRepository>
-    </pluginRepositories>
+		<repository>
+			<id>clojars</id>
+			<name>Clojars repository</name>
+			<url>https://clojars.org/repo</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
