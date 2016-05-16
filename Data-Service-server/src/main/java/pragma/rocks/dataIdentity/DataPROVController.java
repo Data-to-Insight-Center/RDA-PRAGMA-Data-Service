@@ -21,7 +21,7 @@ import pragma.rocks.dataIdentity.utils.PITUtils;
  * 
  */
 @RestController
-public class DataDiffController {
+public class DataPROVController {
 	@Value("${couchdb.uri}")
 	private String couchdb_uri;
 
@@ -40,9 +40,6 @@ public class DataDiffController {
 	@Value("${pit.uri}")
 	private String pit_uri;
 
-	@Value("${pit.record.title}")
-	private String pit_title;
-
 	@Value("${pit.record.landingpageAddr}")
 	private String pit_landingpageAddr;
 
@@ -58,8 +55,8 @@ public class DataDiffController {
 	@Value("${pit.record.successorID}")
 	private String pit_successorID;
 
-	@Value("${pit.record.license}")
-	private String pit_license;
+	/*@Value("${pit.record.license}")
+	private String pit_license;*/
 
 	@RequestMapping("/DO/provenance")
 	@ResponseBody

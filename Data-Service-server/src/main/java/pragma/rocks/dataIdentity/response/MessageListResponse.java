@@ -6,6 +6,10 @@ public class MessageListResponse {
 	private boolean success;
 	private List<String> messages;
 
+	public MessageListResponse() {
+
+	}
+
 	public MessageListResponse(boolean success, List<String> messages) {
 		this.success = success;
 		this.messages = messages;

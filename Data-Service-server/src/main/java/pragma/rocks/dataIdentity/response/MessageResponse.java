@@ -2,12 +2,16 @@ package pragma.rocks.dataIdentity.response;
 
 /**
  * 
- * Normal message rest response 
+ * Normal message rest response
  *
  */
 public class MessageResponse {
 	private boolean success;
 	private String message;
+
+	public MessageResponse() {
+
+	}
 
 	public MessageResponse(boolean success, String message) {
 		this.success = success;

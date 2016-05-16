@@ -6,9 +6,7 @@ public class PublishBoolean {
 	String id;
 	String rev;
 
-	public PublishBoolean()
-	{
-		this.success = false;
+	public PublishBoolean() {
 	}
 
 	public boolean isSuccess() {
@@ -42,6 +40,5 @@ public class PublishBoolean {
 	public void setRev(String rev) {
 		this.rev = rev;
 	}
-	
-	
+
 }

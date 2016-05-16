@@ -7,18 +7,16 @@ public class DataTypeRecord {
 	private String _rev;
 	private String datatypeName;
 	private String datatypePID;
-	private String datatypeClass;
 
 	public DataTypeRecord() {
 
 	}
 
-	public DataTypeRecord(String datatypeName, String datatypePID, String datatypeClass) {
+	public DataTypeRecord(String datatypeName, String datatypePID) {
 		this.datatypeName = datatypeName;
 		this.datatypePID = datatypePID;
-		this.datatypeClass = datatypeClass;
 	}
-	
+
 	@JsonProperty("_id")
 	public String getId() {
 		return _id;
@@ -53,13 +51,5 @@ public class DataTypeRecord {
 
 	public void setDatatypePID(String datatypePID) {
 		this.datatypePID = datatypePID;
-	}
-
-	public String getDatatypeClass() {
-		return datatypeClass;
-	}
-
-	public void setDatatypeClass(String datatypeClass) {
-		this.datatypeClass = datatypeClass;
 	}
 }

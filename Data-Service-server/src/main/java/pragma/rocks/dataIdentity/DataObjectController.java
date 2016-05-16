@@ -1,13 +1,18 @@
 package pragma.rocks.dataIdentity;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
+import org.ektorp.AttachmentInputStream;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.CouchDbInstance;
 import org.ektorp.Options;
@@ -22,11 +27,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import pragma.rocks.dataIdentity.container.DOType;
 import pragma.rocks.dataIdentity.container.InformationType;
 import pragma.rocks.dataIdentity.container.PublishType;
 import pragma.rocks.dataIdentity.response.DOListResponse;
+import pragma.rocks.dataIdentity.response.DataObjectIDResponse;
 import pragma.rocks.dataIdentity.response.MessageListResponse;
 import pragma.rocks.dataIdentity.response.MessageResponse;
 import pragma.rocks.dataIdentity.response.PublishBoolean;
@@ -55,9 +62,6 @@ public class DataObjectController {
 	@Value("${pit.uri}")
 	private String pit_uri;
 
-	@Value("${pit.record.title}")
-	private String pit_title;
-
 	@Value("${pit.record.landingpageAddr}")
 	private String pit_landingpageAddr;
 
@@ -76,13 +80,16 @@ public class DataObjectController {
 	@Value("${pit.record.successorID}")
 	private String pit_successorID;
 
-	@Value("${pit.record.license}")
-	private String pit_license;
+	/*
+	 * @Value("${pit.record.license}") private String pit_license;
+	 */
 
 	@RequestMapping(value = "/DO/upload", method = RequestMethod.POST)
 	@ResponseBody
-	public MessageResponse DOupload(@RequestParam(value = "DataType", required = true) String datatype,
-			@RequestParam(value = "DOname", required = true) String DOname, @RequestBody String metadata) {
+	public DataObjectIDResponse DOupload(@RequestParam(value = "DataType", required = true) String datatype,
+			@RequestParam(value = "DOname", required = true) String DOname,
+			@RequestParam(value = "downloadingURL", required = true) String downloadingURL,
+			@RequestBody String metadata) {
 		JsonNodeFactory nodeFactory = JsonNodeFactory.instance;
 		ObjectNode doc = new ObjectNode(nodeFactory);
 		ObjectMapper mapper = new ObjectMapper();
@@ -91,6 +98,7 @@ public class DataObjectController {
 			doc = (ObjectNode) mapper.readTree(metadata);
 			doc.put("DOname", DOname);
 			doc.put("DataType", datatype);
+			doc.put("downloadingURL", downloadingURL);
 
 			// Connect to couch DB and create document with document ID as
 			// return
@@ -106,11 +114,48 @@ public class DataObjectController {
 			String id = doc.findPath("_id").toString().replace("\"", "");
 			String revid = doc.findPath("_rev").toString().replace("\"", "");
 
-			MessageResponse response = new MessageResponse(true, id + "," + revid);
+			DataObjectIDResponse response = new DataObjectIDResponse(true, id, revid);
 			return response;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			MessageResponse response = new MessageResponse(false, "");
+			DataObjectIDResponse response = new DataObjectIDResponse(false, null, null);
+			return response;
+		}
+	}
+
+	@RequestMapping(value = "/DO/upload/attachment", method = RequestMethod.POST)
+	@ResponseBody
+	public DataObjectIDResponse AttachmentUpload(@RequestParam(value = "ID", required = true) String id,
+			@RequestParam(value = "revID", required = true) String revID,
+			@RequestParam("attachment") MultipartFile file, @RequestParam("name") String name,
+			@RequestParam("contentType") String contentType) {
+		if (!file.isEmpty()) {
+			byte[] byteArr;
+			try {
+				byteArr = file.getBytes();
+				InputStream data = new ByteArrayInputStream(byteArr);
+
+				AttachmentInputStream a = new AttachmentInputStream(name, data, contentType);
+
+				// Connect to couch DB and create document with document ID as
+				// return
+				HttpClient authenticatedHttpClient = new StdHttpClient.Builder().url(couchdb_uri).build();
+
+				CouchDbInstance dbInstance = new StdCouchDbInstance(authenticatedHttpClient);
+				// if the second parameter is true, the database will be created
+
+				CouchDbConnector db = dbInstance.createConnector(couchdb_db_object, true);
+				revID = db.createAttachment(id, revID, a);
+
+				DataObjectIDResponse response = new DataObjectIDResponse(true, id, revID);
+				return response;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				DataObjectIDResponse response = new DataObjectIDResponse(false, null, null);
+				return response;
+			}
+		} else {
+			DataObjectIDResponse response = new DataObjectIDResponse(false, null, null);
 			return response;
 		}
 	}
@@ -139,6 +184,56 @@ public class DataObjectController {
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			MessageResponse response = new MessageResponse(false, null);
+			return response;
+		}
+
+	}
+
+	@RequestMapping("/DO/find/attachment")
+	@ResponseBody
+	public MessageListResponse DOfindAttachment(@RequestParam(value = "ID", required = true) String ID,
+			@RequestParam(value = "revID", required = true) String revID) {
+		// Connect to couch DB and create document with document ID as
+		// return
+		HttpClient authenticatedHttpClient;
+		try {
+			authenticatedHttpClient = new StdHttpClient.Builder().url(couchdb_uri).build();
+			CouchDbInstance dbInstance = new StdCouchDbInstance(authenticatedHttpClient);
+			// if the second parameter is true, the database will be created if
+			// it doesn't exists
+			CouchDbConnector db = dbInstance.createConnector(couchdb_db_object, false);
+
+			@SuppressWarnings("deprecation")
+			JsonNode doc = db.get(JsonNode.class, ID, revID);
+
+			List<String> result = new ArrayList<String>();
+			if (doc.has("_attachments")) {
+				ObjectNode attachments = (ObjectNode) doc.findPath("_attachments");
+				Iterator<String> attachmentsList = attachments.getFieldNames();
+				while (attachmentsList.hasNext()) {
+					result.add(couchdb_uri + "/" + couchdb_db_object + "/" + ID + "/" + attachmentsList.next());
+				}
+
+				// Convert Json Node to message response type
+				MessageListResponse response = new MessageListResponse(true, result);
+				return response;
+			} else if (doc.has("downloadingURL")) {
+				JsonNode downloadingURL = doc.findPath("downloadingURL");
+				String url = downloadingURL.toString().replace("\"", "");
+				url = url.replace("[", "");
+				url = url.replace("]", "");
+				result.add(url);
+				MessageListResponse response = new MessageListResponse(true, result);
+				return response;
+			}
+
+			// Convert Json Node to message response type
+			MessageListResponse response = new MessageListResponse(false, null);
+			return response;
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			MessageListResponse response = new MessageListResponse(false, null);
 			return response;
 		}
 
@@ -187,7 +282,7 @@ public class DataObjectController {
 
 	@RequestMapping("/DO/find/registerVersion")
 	@ResponseBody
-	public PublishBooleanResponse DOfindversionpublish(@RequestParam(value = "ID", required = true) String ID) {
+	public PublishBooleanResponse DOfindversionRegister(@RequestParam(value = "ID", required = true) String ID) {
 		// Connect to couch DB and create document with document ID as
 		// return
 		HttpClient authenticatedHttpClient;
@@ -322,7 +417,9 @@ public class DataObjectController {
 
 	@RequestMapping(value = "/DO/register", method = RequestMethod.POST)
 	@ResponseBody
-	public MessageResponse DOregister(@RequestBody InformationType informationtype) {
+	public MessageResponse DOregister(@RequestParam(value = "ID", required = true) String ID,
+			@RequestParam(value = "revID", required = true) String revID,
+			@RequestBody InformationType informationtype) {
 
 		// Connect to couch DB and create document with document ID as return
 		// response
@@ -333,7 +430,7 @@ public class DataObjectController {
 			// if the second parameter is true, the database will be created if
 			// it doesn't exists
 			CouchDbConnector object_db = dbInstance.createConnector(couchdb_db_object, false);
-			if (object_db.contains(informationtype.getdbID())) {
+			if (object_db.contains(ID)) {
 
 				// Construct minimum metadata associated with PID for DO
 				// publication
@@ -345,7 +442,6 @@ public class DataObjectController {
 				// Put core required types
 				doc.put("URL", informationtype.getLandingpageAddr());
 				doc.put(pit_creationdate, informationtype.getCreationDate());
-				doc.put(pit_landingpageAddr, informationtype.getLandingpageAddr());
 				doc.put(pit_metadataURL, informationtype.getMetadataURL());
 
 				// Put optional types
@@ -365,7 +461,7 @@ public class DataObjectController {
 				// System.out.println(pid);
 
 				// Put publish record to publish db
-				PublishType publish_do = new PublishType(pid, informationtype.getdbID(), informationtype.getRevID());
+				PublishType publish_do = new PublishType(pid, ID, revID);
 
 				CouchDbConnector publishdb = dbInstance.createConnector(couchdb_db_publish, true);
 				publishdb.create(publish_do);

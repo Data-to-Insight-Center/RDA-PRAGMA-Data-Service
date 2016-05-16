@@ -4,8 +4,6 @@ package pragma.rocks.dataIdentity.container;
  * Information Type Definition for PID metadata
  */
 public class InformationType {
-	private String dbID;
-	private String revID;
 	private String metadataURL;
 	private String landingpageAddr;
 	private String creationDate;
@@ -14,22 +12,6 @@ public class InformationType {
 	private String successorID;
 
 	public InformationType() {
-	}
-
-	public String getdbID() {
-		return dbID;
-	}
-
-	public void setdbID(String dbID) {
-		this.dbID = dbID;
-	}
-
-	public String getRevID() {
-		return revID;
-	}
-
-	public void setRevID(String revID) {
-		this.revID = revID;
 	}
 
 	public String getLandingpageAddr() {

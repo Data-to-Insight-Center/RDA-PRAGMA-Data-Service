@@ -1,5 +1,7 @@
 package pragma.rocks.dataIdentity.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -23,6 +25,22 @@ public class MD5Utils {
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return null;
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+
+	public static String getMD5(File file) {
+
+		try {
+			FileInputStream is = new FileInputStream(file);
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			String digest = getDigest(is, md, 2048);
+			return digest;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			return null;

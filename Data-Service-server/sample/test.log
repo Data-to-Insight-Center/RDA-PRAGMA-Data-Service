@@ -1,0 +1,23 @@
+2016-05-16 18:25:42.288  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Run Sample DO upload and register process...
+2016-05-16 18:25:42.288  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Step 1 - Upload DO with metadata object to backend repository...
+2016-05-16 18:25:43.031  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Upload DO Name:LM Occurrence Bironella gracilis
+2016-05-16 18:25:43.031  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Upload DO data type:20.5000.239/9e873b2a5690da5b0455
+2016-05-16 18:25:43.031  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Upload DO downloading URL:
+2016-05-16 18:25:43.031  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Upload metadata object:{"metadata":{"OccurrenceSetID":"2578","displayName":"57","lastModified":"2016-01-16T01:52:13"}}
+2016-05-16 18:25:43.032  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Upload service response:{"success":true,"id":"1276f517f21d4395cb0f37429f00f933","revID":"1-9451f1ab2c659b4f07177a3b448f7179"}
+1276f517f21d4395cb0f37429f00f9331-9451f1ab2c659b4f07177a3b448f7179
+2016-05-16 18:25:43.083  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Step 2 - Upload attachment:occur_2578.zip
+2016-05-16 18:25:43.084  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Upload attachment response:{"success":true,"id":"1276f517f21d4395cb0f37429f00f933","revID":"2-5d4cbf833a2ee41ddcc57803e4d3989c"}
+2-5d4cbf833a2ee41ddcc57803e4d3989c
+2016-05-16 18:25:43.085  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Step 3 - Check uploaded DO and metadata object...
+{"_id":"1276f517f21d4395cb0f37429f00f933","_rev":"2-5d4cbf833a2ee41ddcc57803e4d3989c","metadata":{"OccurrenceSetID":"2578","displayName":"57","lastModified":"2016-01-16T01:52:13"},"DOname":"LM Occurrence Bironella gracilis","DataType":"20.5000.239/9e873b2a5690da5b0455","downloadingURL":"","_attachments":{"occur_2578.zip":{"content_type":"application/zip","revpos":2,"digest":"md5-8NFiek2Tv+WhFKzC2zhHLQ==","length":6413,"stub":true}}}
+2016-05-16 18:25:43.115  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : DO and metadata object response:{"success":true,"message":"{\"_id\":\"1276f517f21d4395cb0f37429f00f933\",\"_rev\":\"2-5d4cbf833a2ee41ddcc57803e4d3989c\",\"metadata\":{\"OccurrenceSetID\":\"2578\",\"displayName\":\"57\",\"lastModified\":\"2016-01-16T01:52:13\"},\"DOname\":\"LM Occurrence Bironella gracilis\",\"DataType\":\"20.5000.239/9e873b2a5690da5b0455\",\"downloadingURL\":\"\",\"_attachments\":{\"occur_2578.zip\":{\"content_type\":\"application/zip\",\"revpos\":2,\"digest\":\"md5-8NFiek2Tv+WhFKzC2zhHLQ\u003d\u003d\",\"length\":6413,\"stub\":true}}}"}
+2016-05-16 18:25:43.129  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : DO downloading URL:{"success":true,"messages":["http://127.0.0.1:5984/dataobject/1276f517f21d4395cb0f37429f00f933/occur_2578.zip"]}
+http://127.0.0.1:5984/dataobject/1276f517f21d4395cb0f37429f00f933/occur_2578.zip
+
+2016-05-16 18:25:43.135  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Step 4 - Register DO with handle record and PID metadata profile...
+{"metadataURL":"http://127.0.0.1:5984/dataobject/1276f517f21d4395cb0f37429f00f933?rev=2-5d4cbf833a2ee41ddcc57803e4d3989c","landingpageAddr":"http://localhost:9002/landingpage.html?ID=1276f517f21d4395cb0f37429f00f933&revID=2-5d4cbf833a2ee41ddcc57803e4d3989c","creationDate":"2016-05-16T12:56:00-04:00","checksum":"f0d1627a4d93bfe5a114acc2db38472d","predecessorID":"","successorID":""}
+2016-05-16 18:25:43.149  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : PID metadata profile:{"metadataURL":"http://127.0.0.1:5984/dataobject/1276f517f21d4395cb0f37429f00f933?rev=2-5d4cbf833a2ee41ddcc57803e4d3989c","landingpageAddr":"http://localhost:9002/landingpage.html?ID=1276f517f21d4395cb0f37429f00f933&revID=2-5d4cbf833a2ee41ddcc57803e4d3989c","creationDate":"2016-05-16T12:56:00-04:00","checksum":"f0d1627a4d93bfe5a114acc2db38472d","predecessorID":"","successorID":""}
+11723/bd80f0c2-fb36-440a-bc63-803da05e317d
+2016-05-16 18:25:44.716  INFO 18225 --- [           main] pragma.rocks.dataIdentity.SampleDOTest   : Registered PID Handle record:11723/bd80f0c2-fb36-440a-bc63-803da05e317d
+

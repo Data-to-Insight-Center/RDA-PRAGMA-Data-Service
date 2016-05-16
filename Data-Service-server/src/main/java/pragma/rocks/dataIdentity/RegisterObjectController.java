@@ -60,9 +60,6 @@ public class RegisterObjectController {
 	@Value("${handle.server.uri}")
 	private String handle_uri;
 
-	@Value("${pit.record.title}")
-	private String pit_title;
-
 	@Value("${pit.record.landingpageAddr}")
 	private String pit_landingpageAddr;
 
@@ -81,8 +78,8 @@ public class RegisterObjectController {
 	@Value("${pit.record.successorID}")
 	private String pit_successorID;
 
-	@Value("${pit.record.license}")
-	private String pit_license;
+	/*@Value("${pit.record.license}")
+	private String pit_license;*/
 
 	@Value("${handle.server.admin.record}")
 	private String admin_record;
@@ -118,7 +115,7 @@ public class RegisterObjectController {
 						InformationType informationtype = new InformationType();
 						Map<String, String> metadata = PITUtils.resolvePID(handle_uri, pid);
 						for (Map.Entry<String, String> entry : metadata.entrySet()) {
-							if (entry.getKey().equalsIgnoreCase(pit_landingpageAddr)) {
+							if (entry.getKey().equalsIgnoreCase("URL")) {
 								informationtype.setLandingpageAddr(entry.getValue());
 							}
 
@@ -142,18 +139,19 @@ public class RegisterObjectController {
 								informationtype.setSuccessorID(entry.getValue());
 							}
 						}
-						InformationTypeResponse response = new InformationTypeResponse(true, pid, informationtype);
+						InformationTypeResponse response = new InformationTypeResponse(true, pid, objectID, objectRevID,
+								informationtype);
 						return response;
 					}
 				}
 			}
 			// Convert Json Node to message response type
-			InformationTypeResponse response = new InformationTypeResponse(false, null, null);
+			InformationTypeResponse response = new InformationTypeResponse(false, null, null, null, null);
 			return response;
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
-			InformationTypeResponse response = new InformationTypeResponse(false, null, null);
+			InformationTypeResponse response = new InformationTypeResponse(false, null, null, null, null);
 			return response;
 		}
 
@@ -173,7 +171,7 @@ public class RegisterObjectController {
 			CouchDbConnector db = dbInstance.createConnector(couchdb_db_publish, false);
 			ViewQuery q = new ViewQuery().allDocs().includeDocs(true);
 			List<JsonNode> bulkLoaded = db.queryView(q, JsonNode.class);
-			List<PublishType> publishlist = new ArrayList<PublishType>();
+			ArrayList<PublishType> publishlist = new ArrayList<PublishType>();
 			for (JsonNode doc : bulkLoaded) {
 				PublishType publishtype = new PublishType();
 				publishtype.setId(doc.findPath("_id").toString().replace("\"", ""));
@@ -196,10 +194,10 @@ public class RegisterObjectController {
 
 	}
 
-	@RequestMapping("/register/setResource")
+	@RequestMapping("/DO/landingpage/set")
 	@ResponseBody
-	public MessageResponse setResource(@RequestParam(value = "pid", required = true) String pid,
-			@RequestParam(value = "url", required = true) String url) throws HandleException {
+	public MessageResponse setLandingpage(@RequestParam(value = "pid", required = true) String pid,
+			@RequestParam(value = "landingpageAddr", required = true) String url) throws HandleException {
 		// Get the UTF8 encoding of the desired handle.
 		byte someHandle[] = Util.encodeString(pid);
 		// Create a resolution request.
@@ -250,7 +248,7 @@ public class RegisterObjectController {
 		}
 	}
 
-	@RequestMapping("/register/setMetadata")
+	@RequestMapping("/DO/metadata/set")
 	@ResponseBody
 	public MessageResponse setMetadata(@RequestParam(value = "pid", required = true) String pid,
 			@RequestBody String metadata) {
@@ -303,5 +301,58 @@ public class RegisterObjectController {
 			return response;
 		}
 	}
+	
+	@RequestMapping("/DO/metadataURL/set")
+	@ResponseBody
+	public MessageResponse setMetadataURL(@RequestParam(value = "pid", required = true) String pid,
+			@RequestParam(value = "metadataURL", required = true) String url) throws HandleException {
+		// Get the UTF8 encoding of the desired handle.
+		byte someHandle[] = Util.encodeString(pid);
+		// Create a resolution request.
+		// (without specifying any types, indexes, or authentication info)
 
+		ResolutionRequest request = new ResolutionRequest(someHandle, null, null, null);
+		HandleResolver resolver = new HandleResolver();
+		// Create a resolver that will send the request and return the response.
+		AbstractResponse response = resolver.processRequest(request);
+		// Check the response to see if the operation was successful.
+		if (response.responseCode == AbstractMessage.RC_SUCCESS) {
+			// The resolution was successful, so we'll cast the response
+			// and get the handle values.
+			HandleValue values[] = ((ResolutionResponse) response).getHandleValues();
+			for (int i = 0; i < values.length; i++) {
+				System.out.println(String.valueOf(values[i]));
+			}
+		}
+
+		AuthenticationInfo auth = new SecretKeyAuthenticationInfo(Util.encodeString(admin_record),
+				Integer.parseInt(admin_id), Util.encodeString(admin_pkey));
+		HandleValue new_value = new HandleValue(1, Util.encodeString(pit_metadataURL), Util.encodeString(url));
+		ModifyValueRequest modify = new ModifyValueRequest(someHandle, new_value, auth);
+
+		AbstractResponse response_modify = resolver.processRequestGlobally(modify);
+
+		if (response_modify.responseCode == AbstractMessage.RC_SUCCESS) {
+			// The resolution was successful, so we'll cast the response
+			// and get the handle values.
+			byte values[] = ((GenericResponse) response_modify).getEncodedMessage();
+			String message = "";
+			for (int i = 0; i < values.length; i++) {
+				message += String.valueOf(values[i]);
+			}
+			MessageResponse result = new MessageResponse(true, message);
+			return result;
+		} else if (response_modify.responseCode == AbstractMessage.RC_ERROR) {
+			byte values[] = ((ErrorResponse) response_modify).message;
+			String message = "";
+			for (int i = 0; i < values.length; i++) {
+				message += String.valueOf(values[i]);
+			}
+			MessageResponse result = new MessageResponse(false, message);
+			return result;
+		} else {
+			MessageResponse result = new MessageResponse(false, null);
+			return result;
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package pragma.rocks.dataIdentity.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pragma.rocks.dataIdentity.container.PublishType;
@@ -8,7 +9,12 @@ public class PublishListResponse {
 	private boolean success;
 	private List<PublishType> PublishList;
 
-	public PublishListResponse(boolean success, List<PublishType> PublishList) {
+	public PublishListResponse()
+	{
+		
+	}
+	
+	public PublishListResponse(boolean success, ArrayList<PublishType> PublishList) {
 		this.success = success;
 		this.PublishList = PublishList;
 	}
