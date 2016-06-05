@@ -68,6 +68,7 @@ python SimpleServer.py
 This software release is under ISC licence.
 
 ##Release History
+* 0.1.5 5th release
 * 0.1.2 4th release
 * 0.1.1 3rd release
 * 0.1.0 2nd release
