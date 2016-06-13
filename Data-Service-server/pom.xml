@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pragma.rocks</groupId>
 	<artifactId>dataIdentity.server</artifactId>
-	<version>0.1.5</version>
+	<version>0.2.0</version>
 	<name>dataIdentity.server</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -21,14 +21,29 @@
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>Handle.net</groupId>
+			<artifactId>handle-client</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
 		<dependency>
-			<groupId>org.ektorp</groupId>
-			<artifactId>org.ektorp</artifactId>
-			<version>1.3.0</version>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-core-asl</artifactId>
+    		<version>1.9.13</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-mapper-asl</artifactId>
+    		<version>1.9.13</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.httpcomponents</groupId>
+    		<artifactId>httpclient</artifactId>
+    		<version>4.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.flipkart.zjsonpatch</groupId>
@@ -46,9 +61,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>Handle.net</groupId>
-			<artifactId>handle-client</artifactId>
-			<version>1.0</version>
+    		<groupId>org.apache.commons</groupId>
+    		<artifactId>commons-io</artifactId>
+    		<version>1.3.2</version>
+    		<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<properties>

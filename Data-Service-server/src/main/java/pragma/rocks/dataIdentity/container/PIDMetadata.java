@@ -3,7 +3,8 @@ package pragma.rocks.dataIdentity.container;
 /*
  * Information Type Definition for PID metadata
  */
-public class InformationType {
+public class PIDMetadata {
+	private String PID;
 	private String metadataURL;
 	private String landingpageAddr;
 	private String creationDate;
@@ -11,9 +12,17 @@ public class InformationType {
 	private String predecessorID;
 	private String successorID;
 
-	public InformationType() {
+	public PIDMetadata() {
+	}
+	
+	public String getPID() {
+		return PID;
 	}
 
+	public void setPID(String pID) {
+		PID = pID;
+	}
+	
 	public String getLandingpageAddr() {
 		return landingpageAddr;
 	}

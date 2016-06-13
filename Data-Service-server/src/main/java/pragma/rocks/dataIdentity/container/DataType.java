@@ -1,40 +1,30 @@
 package pragma.rocks.dataIdentity.container;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
-public class DataTypeRecord {
-	private String _id;
-	private String _rev;
+public class DataType {
+	@Id
+	private String id;
+
 	private String datatypeName;
 	private String datatypePID;
 
-	public DataTypeRecord() {
+	public DataType() {
 
 	}
 
-	public DataTypeRecord(String datatypeName, String datatypePID) {
+	public DataType(String datatypeName, String datatypePID) {
+		super();
 		this.datatypeName = datatypeName;
 		this.datatypePID = datatypePID;
 	}
 
-	@JsonProperty("_id")
 	public String getId() {
-		return _id;
+		return id;
 	}
 
-	@JsonProperty("_id")
-	public void setId(String s) {
-		_id = s;
-	}
-
-	@JsonProperty("_rev")
-	public String getRevision() {
-		return _rev;
-	}
-
-	@JsonProperty("_rev")
-	public void setRevision(String s) {
-		_rev = s;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getDatatypeName() {
@@ -52,4 +42,5 @@ public class DataTypeRecord {
 	public void setDatatypePID(String datatypePID) {
 		this.datatypePID = datatypePID;
 	}
+
 }

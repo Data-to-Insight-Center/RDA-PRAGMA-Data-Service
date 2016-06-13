@@ -2,17 +2,17 @@ package pragma.rocks.dataIdentity.response;
 
 import java.util.List;
 
-import pragma.rocks.dataIdentity.container.DataTypeRecord;
+import pragma.rocks.dataIdentity.container.DataType;
 
 public class DataTypeListResponse {
 	private boolean success;
-	private List<DataTypeRecord> datatyperecords;
+	private List<DataType> datatyperecords;
 
 	public DataTypeListResponse() {
 
 	}
 
-	public DataTypeListResponse(boolean success, List<DataTypeRecord> datatyperecords) {
+	public DataTypeListResponse(boolean success, List<DataType> datatyperecords) {
 		this.success = success;
 		this.datatyperecords = datatyperecords;
 	}
@@ -25,11 +25,11 @@ public class DataTypeListResponse {
 		this.success = success;
 	}
 
-	public List<DataTypeRecord> getDatatyperecords() {
+	public List<DataType> getDatatyperecords() {
 		return datatyperecords;
 	}
 
-	public void setDatatyperecords(List<DataTypeRecord> datatyperecords) {
+	public void setDatatyperecords(List<DataType> datatyperecords) {
 		this.datatyperecords = datatyperecords;
 	}
 }

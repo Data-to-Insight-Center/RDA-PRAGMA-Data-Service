@@ -32,6 +32,7 @@ import net.handle.hdllib.ResolutionRequest;
 import net.handle.hdllib.ResolutionResponse;
 import net.handle.hdllib.SecretKeyAuthenticationInfo;
 import net.handle.hdllib.Util;
+import pragma.rocks.dataIdentity.response.MessageResponse;
 
 public class PITUtils {
 
@@ -122,8 +123,8 @@ public class PITUtils {
 
 	}
 
-	public static String setResourceLink(String pid, String url, String admin_record, Integer admin_id,
-			String admin_pkey) throws HandleException {
+	public static MessageResponse setResourceLink(String pid, String url_type, String url, String admin_record,
+			Integer admin_id, String admin_pkey) throws HandleException {
 		// Get the UTF8 encoding of the desired handle.
 		byte someHandle[] = Util.encodeString(pid);
 		// Create a resolution request.
@@ -145,7 +146,7 @@ public class PITUtils {
 
 		AuthenticationInfo auth = new SecretKeyAuthenticationInfo(Util.encodeString(admin_record), admin_id,
 				Util.encodeString(admin_pkey));
-		HandleValue new_value = new HandleValue(1, Util.encodeString("URL"), Util.encodeString(url));
+		HandleValue new_value = new HandleValue(1, Util.encodeString(url_type), Util.encodeString(url));
 		ModifyValueRequest modify = new ModifyValueRequest(someHandle, new_value, auth);
 
 		AbstractResponse response_modify = resolver.processRequestGlobally(modify);
@@ -159,14 +160,20 @@ public class PITUtils {
 			for (int i = 0; i < values.length; i++) {
 				result += String.valueOf(values[i]);
 			}
+
+			MessageResponse message_response = new MessageResponse(true, result);
+			return message_response;
 		} else if (response_modify.responseCode == AbstractMessage.RC_ERROR) {
 			byte values[] = ((ErrorResponse) response_modify).message;
 			for (int i = 0; i < values.length; i++) {
 				result += String.valueOf(values[i]);
 			}
+			MessageResponse message_response = new MessageResponse(false, result);
+			return message_response;
+		} else {
+			MessageResponse message_response = new MessageResponse(false, null);
+			return message_response;
 		}
-
-		return result;
 	}
 
 	/*

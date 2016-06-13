@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<mongo:mongo id="mongo" host="localhost" port="27017" />
+	<mongo:db-factory dbname="DataIdentity-StagingDB"
+		mongo-ref="mongo" id="mongoDbFactory" />
+	<mongo:db-factory dbname="DataIdentity-PermanentRepo"
+		mongo-ref="mongo" id="repoFactory" />
+	<mongo:mapping-converter id="converter" />
+
+	<bean name="stagingDBTemplate"
+		class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+		<constructor-arg ref="mongoDbFactory" />
+		<constructor-arg ref="converter" />
+	</bean>
+	<bean name="repoTemplate"
+		class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+		<constructor-arg ref="repoFactory" />
+		<constructor-arg ref="converter" />
+	</bean>
+
+	<bean name="repoPIDTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="repoFactory" />
+		<constructor-arg ref="converter" />
+	</bean>
+</beans>
