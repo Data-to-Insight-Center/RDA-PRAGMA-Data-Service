@@ -40,6 +40,11 @@ Check Out Source Codes:
 ```
 git clone https://github.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service.git
 ```
+Install handle.net client package to your local Maven Repository
+```
+mvn install:install-file -Dfile=Data-Service-server/lib/handle-client.jar -DgroupId=Handle.net -DartifactId=handle-client —Dversion=1.0 -Dpackaging=jar
+```
+
 Edit the MongoConfig.xml file found under src/main/resources and set your backend mongoDB uri with username/password if exists.
 ```
 vi Data-Service-server/src/main/resources/MongoConfig.xml
