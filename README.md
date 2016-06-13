@@ -38,7 +38,7 @@ Here are general timeline diagrams to describe RDA-PRAGMA Data Service user flow
 ##Building the Source
 Check Out Source Codes:
 ```
-git clone https://github.com/Gabriel-Zhou/RDA-PRAGMA-Data-Service.git
+https://github.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service.git
 ```
 Edit the MongoConfig.xml file found under src/main/resources and set your backend mongoDB uri with username/password if exists.
 ```
