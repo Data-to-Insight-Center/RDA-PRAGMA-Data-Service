@@ -1,22 +1,23 @@
 # RDA-PRAGMA-Data-Service
 
-RDA-PRAGMA-Data-Service is designed for users to quickly manage their valueable data objects and boost up sharing and accessibility using two RDA techniques: Persistent Identifier Information Type (PIT) and Data Type Registry (DTR). 
-It is composed of a three-layer architecture:
+RDA-PRAGMA-Data-Service brings persistent IDs and data object registration of data objects generated from scientific analysis carried out using PRAGMA cloud VMs (http://www.pragma-grid.net/). The data service leverage two recent recommendations from the Research Data Alliance (RDA, https://rd-alliance.org/): Persistent Identifier Information Type (PIT) and Data Type Registry (DTR). The objective of the project is to enhance sharing of data objects specifically from analysis of the Int'l Rice Research Institute (http://irri.org/) but is designed in such a way as to be reusable beyond this project for other cases where VMs are used for analysis.  
 
-1. Backend layer: Backend layer includes one persistent MongoDB service which is served as metadata repository and file archive which hosts data objects;
-2. Middleware Layer: Middle layer includes web service using Rest Web Service framework which responds to queries or ingestions; Middleware layer also communicates with DTR and PIT service;
-3. Frontend Layer: Frontend layer includes UI design and JS scripts which send AJAX call to middle layer web services and display response in users' bro
+The RDA-PRAGMA Data Service is composed of a three-layer architecture:
 
-Here are general timeline diagrams to describe RDA-PRAGMA Data Service user flow:
+1. Backend storage layer: a persistent MongoDB service serves as a metadata repository and file archive for data objects;
+2. Middleware Layer: Middle layer consists of a RESTful web service which responds to queries and ingest requests, and an instance of the PIT service and DTR service for managing PIDs.  
+3. Frontend Layer: consists of UI design and JS scripts which send AJAX call to middle layer web services and display response in users' browser.
+
+The below diagrams describe the interactions of the three components through time.  They are read top to bottom:
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/DOUpload.png)
-                              Fig.1. Data Objects Upload Timeline Diagram
+                              Fig.1. Data object upload sequence
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/DORetrieval.png) 
-                              Fig. 2. Data Objects Retrieval Timeline Diagram
+                              Fig. 2. Data object retrieval sequence
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/MiddlewareService.png) 
-                              Fig. 3. Middleware Service Interaction Timeline Diagram
+                              Fig. 3. Middleware service interaction 
                               
 
 
