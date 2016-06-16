@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" class ="no-js">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <title>Data Identity Service LandingPage</title>
+<!-- Core JavaScript and CSS -->
+<script src="commons/jquery-latest.js" type="text/javascript">
+    </script>
+<script src="commons/bootstrap.min.js"></script>
+<script type="text/javascript" src="vis/dist/vis.js"></script>
+<link href="vis/dist/vis.css" rel="stylesheet" type="text/css"/>
+<script src="javascript/config.js"></script>
+<script src="javascript/landingpage.js"></script>
+<script src="javascript/bundle.js"></script>
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<script src="layoutJS/modernizr.custom.js"></script>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #network{
+        width: 400px;
+        height: 200px;
+        border: 0px solid lightgray;
+    }
+</style>
+<style type="text/css">
+    pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; width: 800px; background:white}
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
+</style>
+</head>
+
+<!-- Body Section -->
+<body>
+<div class="container">
+	<div style = "display : inline-block">
+  		<img src="images/logo.png"  style="position: relative; float: center; width: 70%; height: 70%;"/>
+	</div>
+    <div class="container">
+    <div class="main">
+        <nav id="cbp-hrmenu" class="cbp-hrmenu" align="left">
+            <ul>
+                <li>
+                    <a href="#">HOME</a>
+                    <div class="cbp-hrsub">
+                        <div class="cbp-hrsub-inner">
+                            <div>
+                                <h4>Introduction</h4>
+                                <ul>
+                                    <li><a href="#">Aims</a></li>
+                                    <li><a href="#">Achievements</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /cbp-hrsub-inner -->
+                    </div><!-- /cbp-hrsub -->
+                </li>
+                <li>
+                    <a href="#">ABOUT</a>
+                    <div class="cbp-hrsub">
+                        <div class="cbp-hrsub-inner">
+                            <div>
+                                <h4>Team</h4>
+                                <ul>
+                                    <li><a href="#">PIs</a></li>
+                                    <li><a href="#">Members</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Community</h4>
+                                <ul>
+                                    <li><a href="#">PRAGMA</a></li>
+                                    <li><a href="#">RDA</a></li>
+                                    <li><a href="#">Data to Insight Center</a></li>
+                                    <li><a href="#">IRRI</a></li>
+                                    <li><a href="#">AIST</a></li>
+                                </ul>
+                            </div>
+                    </div><!-- /cbp-hrsub-inner -->
+                    </div><!-- /cbp-hrsub -->
+                </li>
+                <li>
+                    <a href="#">EXPLORE</a>
+                    <div class="cbp-hrsub">
+                        <div class="cbp-hrsub-inner">
+                            <div>
+                                <h4>Data Explorer</h4>
+                                <ul>
+                                    <li><a href="DataTypeIndex.html">DO Indexing</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Developers</h4>
+                                <ul>
+                                    <li><a href="#">RDA PIT Tool</a></li>
+                                    <li><a href="#">RDA DTR Tool</a></li>
+                                    <li><a href="#">Code Base</a></li>
+                                    <li><a href="#">Documentations</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /cbp-hrsub-inner -->
+                    </div><!-- /cbp-hrsub -->
+                </li>
+                <li>
+                    <a href="#">CONTACT</a>
+                    <div class="cbp-hrsub">
+                        <div class="cbp-hrsub-inner"> 
+                            <div>
+                                <h4>People</h4>
+                                <ul>
+                                    <li><a href="#">PIs</a></li>
+                                    <li><a href="#">Members</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Community</h4>
+                                <ul>
+                                    <li><a href="#">PRAGMA</a></li>
+                                    <li><a href="#">RDA</a></li>
+                                    <li><a href="#">Data to Insight Center</a></li>
+                                    <li><a href="#">IRRI</a></li>
+                                    <li><a href="#">AIST</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /cbp-hrsub-inner -->
+                    </div><!-- /cbp-hrsub -->
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+    
+    <div id="page-wrapper" align = "center">
+        <br>
+        <div class="container float" align="left" style="float:center">
+            <p id = "generalmetadata">
+            </p>
+            <p id = "pidmetadata">
+            </p>
+            <p id = "domain">
+                <table class='table table-condensed' style='width: 70%'>
+                    <tr><td style='width: 20%'><b>Domain Metadata</b></td>
+                        <td><a href="#" onclick="javascript:toggler();" class='btn btn-success' id="domainButton">Show/Hide</a></td>
+                    </tr>
+                </table>
+            </p>
+            <div id = "domainmetadata" style="display:none;">
+            </div>
+            <td style="line-height:20px;" colspan=3>&nbsp;</td>
+        </div>
+        <div style="width:450px; float:center">
+			<div style="float: center; width: 225px" id="DOURL">
+			</div>
+	    </div>
+ 	    <td style="line-height:20px;" colspan=3>&nbsp;</td>
+        <h2 class="container float" align="center" id="provTitle">Provenance</h2>
+        <center><div id="network"></div></center>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br>
+
+<script src="layoutJS/cbpHorizontalMenu.min.js"></script>
+<script src="layoutJS/cbpHorizontalMenu.js"></script>
+<script>
+    $(function() {
+      cbpHorizontalMenu.init();
+      });
+</script>
+</body>
+</html>
+
