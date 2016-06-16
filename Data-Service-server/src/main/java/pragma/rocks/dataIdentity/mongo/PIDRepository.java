@@ -1,5 +1,6 @@
 package pragma.rocks.dataIdentity.mongo;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -20,6 +21,21 @@ public class PIDRepository {
 
 	public List<PIDRecord> listAll() {
 		return repoPIDTemplate.findAll(PIDRecord.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<String> listDataType() {
+		return repoPIDTemplate.getCollection("PIDCollection").distinct("DataType");
+	}
+
+	public List<PIDRecord> listAllByDTR(String dataType) {
+		List<PIDRecord> records = repoPIDTemplate.findAll(PIDRecord.class);
+		List<PIDRecord> filtered_records = new ArrayList<PIDRecord>();
+		for (PIDRecord record : records) {
+			if (record.getDataType().equalsIgnoreCase(dataType))
+				filtered_records.add(record);
+		}
+		return filtered_records;
 	}
 
 	public PIDRecord findRecordByPID(String pid) {

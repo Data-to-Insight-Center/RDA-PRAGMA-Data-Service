@@ -110,49 +110,50 @@ public class DataObjectController {
 			return response;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			MessageResponse response = new MessageResponse(false, null);
 			return response;
 		}
 	}
 
-		@RequestMapping("/DO/find/metadata")
-		@ResponseBody
-		public MessageResponse DOfindMedata(@RequestParam(value = "ID", required = true) String ID) {
-			// Connect to MongoDB and return DO metadata as response
-			// return
-			try {
-				GridFSDBFile doc = Staging_repository.findDOByID(ID);
-				DBObject doc_metadata = doc.getMetaData();
-				// Convert Json Node to message response type
-				MessageResponse response = new MessageResponse(true, JSON.serialize(doc_metadata));
-				return response;
-	
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				MessageResponse response = new MessageResponse(false, null);
-				return response;
-			}
-	
+	@RequestMapping("/DO/find/metadata")
+	@ResponseBody
+	public MessageResponse DOfindMedata(@RequestParam(value = "ID", required = true) String ID) {
+		// Connect to MongoDB and return DO metadata as response
+		// return
+		try {
+			GridFSDBFile doc = Staging_repository.findDOByID(ID);
+			DBObject doc_metadata = doc.getMetaData();
+			// Convert Json Node to message response type
+			MessageResponse response = new MessageResponse(true, JSON.serialize(doc_metadata));
+			return response;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			MessageResponse response = new MessageResponse(false, null);
+			return response;
 		}
-	
-		@RequestMapping(value = "/DO/find/data", method = RequestMethod.GET)
-		@ResponseBody
-		public void DOfindData(@RequestParam(value = "ID", required = true) String ID, HttpServletResponse response) {
-			// Connect to MongoDB and return DO data files as response
-			// return
-			try {
-				GridFSDBFile doc = Staging_repository.findDOByID(ID);
-				response.setContentType(doc.getContentType());
-				response.setContentLengthLong(doc.getLength());
-				response.setHeader("Content-Disposition", "attachment; filename=\"" + doc.getFilename() + "\"");
-				OutputStream out = response.getOutputStream();
-				doc.writeTo(out);
-	
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+	}
+
+	@RequestMapping(value = "/DO/find/data", method = RequestMethod.GET)
+	@ResponseBody
+	public void DOfindData(@RequestParam(value = "ID", required = true) String ID, HttpServletResponse response) {
+		// Connect to MongoDB and return DO data files as response
+		// return
+		try {
+			GridFSDBFile doc = Staging_repository.findDOByID(ID);
+			response.setContentType(doc.getContentType());
+			response.setContentLengthLong(doc.getLength());
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + doc.getFilename() + "\"");
+			OutputStream out = response.getOutputStream();
+			doc.writeTo(out);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 
 	@RequestMapping("/DO/list")
 	@ResponseBody
@@ -310,9 +311,11 @@ public class DataObjectController {
 				// PIT_metadata);
 				String pid = PITUtils.registerPID(pit_uri.trim(), PIT_metadata);
 
-				// Store registered PID record with repoID into backend MongoDB
+				// Store registered PID record with repoID/DOname/DataType into
+				// backend MongoDB
 				// collection
-				PIDRecord pid_record = new PIDRecord(pid, repo_id);
+				PIDRecord pid_record = new PIDRecord(pid, doc.getMetaData().get("DOname").toString(),
+						doc.getMetaData().get("DataType").toString(), repo_id);
 				pid_repository.addRecord(pid_record);
 
 				// Return message response with registered PID record

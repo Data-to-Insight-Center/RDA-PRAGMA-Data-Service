@@ -1,7 +1,10 @@
 package pragma.rocks.dataIdentity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +15,12 @@ import net.handle.hdllib.HandleException;
 import pragma.rocks.dataIdentity.container.PIDMetadata;
 import pragma.rocks.dataIdentity.container.PIDRecord;
 import pragma.rocks.dataIdentity.mongo.PIDRepository;
+import pragma.rocks.dataIdentity.response.MessageListResponse;
 import pragma.rocks.dataIdentity.response.MessageResponse;
 import pragma.rocks.dataIdentity.response.PIDMetadataResponse;
 import pragma.rocks.dataIdentity.response.PIDRecordListResponse;
+import pragma.rocks.dataIdentity.response.PIDRecordResponse;
+import pragma.rocks.dataIdentity.utils.JsonUtils;
 import pragma.rocks.dataIdentity.utils.PITUtils;
 
 @RestController
@@ -33,6 +39,9 @@ public class PIDRepoController {
 
 	@Value("${handle.server.uri}")
 	private String handle_uri;
+
+	@Value("${dtr.uri}")
+	private String dtr_uri;
 
 	@Value("${pit.record.metadataURL}")
 	private String pit_metadataURL;
@@ -55,18 +64,18 @@ public class PIDRepoController {
 
 	@RequestMapping("/pidrepo/find/repoID")
 	@ResponseBody
-	public MessageResponse findRepoID(@RequestParam(value = "PID", required = true) String pid) {
+	public PIDRecordResponse findRepoID(@RequestParam(value = "repoID", required = true) String repoID) {
 		// Connect to MongoDB and return repoID as reponse
 		// return string repoID
 		try {
-			PIDRecord record = pid_repository.findRecordByPID(pid);
+			PIDRecord record = pid_repository.findRecordByrepoID(repoID);
 			// Construct return message
-			MessageResponse response = new MessageResponse(true, record.getRepoID());
+			PIDRecordResponse response = new PIDRecordResponse(true, record);
 			return response;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			MessageResponse response = new MessageResponse(false, null);
+			PIDRecordResponse response = new PIDRecordResponse(false, null);
 			return response;
 		}
 
@@ -74,24 +83,24 @@ public class PIDRepoController {
 
 	@RequestMapping("/pidrepo/find/PID")
 	@ResponseBody
-	public MessageResponse findPID(@RequestParam(value = "repoID", required = true) String repoID) {
+	public PIDRecordResponse findPID(@RequestParam(value = "PID", required = true) String PID) {
 		// Connect to MongoDB and return PID as reponse
 		// return string PID
 		try {
-			PIDRecord record = pid_repository.findRecordByrepoID(repoID);
+			PIDRecord record = pid_repository.findRecordByPID(PID);
 			// Construct return message
-			MessageResponse response = new MessageResponse(true, record.getPID());
+			PIDRecordResponse response = new PIDRecordResponse(true, record);
 			return response;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			MessageResponse response = new MessageResponse(false, null);
+			PIDRecordResponse response = new PIDRecordResponse(false, null);
 			return response;
 		}
 
 	}
 
-	@RequestMapping("/pidrepo/list")
+	@RequestMapping("/pidrepo/list/DO")
 	@ResponseBody
 	public PIDRecordListResponse DOlist() {
 		// Connect to mongoDB and list all PID records
@@ -105,6 +114,48 @@ public class PIDRepoController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			PIDRecordListResponse response = new PIDRecordListResponse(false, null);
+			return response;
+		}
+	}
+
+	@RequestMapping("/pidrepo/list/DObyDTR")
+	@ResponseBody
+	public PIDRecordListResponse DObyDTRlist(@RequestParam(value = "DataType", required = true) String dataType) {
+		// Connect to mongoDB and list all PID records by data type PID
+		// return list of PID records
+		try {
+			List<PIDRecord> records = pid_repository.listAllByDTR(dataType);
+
+			// Construct return message
+			PIDRecordListResponse response = new PIDRecordListResponse(true, records);
+			return response;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			PIDRecordListResponse response = new PIDRecordListResponse(false, null);
+			return response;
+		}
+	}
+
+	@RequestMapping("/pidrepo/list/DataType")
+	@ResponseBody
+	public MessageListResponse DataTypelist() {
+		// Connect to mongoDB and list all DataType and names
+		// return list of PID records
+		try {
+			List<String> dataTypes = pid_repository.listDataType();
+			List<String> dataTypes_definition = new ArrayList<String>();
+			for (String datatype : dataTypes) {
+				String url = dtr_uri + datatype;
+				JsonNode datatype_definition = JsonUtils.readUrl2JsonNode(url);
+				dataTypes_definition.add(datatype_definition.toString());
+			}
+			// Construct return message
+			MessageListResponse response = new MessageListResponse(true, dataTypes_definition);
+			return response;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			MessageListResponse response = new MessageListResponse(false, null);
 			return response;
 		}
 	}
@@ -204,4 +255,25 @@ public class PIDRepoController {
 		PIDMetadataResponse response = new PIDMetadataResponse(true, pid_metadata);
 		return response;
 	}
+
+	@RequestMapping("/pidrepo/resolveDTR")
+	@ResponseBody
+	public MessageResponse resolveDTR(@RequestParam(value = "DataType", required = true) String dataType) {
+		// Connect to DTR API and get Data Type definition doc
+		// return json doc as Data Type definition
+		try {
+			String url = dtr_uri + dataType;
+			JsonNode datatype_definition = JsonUtils.readUrl2JsonNode(url);
+
+			// Construct return message
+			MessageResponse response = new MessageResponse(true, datatype_definition.toString());
+			return response;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			MessageResponse response = new MessageResponse(false, null);
+			return response;
+		}
+	}
+
 }
