@@ -11,13 +11,13 @@ The RDA-PRAGMA Data Service has a three-layer architecture:
 The below diagrams describe the interactions of the three components through time.  They are read top to bottom:
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/DOUpload.png)
-                              Fig.1. Data object upload sequence
+                              Fig.1. Data object upload sequence through DataIdentity Service
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/DORetrieval.png) 
-                              Fig. 2. Data object retrieval sequence
+                              Fig. 2. Data object retrieval sequence through DataIdentity Service  
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/MiddlewareService.png) 
-                              Fig. 3. Retrieval of minimal PID metadata by programmatic access 
+                              Fig. 3. Retrieval of minimal PID metadata through the DataIdentity Service by programmatic access 
                               
 
 
