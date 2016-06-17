@@ -17,7 +17,7 @@ The below diagrams describe the interactions of the three components through tim
                               Fig. 2. Data object retrieval sequence
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/MiddlewareService.png) 
-                              Fig. 3. Middleware service interaction 
+                              Fig. 3. Retrieval of minimal PID metadata by programmatic access 
                               
 
 
