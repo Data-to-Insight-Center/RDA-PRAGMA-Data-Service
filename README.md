@@ -4,11 +4,11 @@ RDA-PRAGMA Data Service brings persistent IDs and registration of data objects g
 
 The RDA-PRAGMA Data Service has a three-layer architecture:
 
-1. Backend storage layer: a persistent MongoDB service serves as a metadata repository and file archive for data objects;
-2. Middleware Layer: Middle layer consists of a RESTful web service which responds to queries and ingest requests, and an instance of the PIT service and DTR service for managing PIDs.  
-3. Frontend Layer: consists of UI design and JS scripts which send AJAX call to middle layer web services and display response in users' browser.
+1. Backend storage repository: a persistent MongoDB noSQL store fronted by a simple RESTful API that serves as repository for application specific metadata and file archive for data objects. 
+2. PRAGMA-RDA Data Identity Service: a minimal RESTful API and service that links PID management (through PIT service and DTR service) to repositories.     
+3. Frontend Layer:  UI design and JS scripts which send AJAX call to middle layer web services and display response in users' browser.
 
-The below diagrams describe the interactions of the three components through time.  They are read top to bottom:
+Three interaction diagrams illustrate the interactions amongst the layers and users.  They are read top to bottom, left to right:
 
 ![alt tag](https://raw.githubusercontent.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/master/docs/DOUpload.png)
                               Fig.1. Data object upload sequence through DataIdentity Service
