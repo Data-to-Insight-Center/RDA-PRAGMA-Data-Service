@@ -11,9 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.log4j.Logger;
@@ -29,7 +27,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import pragma.rocks.dataIdentity.response.MessageResponse;
-import pragma.rocks.dataIdentity.utils.ZipUtils;
 
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -138,7 +135,8 @@ public class SampleDOTest extends ApplicationTests {
 		File output_file = new File(classLoader.getResource(output_path).getFile());
 
 		JsonNodeFactory nodeFactory = JsonNodeFactory.instance;
-		ObjectNode node = nodeFactory.objectNode();
+		ObjectNode input_node = nodeFactory.objectNode();
+		ObjectNode output_node = nodeFactory.objectNode();
 
 		Map<String, String> input_fields = AgFiles2Map(input_file, "=");
 		Map<String, String> output_fields = AgFiles2Map(output_file, ":");
@@ -146,42 +144,46 @@ public class SampleDOTest extends ApplicationTests {
 		// get input metadata
 		for (Map.Entry<String, String> entry : input_fields.entrySet()) {
 			if (entry.getKey().startsWith("model.parameter"))
-				node.put(entry.getKey().replace(".", "_"), entry.getValue());
+				input_node.put(entry.getKey().replace(".", "_"), entry.getValue());
 		}
 
 		// get output metadata
 		String ward_num = output_path.split("_")[1].trim();
-		node.put("ward", ward_num);
+		output_node.put("ward", ward_num);
 		for (Map.Entry<String, String> entry : output_fields.entrySet()) {
-			node.put(entry.getKey(), entry.getValue());
+			output_node.put(entry.getKey(), entry.getValue());
 		}
 
 		// Construct data as multipart file
-		List<File> files = new ArrayList<File>();
-		files.add(input_file);
-		files.add(output_file);
+		MockMultipartFile input_data = new MockMultipartFile("data", input_path, "text/plain",
+				new FileInputStream(input_file));
 
-		ZipUtils.zipFiles(output_path.replace(".txt", ".zip"), files);
-		File file = new File(output_path.replace(".txt", ".zip"));
-		MockMultipartFile data = new MockMultipartFile("data", output_path.replace(".txt", ".zip"), "application/zip",
-				new FileInputStream(file));
+		MockMultipartFile output_data = new MockMultipartFile("data", output_path, "text/plain",
+				new FileInputStream(output_file));
 
-		String DOname = output_path.replace(".txt", "");
-		if (DOname.contains("_stats")) {
-			DOname = DOname.replace("_stats", "");
+		String input_DOname = input_path.replace(".txt", "");
+		String output_DOname = output_path.replace(".txt", "");
+		if (output_DOname.contains("_stats")) {
+			output_DOname = output_DOname.replace("_stats", "");
 		}
 
-		String id = DOUpload("20.5000.239/cd83686e94b6328b28da", DOname, "", node.toString(), data);
+		String input_id = DOUpload("20.5000.239/cd83686e94b6328b28da", input_DOname, "", input_node.toString(),
+				input_data);
+		String output_id = DOUpload("20.5000.239/21059cc2035443c2fec5", output_DOname, "", output_node.toString(),
+				output_data);
 
-		logger.info("Object StagingDB ID is:" + id);
+		logger.info("Input Object StagingDB ID is:" + input_id);
+		logger.info("Output Object StagingDB ID is:" + output_id);
 
 		// Add: add DO to permanent Repo and register with a PID
 		// Edit: Further edit the DO with updated information
 		// For demo we run ADD operation
 		logger.info("Step 3 - Register DO with handle record and PID metadata profile...");
-		String PID = DOAdd(id, "", "");
+		String input_PID = DOAdd(input_id, "", "");
+		String output_PID = DOAdd(output_id, input_PID, "");
 
-		logger.info("Registered PID Handle record:" + PID);
+		logger.info("Registered Input PID Handle record:" + input_PID);
+		logger.info("Registered Output PID Handle record:" + output_PID);
 	}
 
 	public Map<String, String> AgFiles2Map(File file, String split) throws Exception {
