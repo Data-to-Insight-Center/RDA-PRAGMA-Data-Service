@@ -1,0 +1,8 @@
+pidsystem.handle.baseURI = https://75.150.60.33:8006
+pidsystem.handle.userName = 300:11043.4/admin
+pidsystem.handle.userPassword = password
+pidsystem.handle.generatorPrefix = 11043.4
+pidsystem.handle.unsafeSSL = true
+
+typeregistry.baseURI = http://typeregistry.org/registrar
+typeregistry.identifierPrefix = 11314.2

@@ -1,0 +1,70 @@
+<body>
+
+	The RDA PIT API provides facilities to query and manipulate typed
+	information available from persistent identifiers and shared through
+	type registries.
+	<br />
+	
+	<b>All documentation of this project is released into the public domain as according to 
+	<a href="http://creativecommons.org/publicdomain/zero/1.0" target="_blank">CC0</a>.</b>
+	<br />
+	
+	<h2>Testing</h2>
+	Testing can be done using mvn test.<br />
+	However, testing requires an accessible Handle Server v8 instance and a Type Registry instance. 
+	The configuration for these (IP addresses, credentials) must be provided through a property file.
+	The name of this file must be passed as a Java property using a '-D' switch to mvn test; 
+	the name of the property is 'pitapi.testingconfig'. An example file can be found in the source code root 
+	(testing.properties.example). Note that the addresses given in there are outdated and will not work anymore.<br/>
+	Alternatively, all properties in the properties file can be passed using '-D' switches.
+	
+	<h2>Deployment</h2>
+	
+	<p>Deploying the API prototype requires access to a Handle System 8 server and a Type Registry instance.</p>
+	
+	<p>The current API prototype uses the interface to an older version of the type registry under development by CNRI at <a href="http://typeregistry.org">typeregistry.org</a>.
+	The older version may still be available at <a href="http://38.100.130.13:8002/registrar">http://38.100.130.13:8002/registrar</a>; an adaption to the newer interface may be available from the PIT git repository.<br/>
+	At time of writing, the Handle System 8 has not been publicly released. Some closed beta servers may be available for instance from members of the <a href="http://www.pidconsortium.eu">European Persistent Identifier Consortium</a>.</p>
+	
+
+	The API prototype was written using
+	<a href="http://jersey.java.net" target="_blank">Jersey 2</a> based on
+	JAX-RS 2.0. The project offers full support for
+	<a href="http://maven.apache.org" target="_blank">Apache Maven</a>.
+	<br /> The following instructions assume deployment on an
+	<a href="http://tomcat.apache.org" target="_blank">Apache Tomcat 8</a>
+	application server.
+	<ol>
+		<li>Use the following call to generate a <i>web application
+				archive (war) file</i>: <pre>
+$ mvn war:war
+</pre>
+		</li>
+
+		<li>The REST service must be configured properly so it knows
+			which identifier service and type registry to contact.<br> An
+			example configuration file in Java's properties file format can be
+			found <a href="resources/pitapi.properties.example" target="_blank">here</a>.
+			Copy it to <code>/usr/local/rda/pitapi.properties</code> and make
+			sure the application server's user has sufficient permissions to read it.
+			Also update it with the addresses of the Handle System 8 instance and possibly the Type Registry.
+			The config file contains the same properties that are also used for testing.
+		</li>
+
+		<li>Deploy the generated war file on your application server.</li>
+
+		<li>A simple test to verify that the API is running properly can
+			be made by calling the {@link
+			rdapit.rest.TypingRESTResource#simplePing ping} method: <pre>
+$ curl http://your.server/your.application.path/pitapi/ping
+Hello World
+</pre>
+		</li>
+	</ol>
+
+	<h2>Usage</h2>
+
+	Detailed documentation on the REST methods available can be found in
+	the {@link rdapit.rest.TypingRESTResource TypingRESTResource} class.
+
+</body>
