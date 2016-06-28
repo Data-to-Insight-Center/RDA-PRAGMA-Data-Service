@@ -9,9 +9,9 @@
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<mongo:mongo id="mongo" host="localhost" port="27017" />
-	<mongo:db-factory dbname="DataIdentity-StagingDB"
+	<mongo:db-factory dbname="DataIdentity-StagingDB" username="" password=""
 		mongo-ref="mongo" id="mongoDbFactory" />
-	<mongo:db-factory dbname="DataIdentity-PermanentRepo"
+	<mongo:db-factory dbname="DataIdentity-PermanentRepo" username="" password=""
 		mongo-ref="mongo" id="repoFactory" />
 	<mongo:mapping-converter id="converter" />
 
