@@ -84,7 +84,7 @@ public class TypeRegistry implements ITypeRegistry {
 					valuetype = reprsem.get("value").asText();
 				}
 				if (reprsem.get("expression").asText().equalsIgnoreCase("namespace")) {
-					valuetype = reprsem.get("value").asText();
+					namespace = reprsem.get("value").asText();
 				}
 			}
 		}
