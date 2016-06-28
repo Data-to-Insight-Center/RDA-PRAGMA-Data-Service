@@ -130,7 +130,7 @@ public class TypeRegistry implements ITypeRegistry {
 		}
 		String typeUseExpl = entry.get("description").asText();
 		String description = entry.get("name").asText();
-		TypeDefinition result = new TypeDefinition(entry.get("ID").asText(), typeUseExpl, description);
+		TypeDefinition result = new TypeDefinition(entry.get("identifier").asText(), typeUseExpl, description);
 		// add properties
 		for (String pd : properties.keySet())
 			result.addProperty(pd, properties.get(pd));

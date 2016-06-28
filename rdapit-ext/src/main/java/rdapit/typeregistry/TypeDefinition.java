@@ -25,6 +25,7 @@ public class TypeDefinition {
 	/**
 	 * Value (boolean) True means mandatory, False means optional.
 	 */
+	@JsonProperty("properties")
 	protected HashMap<String, PropertyDefinition> properties;
 
 	@JsonProperty("explanationOfUse")
@@ -51,7 +52,7 @@ public class TypeDefinition {
 	}
 
 	public void addProperty(String propertyIdentifier, PropertyDefinition prop_def) {
-		properties.put(propertyIdentifier, prop_def);
+		this.properties.put(propertyIdentifier, prop_def);
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class TypeDefinition {
 		}
 		return result;
 	}
-	
+
 	public String getIdentifier() {
 		return identifier;
 	}
