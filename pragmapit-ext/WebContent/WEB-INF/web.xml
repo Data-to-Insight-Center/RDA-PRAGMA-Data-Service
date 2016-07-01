@@ -3,7 +3,7 @@
   xmlns="http://java.sun.com/xml/ns/javaee"
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
   id="WebApp_ID" version="3.0">
-  <display-name>rdapit</display-name>
+  <display-name>pragmapit-ext</display-name>
   <servlet>
     <servlet-name>rdapit.rest.PITApplication</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -31,7 +31,7 @@
     </init-param>
     <init-param>
       <param-name>swagger.api.basepath</param-name>
-      <param-value>http://localhost:8080/rdapit-0.1/pitapi/</param-value>
+      <param-value>http://localhost:8080/pragmapit-ext-0.2/pitapi/</param-value>
     </init-param>
     <load-on-startup>2</load-on-startup>
   </servlet>
