@@ -26,7 +26,7 @@ A profile consists of several types. A PID record conforms to a profile if it pr
 3. Cordra V1.0.7
 4. Apache Tomcat V7 or higher
 
-## Install Data Type Registry (Lastest: Cordra V1.0.7)
+## Install Data Type Registry (Latest: Cordra V1.0.7)
 Please refer to https://cordra.org/ for software downloading and installation.
 
 Configuration with dataType schema:
