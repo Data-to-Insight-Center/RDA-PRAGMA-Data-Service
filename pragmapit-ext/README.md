@@ -43,22 +43,22 @@ Configuration with dataType schema:
 ```
 
 ## Install and Deploy PRAGMA PIT Ext service
-1. Build source to generate a web application archive (war) file:
+1) Build source to generate a web application archive (war) file:
 
 ```
 mvn clean install -Dmaven.test.skip=true
 ```
 
-2. PIT ext service must be configured properly so it knows which identifier service and type registry to contact.
+2) PIT ext service must be configured properly so it knows which identifier service and type registry to contact.
 An example configuration file in Java's properties file format can be found as testing.properties.example. Copy it to /usr/local/rda/pitapi.properties and make sure the application server's user has sufficient permissions to read it. Also update it with the addresses of the Handle System 8 instance and possibly the Type Registry. The config file contains the same properties that are also used for testing.
 
-3. Deploy the generated war file on your application server (e.g., Tomcat)
+3) Deploy the generated war file on your application server (e.g., Tomcat)
 
 ```
 cp <pragmapit-ext>/target/pragmapit-ext-0.2.war <tomcat>/webapps/
 ```
 
-4. A simple test to verify that the API is running properly can be made by calling the {@link rdapit.rest.TypingRESTResource#simplePing ping} method:
+4) A simple test to verify that the API is running properly can be made by calling the {@link rdapit.rest.TypingRESTResource#simplePing ping} method:
 
 ```
 curl http://your.server/your.application.path/pitapi/ping
