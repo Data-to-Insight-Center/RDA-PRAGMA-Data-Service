@@ -29,6 +29,19 @@ A profile consists of several types. A PID record conforms to a profile if it pr
 ## Install Data Type Registry (Lastest: Cordra V1.0.7)
 Please refer to https://cordra.org/ for software downloading and installation.
 
+Configuration with dataType schema:
+
+```
+1) Go to the admin UI: http://<host>:<port>/admin.html
+2) Sign in as admin.
+3) Click on the Schemas section.
+4) Click the “Add Schema” button.
+5) In the “Add Schema” dialog they must set the name of the new schema to “dataType” 
+6) Select the “Empty” template and click “OK".
+7) In the text editor for the schema copy and paste the contents of file docs/dataType.json
+8) Click "Save"
+```
+
 ## Install and Deploy PRAGMA PIT Ext service
 1. Build source to generate a web application archive (war) file:
 
