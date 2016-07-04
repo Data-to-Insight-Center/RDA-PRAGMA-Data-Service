@@ -12,7 +12,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import rdapit.typeregistry.TypeDefinition;
 
 /**
  * Encapsulates a type in the type registry, roughly defined as a set of
@@ -49,7 +48,7 @@ public class ProfileDefinition {
 	@JsonCreator
 	public ProfileDefinition(@JsonProperty("identifier") String identifier,
 			@JsonProperty("explanationOfUse") String explanationOfUse, @JsonProperty("description") String description,
-			@JsonProperty("properties") HashMap<String, TypeDefinition> types) {
+			@JsonProperty("types") HashMap<String, TypeDefinition> types) {
 		this.identifier = identifier;
 		this.explanationOfUse = explanationOfUse;
 		this.description = description;
