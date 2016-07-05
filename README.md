@@ -98,6 +98,15 @@ nohup python SimpleServer.py &
 This software release is under ISC licence.
 
 ##Release History
+* 0.2.5 7th release 07.05.2016
+  Release note:
+    
+    1/ Separate Data Identity server API with PRAGMA repository service API;
+
+    2/ First interaction with PIT service (PRAGMAPIT-ext) instead of DTR service;
+    
+    3/ Support community(profile) level datatype definition query 
+    
 * 0.2.0 6th release
 
   Release note:
