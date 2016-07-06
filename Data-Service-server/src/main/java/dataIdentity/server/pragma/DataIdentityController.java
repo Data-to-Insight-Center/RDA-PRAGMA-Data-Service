@@ -237,6 +237,7 @@ public class DataIdentityController {
 	public MessageResponse resolvePID(@RequestParam(value = "PID", required = true) String pid)
 			throws JsonParseException, JsonMappingException, IOException {
 		String pid_type = PITUtils.peekPID(pit_uri.trim() + "peek/", pid);
+		pid_type = pid_type.replace("\"","");
 		if (pid_type.equalsIgnoreCase("object")) {
 			Map<String, String> pid_metadata = PITUtils.resolveObjectPID(pit_uri.trim() + "generic/", pid);
 
