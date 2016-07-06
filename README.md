@@ -50,7 +50,8 @@ git clone https://github.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service.git
 ```
 Install handle.net client package to your local Maven Repository
 ```
-mvn install:install-file -Dfile=Data-Service-server/lib/handle-client.jar -DgroupId=Handle.net -DartifactId=handle-client —Dversion=1.0 -Dpackaging=jar
+cd ./Data-Service-server
+mvn install:install-file -Dfile=./lib/handle-client.jar -DgroupId=Handle.net -DartifactId=handle-client -Dversion=1.0 -Dpackaging=jar
 ```
 
 Edit the MongoConfig.xml file found under src/main/resources and set your backend mongoDB uri with username/password if exists.
@@ -71,9 +72,9 @@ If you want to skip maven test, run the following cmd:
 mvn clean install -Dmaven.test.skip=true
 ```
 
-##Deploy Data Service server using nohup
+##Deploy Data Service server WAR under Tomcat container
 ```
-nohup java -jar ./target/dataIdentity.server-0.2.0.jar &
+cp ./target/pragma-dataidentity-server.war <tomcat>/webapps/
 ```
 
 ##Deploy Data Service client frontend layer UI
