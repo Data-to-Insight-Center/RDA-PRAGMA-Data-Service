@@ -189,7 +189,9 @@
                   "Format",
                   "Character Set",
                   "Encoding",
-                  "Measurement Unit"
+                  "Measurement Unit",
+                  "RANGE",
+                  "NAMESPACE"
                 ]
               }
             }
