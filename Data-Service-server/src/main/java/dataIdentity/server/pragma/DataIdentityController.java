@@ -171,12 +171,12 @@ public class DataIdentityController {
 		// Connect to mongoDB and list all DataType and names
 		// return list of type definitions from PIT service
 		try {
-			ObjectMapper mapper = new ObjectMapper();
+			RestTemplate restTemplate = new RestTemplate();
 			List<String> dataTypes = pid_repository.listDataType();
 			List<TypeDefinition> dataTypes_definition = new ArrayList<TypeDefinition>();
 			for (String datatype : dataTypes) {
-				String datatypeDefinition = PITUtils.resolveDTRPID(pit_uri.trim() + "generic/", datatype);
-				TypeDefinition typeDef = mapper.readValue(datatypeDefinition, TypeDefinition.class);
+				final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + datatype,
+						TypeDefinition.class);
 				dataTypes_definition.add(typeDef);
 			}
 			// Construct return message
@@ -261,12 +261,11 @@ public class DataIdentityController {
 					parsed_pid_metadata.put(propertyDef.getName(), pid_metadata.get(property));
 				}
 			}
-			
+
 			parsed_pid_metadata.put("pid", pid);
 
 			ObjectMapper mapper = new ObjectMapper();
 			String result = mapper.writeValueAsString(parsed_pid_metadata);
-			System.out.println("test:" + result);
 			MessageResponse response = new MessageResponse(true, result);
 			return response;
 
@@ -304,7 +303,7 @@ public class DataIdentityController {
 				parsed_pid_metadata.put(propertyDef.getName(), pid_metadata.get(property));
 			}
 		}
-		
+
 		parsed_pid_metadata.put("pid", pid);
 
 		ObjectMapper mapper = new ObjectMapper();
