@@ -261,6 +261,8 @@ public class DataIdentityController {
 					parsed_pid_metadata.put(propertyDef.getName(), pid_metadata.get(property));
 				}
 			}
+			
+			parsed_pid_metadata.put("pid", pid);
 
 			ObjectMapper mapper = new ObjectMapper();
 			String result = mapper.writeValueAsString(parsed_pid_metadata);
@@ -302,6 +304,8 @@ public class DataIdentityController {
 				parsed_pid_metadata.put(propertyDef.getName(), pid_metadata.get(property));
 			}
 		}
+		
+		parsed_pid_metadata.put("pid", pid);
 
 		ObjectMapper mapper = new ObjectMapper();
 		String result = mapper.writeValueAsString(parsed_pid_metadata);
