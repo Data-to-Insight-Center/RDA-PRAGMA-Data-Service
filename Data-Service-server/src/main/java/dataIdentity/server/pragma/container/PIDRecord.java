@@ -13,18 +13,21 @@ public class PIDRecord {
 	private String DOname;
 	private String DataType;
 	private String repoID;
+	private PIDProvider pidProvider;
 
 	public PIDRecord() {
 
 	}
 
-	public PIDRecord(String PID, String PIDMetadataType, String DOname, String DataType, String repoID) {
+	public PIDRecord(String PID, String PIDMetadataType, String DOname, String DataType, String repoID,
+			PIDProvider pidProvider) {
 		super();
 		this.PID = PID;
 		this.PIDMetadataType = PIDMetadataType;
 		this.DOname = DOname;
 		this.DataType = DataType;
 		this.repoID = repoID;
+		this.pidProvider = pidProvider;
 	}
 
 	public String getId() {
@@ -73,5 +76,13 @@ public class PIDRecord {
 
 	public void setRepoID(String repoID) {
 		this.repoID = repoID;
+	}
+
+	public PIDProvider getPidProvider() {
+		return pidProvider;
+	}
+
+	public void setPidProvider(PIDProvider pidProvider) {
+		this.pidProvider = pidProvider;
 	}
 }

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import net.handle.hdllib.HandleException;
+import dataIdentity.server.pragma.container.PIDProvider;
 import dataIdentity.server.pragma.container.PIDRecord;
 import dataIdentity.server.pragma.container.PropertyDefinition;
 import dataIdentity.server.pragma.container.TypeDefinition;
@@ -28,6 +31,7 @@ import dataIdentity.server.pragma.response.MessageResponse;
 import dataIdentity.server.pragma.response.PIDRecordListResponse;
 import dataIdentity.server.pragma.response.PIDRecordResponse;
 import dataIdentity.server.pragma.response.TypeDefinitionListResponse;
+import dataIdentity.server.pragma.utils.EZIDUtils;
 import dataIdentity.server.pragma.utils.PITUtils;
 
 @RestController
@@ -53,11 +57,24 @@ public class DataIdentityController {
 	@Value("${handle.resolve.uri}")
 	private String handle_resolve_uri;
 
-	// Register DO with Data Identity Service for PID and PID metadata attribute
+	@Value("${ezid.server}")
+	private String ezid_server;
+
+	@Value("${ezid.shoulder}")
+	private String ezid_shoulder;
+
+	@Value("${ezid.username}")
+	private String ezid_username;
+
+	@Value("${ezid.password}")
+	private String ezid_password;
+
+	// Register DO with Data Identity Service for PID - handle and PID metadata
+	// attribute
 	// set
-	@RequestMapping(value = "/pid/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/pid/register/handle", method = RequestMethod.POST)
 	@ResponseBody
-	public MessageResponse DOregister(@RequestParam(value = "PIDmetadata", required = true) String pidMetadata,
+	public MessageResponse DOregisterHandle(@RequestParam(value = "PIDmetadata", required = true) String pidMetadata,
 			@RequestParam(value = "PIDmetadataType") String pidMetadataType,
 			@RequestParam(value = "DataType", required = true) String dataTypePID,
 			@RequestParam(value = "DOname", required = true) String DOname,
@@ -71,7 +88,46 @@ public class DataIdentityController {
 
 			// Store registered PID record with repoID/DOname/DataType into
 			// backend MongoDB database
-			PIDRecord pid_record = new PIDRecord(pid, pidMetadataType, DOname, dataTypePID, repoID);
+			PIDRecord pid_record = new PIDRecord(pid, pidMetadataType, DOname, dataTypePID, repoID, PIDProvider.handle);
+			pid_repository.addRecord(pid_record);
+
+			// Return message response with registered PID record
+			MessageResponse response = new MessageResponse(true, pid);
+			return response;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+			MessageResponse response = new MessageResponse(false, null);
+			return response;
+		}
+
+	}
+
+	// Register DO with Data Identity Service for PID - EZID-erc and PID
+	// metadata
+	// attribute
+	// set
+	@RequestMapping(value = "/pid/register/ark", method = RequestMethod.POST)
+	@ResponseBody
+	public MessageResponse DOregisterARK(@RequestParam(value = "PIDmetadata", required = true) String pidMetadata,
+			@RequestParam(value = "PIDmetadataType") String pidMetadataType,
+			@RequestParam(value = "DataType", required = true) String dataTypePID,
+			@RequestParam(value = "DOname", required = true) String DOname,
+			@RequestParam(value = "RepoID", required = true) String repoID) {
+		try {
+			// Register DO with minimum metadata to PIT
+			// Return: String PID
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode pid_metadata = (ObjectNode) mapper.readTree(pidMetadata);
+			@SuppressWarnings("unchecked")
+			HashMap<String, String> map_pid_metadata = mapper.convertValue(pid_metadata, HashMap.class);
+
+			String pid = EZIDUtils.registerEZID(ezid_server, ezid_shoulder, ezid_username, ezid_password,
+					map_pid_metadata);
+
+			// Store registered PID record with repoID/DOname/DataType into
+			// backend MongoDB database
+			PIDRecord pid_record = new PIDRecord(pid, pidMetadataType, DOname, dataTypePID, repoID, PIDProvider.ark);
 			pid_repository.addRecord(pid_record);
 
 			// Return message response with registered PID record
@@ -235,9 +291,9 @@ public class DataIdentityController {
 
 	// Get parsed PID metadata directly
 	// For actor 3 middleware service
-	@RequestMapping("/pid/resolvePID")
+	@RequestMapping("/pid/resolvePID/handle")
 	@ResponseBody
-	public MessageResponse resolvePID(@RequestParam(value = "PID", required = true) String pid)
+	public MessageResponse resolvePIDHandle(@RequestParam(value = "PID", required = true) String pid)
 			throws JsonParseException, JsonMappingException, IOException {
 		String pid_type = PITUtils.peekPID(pit_uri.trim() + "peek/", pid);
 		pid_type = pid_type.replace("\"", "");
@@ -280,15 +336,59 @@ public class DataIdentityController {
 		}
 	}
 
+	@RequestMapping("/pid/resolvePID/ark")
+	@ResponseBody
+	public MessageResponse resolvePIDARK(@RequestParam(value = "PID", required = true) String pid)
+			throws JsonParseException, JsonMappingException, IOException {
+		try {
+			Map<String, String> pid_metadata = EZIDUtils.resolveEZID(ezid_server, pid);
+
+			// Get PID metadata type definition from PIT service
+			PIDRecord record = pid_repository.findRecordByPID(pid);
+			String pidMetadataType = record.getPIDMetadataType();
+			RestTemplate restTemplate = new RestTemplate();
+			final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + pidMetadataType,
+					TypeDefinition.class);
+			Map<String, PropertyDefinition> propertiesDef = typeDef.getProperties();
+
+			// Use PID metadata type definition to resolve PID metadata to human
+			// readable format
+			Map<String, String> parsed_pid_metadata = new HashMap<String, String>();
+			for (String property : pid_metadata.keySet()) {
+				if (propertiesDef.containsKey(property)) {
+					PropertyDefinition propertyDef = propertiesDef.get(property);
+					parsed_pid_metadata.put(propertyDef.getName(), pid_metadata.get(property));
+				}
+			}
+			parsed_pid_metadata.put("_target", pid_metadata.get("_target"));
+			parsed_pid_metadata.put("pid", pid);
+
+			ObjectMapper mapper = new ObjectMapper();
+			String result = mapper.writeValueAsString(parsed_pid_metadata);
+			MessageResponse response = new MessageResponse(true, result);
+			return response;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			MessageResponse response = new MessageResponse(false, null);
+			return response;
+		}
+	}
+
 	@RequestMapping("/PID/resolveRepoID")
 	@ResponseBody
-	public MessageResponse resolveRepoID(@RequestParam(value = "repoID", required = true) String repoID)
-			throws JsonParseException, JsonMappingException, IOException {
+	public MessageResponse resolveRepoIDHandle(@RequestParam(value = "repoID", required = true) String repoID)
+			throws Exception {
 		PIDRecord record = pid_repository.findRecordByrepoID(repoID);
 		String pid = record.getPID();
 		String pidMetadataType = record.getPIDMetadataType();
+		PIDProvider pidProvider = record.getPidProvider();
+		Map<String, String> pid_metadata = new HashMap<String, String>();
+		if (pidProvider.equals(PIDProvider.handle))
+			pid_metadata = PITUtils.resolveObjectPID(handle_resolve_uri.trim(), pid);
+		else if (pidProvider.equals(PIDProvider.ark))
+			pid_metadata = EZIDUtils.resolveEZID(ezid_server, pid);
 
-		Map<String, String> pid_metadata = PITUtils.resolveObjectPID(handle_resolve_uri.trim(), pid);
 		RestTemplate restTemplate = new RestTemplate();
 		final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + pidMetadataType,
 				TypeDefinition.class);
@@ -303,6 +403,9 @@ public class DataIdentityController {
 				parsed_pid_metadata.put(propertyDef.getName(), pid_metadata.get(property));
 			}
 		}
+
+		if (pidProvider.equals(PIDProvider.ark))
+			parsed_pid_metadata.put("_target", pid_metadata.get("_target"));
 
 		parsed_pid_metadata.put("pid", pid);
 
