@@ -5,7 +5,7 @@ function() {
     $('#DataType').html("DataType - <a href='"+dtrURL+DataTypePID+"' target='_blank'>"+DataTypeName+"</a>");
     $.ajax({
             type:'GET',
-            url: restURL+'pidrepo/list/DObyDTR?DataType='+DataTypePID,
+            url: identityURL+'pidrepo/list/DObyDTR?DataType='+DataTypePID,
             crossDomain:true,
                 dataType:'json',
                 success: function(data){
@@ -18,7 +18,10 @@ function() {
                             {
                                 content+="<div class='item'><div class='well'>";
                                 content+="<p>"+data.records[i].doname+"</p>";
-                                content+="<a href='"+handleURL+data.records[i].pid+"' target='_blank'>"+data.records[i].pid+"</a>";
+                                if(!data.records[i].pid.startsWith("ark"))
+                                    content+="<a href='"+handleURL+data.records[i].pid+"' target='_blank'>"+data.records[i].pid+"</a>";
+                                else
+                                    content+="<a href='"+ezidURL+data.records[i].pid+"' target='_blank'>"+data.records[i].pid+"</a>";
                                 content+="</div></div>";
                             }
                             $('#objectIndex').html(content);

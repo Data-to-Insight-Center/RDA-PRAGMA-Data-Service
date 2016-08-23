@@ -2,22 +2,21 @@ $(document).ready(
 function() {
     $.ajax({
             type:'GET',
-            url: restURL+'/pidrepo/list/DataType',
+            url: identityURL+'/pidrepo/list/DataType',
             crossDomain:true,
                 dataType:'json',
                 success: function(data){
                     if(data.success)
                     {
-                        if(data.messages.length!=0)
+                        if(data.typeDefinitions.length!=0)
                         {
                             var content = "";
-                            for(var i=0;i<data.messages.length;i++)
+                            for(var i=0;i<data.typeDefinitions.length;i++)
                             {
                                 content+="<div class='item'><div class='well'>";
-                                var DTR_string = data.messages[i];
-                                var DTR_json = JSON.parse(DTR_string);
+                                var DTR_json = data.typeDefinitions[i];
                                 content+="<image src='"+dtrJSONURL+DTR_json.identifier+"?payload=logo&disposition=attachment' alt='Data Type Logo' width=250px height=100px><br>";
-                                content+="<a href='"+hostURL+"DOIndex.html?DataTypePID="+DTR_json.identifier+"&DataTypeName="+DTR_json.name+"' target='_blank'>"+DTR_json.name+"</a><br>";
+                                content+="<a href='"+hostURL+"DOIndex.html?DataTypePID="+DTR_json.identifier+"&DataTypeName="+DTR_json.description+"' target='_blank'>"+DTR_json.description+"</a><br>";
                                 content+="<a href='"+dtrURL+DTR_json.identifier+"' target='_blank'>"+DTR_json.identifier+"</a>";
                                 content+="</div></div>";
                             }

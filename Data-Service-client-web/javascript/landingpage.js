@@ -3,25 +3,26 @@ function() {
     var repoID = getParameter('ID');
     $.ajax({
             type:'GET',
-            url: restURL+'pidrepo/resolveRepoID?repoID='+repoID,
+            url: identityURL+'PID/resolveRepoID?repoID='+repoID,
             crossDomain:true,
             dataType:'json',
             success: function(data){
                     if(data.success)
                     {
+                        var message=JSON.parse(data.message)
                         var content = "<table class='table table-condensed' style='width: 70%'>";
-                        content += "<tr><td style='width: 20%'><b>PID</b></td><td>"+data.pidmetadata.pid+"</td>"
-                        content += "<tr><td style='width: 20%'><b>Creation Date</b></td><td>"+data.pidmetadata.creationDate+"</td>";
-                        if(data.pidmetadata.checksum != null)
-                            content += "<tr><td style='width: 20%'><b>Checksum</b></td><td>"+data.pidmetadata.checksum+"</td>";
+                        content += "<tr><td style='width: 20%'><b>PID</b></td><td>"+message.pid+"</td>"
+                        content += "<tr><td style='width: 20%'><b>Creation Date</b></td><td>"+message["Creation date"]+"</td>";
+                        if(message["Checksum"] != null)
+                            content += "<tr><td style='width: 20%'><b>Checksum</b></td><td>"+message["Checksum"]+"</td>";
                         else
                             content += "<tr><td style='width: 20%'><b>Checksum</b></td><td></td>";
-                        if(data.pidmetadata.predecessorID!=null)
-                            content += "<tr><td style='width: 20%'><b>Predecessor Identifier</b></td><td>"+data.pidmetadata.predecessorID+"</td>";
+                        if(message["Predecessor identifier"]!=null)
+                            content += "<tr><td style='width: 20%'><b>Predecessor Identifier</b></td><td>"+message["Predecessor identifier"]+"</td>";
                         else
                             content += "<tr><td style='width: 20%'><b>Predecessor Identifier</b></td><td></td>";
-                        if(data.pidmetadata.successorID!=null)
-                            content += "<tr><td style='width: 20%'><b>Successor Identifier</b></td><td>"+data.pidmetadata.successorID+"</td>";
+                        if(message["Successor identifier"]!=null)
+                            content += "<tr><td style='width: 20%'><b>Successor Identifier</b></td><td>"+message["Successor identifier"]+"</td>";
                         else
                             content += "<tr><td style='width: 20%'><b>Successor Identifier</b></td><td></td>";
            
@@ -35,10 +36,10 @@ function() {
                         prov_nodes.push(
                             {
                                         id:1,
-                                        label:data.pidmetadata.pid
+                                        label:message.pid
                             }
                         );
-                        var predecessors = data.pidmetadata.predecessorID;
+                        var predecessors = message["Predeccessor identifier"];
                         if(predecessors!=null & predecessors!="")
                         {
                             var predecessorList = predecessors.split(",");
@@ -76,11 +77,30 @@ function toggler() {
     $("#domainmetadata").toggle();
 }
 
+function getDTRinfo(datatype)
+{
+    $.ajax({
+           type:'GET',
+           url: dtrJSONURL+datatype,
+           crossDomain:true,
+           dataType:'json',
+           success: function(data){
+            var content = "<table class='table table-condensed' style='width: 70%'>";
+            content += "<tr><td style='width: 20%'><b>Expected Use</b></td><td>"+data.expectedUses+"</td>"
+            content +="</tr></table>";
+            $('#usage').html(content);
+           },
+           error:function(data)
+           {
+                alert(data);
+           }
+    });
+}
 
 function getDOinfo(repoID,dtrURL) {
     $.ajax({
            type:'GET',
-           url: restURL+'repo/find/metadata?ID='+repoID,
+           url: repoURL+'repo/find/metadata?ID='+repoID,
            crossDomain:true,
            dataType:'json',
            success: function(data){
@@ -88,13 +108,20 @@ function getDOinfo(repoID,dtrURL) {
             {
                 var domain_metadata = JSON.parse(data.message);
                 var content = "<table class='table table-condensed' style='width: 70%'>";
-                content += "<tr><td style='width: 20%'><b>DO Name</b></td><td>"+domain_metadata.DOname+"</td>"
+                content += "<tr><td style='width: 20%'><b>DO Name</b></td><td>"+domain_metadata.DOname+"</td>";
                 content += "<tr><td style='width: 20%'><b>Data Type</b></td><td><a href='"+dtrURL+domain_metadata.DataType+"' target='_blank'>"+domain_metadata.DataType+"</a></td>";
                 content +="</tr></table>";
+                getDTRinfo(domain_metadata.DataType);
                 $('#generalmetadata').html(content);
-                var pretty_json = JSON.stringify(domain_metadata, undefined, 4);
+                var pretty_json = JSON.stringify(domain_metadata.metadata, undefined, 4);
                 //$('#domainmetadata').html(pretty_json);
                 output(syntaxHighlight(pretty_json));
+
+		var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(domain_metadata.metadata));
+var dlAnchorElem = document.getElementById('downloadAnchorElem');
+dlAnchorElem.setAttribute("href",     dataStr     );
+dlAnchorElem.setAttribute("download", "workflow.json");
+
             }
             else
             {
@@ -106,7 +133,7 @@ function getDOinfo(repoID,dtrURL) {
                 alert(data.message);
            }
     });
-    var DOpage = "<a href='"+restURL+"repo/find/data?ID="+repoID+"' class='btn btn-primary'>Download Data Object</a>";
+    var DOpage = "<a href='"+repoURL+"repo/find/data?ID="+repoID+"' class='btn btn-primary'>Download Data Object</a>";
     $('#DOURL').html(DOpage);
 
 };
