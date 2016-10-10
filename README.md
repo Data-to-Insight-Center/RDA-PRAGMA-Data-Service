@@ -37,6 +37,7 @@ A middleware service, with no user interaction, which takes a large list of PIDs
 3. Python V2.6 or higher 
 4. MongoDB Server V3.0 or higher
 5. JavaScript V1.8.0 or higher
+6. PRAGMAPIT-Ext and Cordra V1.0.7: Refer to https://github.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service/tree/master/pragmapit-ext
 
 ## Hardware Requirements
 
