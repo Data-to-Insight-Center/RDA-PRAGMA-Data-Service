@@ -4,7 +4,7 @@
   <artifactId>dataIdentity.client.galaxy</artifactId>
   <version>0.1.0</version>
   <name>DataIdentity-client-Galaxy</name>
-  <description>Data identity java client jar for Galaxy rice genomes workflow</description>
+  <description>Data Identity java client jar for Galaxy Workflow Engine</description>
   
   <parent>
         <groupId>org.springframework.boot</groupId>
