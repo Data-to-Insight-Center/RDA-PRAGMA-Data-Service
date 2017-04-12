@@ -103,6 +103,34 @@ public class DataIdentityController {
 
 	}
 
+	// Register DO with Data Identity Service for PID - an existing PID
+		// attribute
+		// set
+		@RequestMapping(value = "/pid/register/pid", method = RequestMethod.POST)
+		@ResponseBody
+		public MessageResponse DOregisterPID(@RequestParam(value = "PID", required = true) String pid,
+				@RequestParam(value = "PIDmetadataType") String pidMetadataType,
+				@RequestParam(value = "DataType", required = true) String dataTypePID,
+				@RequestParam(value = "DOname", required = true) String DOname,
+				@RequestParam(value = "RepoID", required = true) String repoID) {
+			try {
+				// Store registered PID record with repoID/DOname/DataType into
+				// backend MongoDB database
+				PIDRecord pid_record = new PIDRecord(pid, pidMetadataType, DOname, dataTypePID, repoID, PIDProvider.handle);
+				pid_repository.addRecord(pid_record);
+
+				// Return message response with registered PID record
+				MessageResponse response = new MessageResponse(true, pid);
+				return response;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+				MessageResponse response = new MessageResponse(false, null);
+				return response;
+			}
+
+		}
+	
 	// Register DO with Data Identity Service for PID - EZID-erc and PID
 	// metadata
 	// attribute
