@@ -35,7 +35,7 @@ vi ClientConfig.properties
 ```
 Move config and Data-service-client-galaxy.tar file into Galaxy Tassel5 toolshed folder.
 
-##Contributing
+## Contributing
 This software release is under ISC licence.
 
 
