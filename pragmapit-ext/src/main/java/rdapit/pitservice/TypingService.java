@@ -39,7 +39,7 @@ public class TypingService implements ITypingService {
 
 	@Override
 	public String registerPID(Map<String, String> properties) throws IOException {
-		return identifierSystem.registerPID(properties);
+		return identifierSystem.PIDregister(properties);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class TypingService implements ITypingService {
 	public TypeDefinition describeType(String typeIdentifier) throws IOException {
 		return typeRegistry.queryTypeDefinition(typeIdentifier);
 	}
-	
+
 	@Override
 	public ProfileDefinition describeProfile(String profileIdentifier) throws IOException {
 		return typeRegistry.queryProfileDefinition(profileIdentifier);

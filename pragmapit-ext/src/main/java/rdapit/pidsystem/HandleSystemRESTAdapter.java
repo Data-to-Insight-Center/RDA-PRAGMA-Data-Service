@@ -1,14 +1,17 @@
 package rdapit.pidsystem;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
@@ -38,6 +41,15 @@ import rdapit.typeregistry.TypeDefinition;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.handle.hdllib.AbstractMessage;
+import net.handle.hdllib.AbstractResponse;
+import net.handle.hdllib.AuthenticationInfo;
+import net.handle.hdllib.CreateHandleRequest;
+import net.handle.hdllib.ErrorResponse;
+import net.handle.hdllib.HandleResolver;
+import net.handle.hdllib.HandleValue;
+import net.handle.hdllib.Util;
 
 /**
  * Concrete adapter of an identifier system that connects to the Handle System
@@ -75,12 +87,17 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 	protected WebTarget handlesTarget;
 	protected WebTarget individualHandleTarget;
 
-	public HandleSystemRESTAdapter(String baseURI, String userName, String userPassword, String generatorPrefix, boolean unsafe_ssl) {
+	public HandleSystemRESTAdapter(String baseURI, String userName, String userPassword, String generatorPrefix,
+			boolean unsafe_ssl, String admKeyPath, String admKeyPassword, String admHandle) {
 		super();
 		this.generatorPrefix = generatorPrefix;
+		this.admHandle = admHandle;
+		this.admKeyPassword = admKeyPassword;
+		this.admKeyPath = admKeyPath;
 		this.baseURI = UriBuilder.fromUri(baseURI).path("api").build();
 		try {
-			this.authInfo = Base64.encodeAsString(URLEncoder.encode(userName, "UTF-8") + ":" + URLEncoder.encode(userPassword, "UTF-8"));
+			this.authInfo = Base64.encodeAsString(
+					URLEncoder.encode(userName, "UTF-8") + ":" + URLEncoder.encode(userPassword, "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException("Error while encoding the user name in UTF-8", e);
 		}
@@ -90,7 +107,8 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 			try {
 				SSLContext sslContext;
 				sslContext = SSLContext.getInstance("TLS");
-				sslContext.init(null, new TrustManager[] { new TrustAllX509TrustManager() }, new java.security.SecureRandom());
+				sslContext.init(null, new TrustManager[] { new TrustAllX509TrustManager() },
+						new java.security.SecureRandom());
 				HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 				HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 					public boolean verify(String string, SSLSession ssls) {
@@ -109,43 +127,67 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 		this.individualHandleTarget = handlesTarget.path("{handle}");
 	}
 
-	public HandleSystemRESTAdapter(String baseURI, String userName, String userPassword, String generatorPrefix) {
-		this(baseURI, userName, userPassword, generatorPrefix, false);
+	public HandleSystemRESTAdapter(String baseURI, String userName, String userPassword, String generatorPrefix,
+			String admKeyPath, String admKeyPassword, String admHandle) {
+		this(baseURI, userName, userPassword, generatorPrefix, false, admKeyPath, admKeyPassword, admHandle);
 	}
-	
+
 	/**
 	 * Factory method. Generates a new instance from a properties instance.
 	 * 
 	 * @param properties
 	 * @return a new HandleSystemRESTAdapter instance
-	 * @throws InvalidConfigException 
+	 * @throws InvalidConfigException
 	 */
 	public static HandleSystemRESTAdapter configFromProperties(Properties properties) throws InvalidConfigException {
-		if (!properties.containsKey("pidsystem.handle.baseURI")) throw new InvalidConfigException("Property pidsystem.handle.baseURI missing - check configuration!");
+		if (!properties.containsKey("pidsystem.handle.baseURI"))
+			throw new InvalidConfigException("Property pidsystem.handle.baseURI missing - check configuration!");
 		String baseURI = properties.getProperty("pidsystem.handle.baseURI").trim();
-		if (!properties.containsKey("pidsystem.handle.userName")) throw new InvalidConfigException("Property pidsystem.handle.userName missing - check configuration!");
+		if (!properties.containsKey("pidsystem.handle.userName"))
+			throw new InvalidConfigException("Property pidsystem.handle.userName missing - check configuration!");
 		String userName = properties.getProperty("pidsystem.handle.userName").trim();
-		if (!properties.containsKey("pidsystem.handle.userPassword")) throw new InvalidConfigException("Property pidsystem.handle.userPassword missing - check configuration!");
+		if (!properties.containsKey("pidsystem.handle.userPassword"))
+			throw new InvalidConfigException("Property pidsystem.handle.userPassword missing - check configuration!");
 		String userPassword = properties.getProperty("pidsystem.handle.userPassword").trim();
-		if (!properties.containsKey("pidsystem.handle.generatorPrefix")) throw new InvalidConfigException("Property pidsystem.handle.generatorPrefix missing - check configuration!");
+		if (!properties.containsKey("pidsystem.handle.generatorPrefix"))
+			throw new InvalidConfigException(
+					"Property pidsystem.handle.generatorPrefix missing - check configuration!");
 		String generatorPrefix = properties.getProperty("pidsystem.handle.generatorPrefix").trim();
+
+		if (!properties.containsKey("pidsystem.handle.admKeyPath")) {
+			throw new InvalidConfigException("Property pidsystem.handle.admKeyPath missing - check configuration!");
+		}
+		String admKeyPath = properties.getProperty("pidsystem.handle.admKeyPath").trim();
+
+		if (!properties.containsKey("pidsystem.handle.admKeyPassword")) {
+			throw new InvalidConfigException("Property pidsystem.handle.admKeyPassword missing - check configuration!");
+		}
+		String admKeyPassword = properties.getProperty("pidsystem.handle.admKeyPassword").trim();
+
+		if (!properties.containsKey("pidsystem.handle.admHandle")) {
+			throw new InvalidConfigException("Property pidsystem.handle.admHandle missing - check configuration!");
+		}
+		String admHandle = properties.getProperty("pidsystem.handle.admHandle").trim();
+
 		boolean unsafeSSL = false;
 		if (properties.containsKey("pidsystem.handle.unsafeSSL"))
 			unsafeSSL = Boolean.parseBoolean(properties.getProperty("pidsystem.handle.unsafeSSL").trim());
-		return new HandleSystemRESTAdapter(baseURI, userName, userPassword, generatorPrefix, unsafeSSL);
+		return new HandleSystemRESTAdapter(baseURI, userName, userPassword, generatorPrefix, unsafeSSL, admKeyPath,
+				admKeyPassword, admHandle);
 	}
-	
-	
+
 	@Override
 	public boolean isIdentifierRegistered(String pid) {
-		Response response = individualHandleTarget.resolveTemplate("handle", pid).request(MediaType.APPLICATION_JSON).head();
+		Response response = individualHandleTarget.resolveTemplate("handle", pid).request(MediaType.APPLICATION_JSON)
+				.head();
 		return response.getStatus() == 200;
 	}
 
 	@Override
 	public String queryProperty(String pid, PropertyDefinition propertyDefinition) throws IOException {
-		String pidResponse = individualHandleTarget.resolveTemplate("handle", pid).queryParam("type", propertyDefinition.getIdentifier())
-				.request(MediaType.APPLICATION_JSON).get(String.class);
+		String pidResponse = individualHandleTarget.resolveTemplate("handle", pid)
+				.queryParam("type", propertyDefinition.getIdentifier()).request(MediaType.APPLICATION_JSON)
+				.get(String.class);
 		// extract the Handle value data entry from the json response
 		JsonNode rootNode = objectMapper.readTree(pidResponse);
 		JsonNode values = rootNode.get("values");
@@ -155,7 +197,8 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 			return null;
 		if (values.size() > 1) {
 			// More than one property stored at this record
-			throw new IllegalStateException("PID records with more than one property of same type are not supported yet");
+			throw new IllegalStateException(
+					"PID records with more than one property of same type are not supported yet");
 		}
 		String value = values.get(0).get("data").get("value").asText();
 		return value;
@@ -165,6 +208,52 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 	protected String generatePIDName() {
 		String uuid = UUID.randomUUID().toString();
 		return this.generatorPrefix + "/" + uuid;
+	}
+
+	public String PIDregister(Map<String, String> handleValues) throws IOException {
+
+		HandleResolver resolver = new HandleResolver();
+
+		File privKeyFile = new File(this.admKeyPath);
+		PrivateKey hdl_adm_priv = net.handle.hdllib.Util.getPrivateKeyFromFileWithPassphrase(privKeyFile,
+				this.admKeyPassword);
+		byte adm_handle[] = Util.encodeString(this.admHandle);
+		AuthenticationInfo auth = new net.handle.hdllib.PublicKeyAuthenticationInfo(adm_handle, 300, hdl_adm_priv);
+
+		// Create one sample Handle identifier
+		UUID uuid = UUID.randomUUID();
+		String randomUUIDString = uuid.toString();
+		String handle_identifier = this.generatorPrefix + "/" + randomUUIDString;
+		HandleValue[] handle_values = new HandleValue[handleValues.size()];
+
+		int count = 0;
+		Iterator it = handleValues.entrySet().iterator();
+		while (it.hasNext()) {
+			count++;
+			Map.Entry pair = (Map.Entry) it.next();
+			HandleValue handle_value = new HandleValue(count, Util.encodeString(pair.getKey().toString()),
+					Util.encodeString(pair.getValue().toString()));
+			handle_values[count - 1] = handle_value;
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+
+		CreateHandleRequest assign_request = new CreateHandleRequest(Util.encodeString(handle_identifier),
+				handle_values, auth);
+
+		// Return PID create/assign response - one Handle identifier
+		AbstractResponse response_assign = resolver.processRequestGlobally(assign_request);
+		if (response_assign.responseCode == AbstractMessage.RC_SUCCESS) {
+			// The resolution was successful, so we'll cast the handle
+			// identifier
+			return handle_identifier;
+
+		} else if (response_assign.responseCode == AbstractMessage.RC_ERROR) {
+			byte values[] = ((ErrorResponse) response_assign).message;
+			for (int i = 0; i < values.length; i++) {
+				return String.valueOf(values[i]);
+			}
+		}
+
 	}
 
 	@Override
@@ -184,8 +273,9 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 				record.add(handleValue);
 			}
 			String jsonText = objectMapper.writeValueAsString(record);
-			response = individualHandleTarget.resolveTemplate("handle", pid).queryParam("overwrite", false).request(MediaType.APPLICATION_JSON)
-					.header("Authorization", "Basic " + authInfo).put(Entity.json(jsonText));
+			response = individualHandleTarget.resolveTemplate("handle", pid).queryParam("overwrite", false)
+					.request(MediaType.APPLICATION_JSON).header("Authorization", "Basic " + authInfo)
+					.put(Entity.json(jsonText));
 			// status 409 is sent in case the Handle already exists
 		} while (response.getStatus() == 409);
 		// Evaluate response
@@ -201,7 +291,7 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 		// only return properties listed in the type def
 		PIDInformation pidInfo = new PIDInformation();
 		Set<String> typeProps = typeDefinition.getAllProperties();
-		for (String propID: allProps.getPropertyIdentifiers()) {
+		for (String propID : allProps.getPropertyIdentifiers()) {
 			if (typeProps.contains(propID)) {
 				pidInfo.addProperty(propID, "", allProps.getPropertyValue(propID));
 			}
@@ -211,7 +301,8 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 
 	@Override
 	public boolean deletePID(String pid) {
-		Response response = individualHandleTarget.resolveTemplate("handle", pid).request().header("Authorization", "Basic " + authInfo).delete();
+		Response response = individualHandleTarget.resolveTemplate("handle", pid).request()
+				.header("Authorization", "Basic " + authInfo).delete();
 		return response.getStatus() == 200;
 	}
 
@@ -224,17 +315,18 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 		JsonNode root = mapper.readTree(resp.readEntity(String.class));
 		PIDInformation result = new PIDInformation();
 		for (JsonNode valueNode : root.get("values")) {
-			if (!(valueNode.get("data").get("format").asText().equals("string") || valueNode.get("data").get("format").asText().equals("base64") || valueNode
-					.get("data").get("format").asText().equals("hex")))
+			if (!(valueNode.get("data").get("format").asText().equals("string")
+					|| valueNode.get("data").get("format").asText().equals("base64")
+					|| valueNode.get("data").get("format").asText().equals("hex")))
 				continue;
 			// index is ignored..
 			result.addProperty(valueNode.get("type").asText(), "", valueNode.get("data").get("value").asText());
 		}
 		return result;
 	}
-	
+
 	public String getGeneratorPrefix() {
 		return generatorPrefix;
 	}
-	
+
 }
