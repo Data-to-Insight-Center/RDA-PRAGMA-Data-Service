@@ -65,6 +65,9 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 	protected String authInfo;
 	protected Client client;
 	protected String generatorPrefix;
+	protected String admKeyPath;
+	protected String admKeyPassword;
+	protected String admHandle;
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
