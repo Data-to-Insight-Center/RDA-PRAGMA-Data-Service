@@ -38,8 +38,8 @@ public class TypingService implements ITypingService {
 	}
 
 	@Override
-	public String registerPID(Map<String, String> properties) throws IOException {
-		return identifierSystem.PIDregister(properties);
+	public String registerPID(Map<String, String> properties) throws Exception {
+		return identifierSystem.registerPID(properties);
 	}
 
 	@Override

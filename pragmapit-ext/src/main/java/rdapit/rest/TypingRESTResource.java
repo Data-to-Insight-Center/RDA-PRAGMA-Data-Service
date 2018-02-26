@@ -696,7 +696,7 @@ public class TypingRESTResource {
 		try {
 			String pid = typingService.registerPID(properties);
 			return Response.status(201).entity(pid).build();
-		} catch (IOException exc) {
+		} catch (Exception exc) {
 			return Response.status(500).entity("Communication failure to identifier system: " + exc.getMessage()).build();
 		}
 	}

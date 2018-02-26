@@ -58,9 +58,7 @@ public interface IIdentifierSystem {
 	 * @throws IOException
 	 */
 
-	public String PIDregister(Map<String, String> properties) throws IOException;
-
-	public String registerPID(Map<String, String> properties) throws IOException;
+	public String registerPID(Map<String, String> properties) throws Exception;
 
 	/**
 	 * Queries all properties of a given type available from the given PID. If

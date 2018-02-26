@@ -210,8 +210,8 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 		return this.generatorPrefix + "/" + uuid;
 	}
 
-	public String PIDregister(Map<String, String> handleValues) throws IOException {
-
+	@Override
+	public String registerPID(Map<String, String> handleValues) throws Exception {
 		HandleResolver resolver = new HandleResolver();
 
 		File privKeyFile = new File(this.admKeyPath);
@@ -253,36 +253,8 @@ public class HandleSystemRESTAdapter implements IIdentifierSystem {
 				return String.valueOf(values[i]);
 			}
 		}
-
-	}
-
-	@Override
-	public String registerPID(Map<String, String> properties) throws IOException {
-		Response response;
-		String pid = generatePIDName();
-		do {
-			// PUT record to HS
-			Collection<Map<String, String>> record = new LinkedList<Map<String, String>>();
-			int idx = 0;
-			for (String key : properties.keySet()) {
-				idx += 1;
-				Map<String, String> handleValue = new HashMap<String, String>();
-				handleValue.put("index", "" + idx);
-				handleValue.put("type", key);
-				handleValue.put("data", properties.get(key));
-				record.add(handleValue);
-			}
-			String jsonText = objectMapper.writeValueAsString(record);
-			response = individualHandleTarget.resolveTemplate("handle", pid).queryParam("overwrite", false)
-					.request(MediaType.APPLICATION_JSON).header("Authorization", "Basic " + authInfo)
-					.put(Entity.json(jsonText));
-			// status 409 is sent in case the Handle already exists
-		} while (response.getStatus() == 409);
-		// Evaluate response
-		if (response.getStatus() == 201) {
-			return pid;
-		} else
-			throw new IOException("Error trying to create PID " + pid);
+		
+		return handle_identifier;
 	}
 
 	@Override
