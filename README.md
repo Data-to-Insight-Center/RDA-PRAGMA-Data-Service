@@ -97,7 +97,7 @@ nohup python SimpleServer.py &
 ```
 
 ##Contributing
-This software release is under ISC licence.
+This software release is under Apache 2.0 Licence.
 
 ##Release History
 * 0.2.5 7th release 07.05.2016
