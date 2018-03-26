@@ -66,9 +66,10 @@ curl http://your.server/your.application.path/pitapi/ping
 ```
 
 # Contribution
-This software is attributed to the original work from RDA PIT working group. Code extension is under ISC license.
+This software is attributed to the original work from RDA PIT working group. Code extension is under Apache 2.0 License.
 
 # Release History
+* 0.2.5 Release 2016.03.19
 * 0.2.0 1st Release 2016.07.04
 
 
