@@ -1,0 +1,243 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home Page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/w3.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	
+	<script src="javascript/config.js"></script>
+        
+    <style>
+	span.glyphicon {
+    font-size: 80px;
+	}
+	</style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav" style="height:110px;">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="index.html"><img src="images/new_logo.png" width="350px" height="80px"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:30px 0px 0px 0px;">
+                <ul class="nav navbar-nav navbar-right" style="font-size:17px;">
+                	<li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="help.html">Overview</a>
+                    </li>
+                    <li>
+                        <a href="" id="data_repo">Data Repository</a>
+                    </li> 
+                    <li>
+                        <a href="download.html">Download</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <!-- Header -->
+    <div style="height:130px;"></div>
+    <div class="w3-content" style="max-width:1000px;position:relative">
+        <div class="w3-display-container mySlides">
+            <img align="center" src="images/new_banner.png" style="width:85%">
+        </div>
+        
+        <div class="w3-display-container mySlides">
+           <center><iframe width="85%" height="340" src="https://www.youtube.com/embed/kNb229n8zxc" frameborder="1" allowfullscreen></iframe></center>
+        </div>
+        
+        <a class="w3-btn-floating w3-hover-dark-grey" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">❮</a>
+        <a class="w3-btn-floating w3-hover-dark-grey" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">❯</a>
+        
+    </div>
+    
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+    
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex-1].style.display = "block";
+    }
+    </script>
+
+    <!-- /.intro-header -->
+    
+    <!-- /.intro -->
+    <hr></hr>
+    <div>
+    <div class="container">
+            <div class="row">
+            <div class="col-lg-12">            
+                <!-- /.intro -->
+                <div>
+                    <div class="hero white soft-top text-center">
+                        <div class="container">
+                            <div class="row text-center features">
+                                <div class="clearfix"></div>
+                                <h2>Features</h2><br/><br/>
+                                <div class="col-md-3">
+                                    <div class="icon"><a href="" target="_blank" id="galaxy_server"><span class="glyphicon glyphicon-signal"></span></a></div>
+                                    <h3>Genomics Analysis Tool</h3>
+                                    <p>Use or analyse genomics data.</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="icon"><a href="help.html"><span class="glyphicon glyphicon-file"></span></a></div>
+                                    <h3>Project Overview</h3>
+                                    <p>Learn about data identity services.</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="icon"><a href="" id="data_repo_middle"><span class="glyphicon glyphicon-list-alt"></span></a></div>
+                                    <h3>Data Repository</h3>
+                                    <p>Reuse public data and workflows.</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="icon"><a href="download.html"><span class="glyphicon glyphicon-cloud"></span></a></div>
+                                    <h3>Download</h3>
+                                    <p>Source codes and documentations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                 
+					<hr></hr>
+                    <h2 class="section-heading">What is PRAGMA Rice?</h2>
+                        <p class="lead">PRAGMA Rice is supported by funding from several institutions to implement the outputs from the Research Data Alliance by utilizing resources of the <a href="http://www.pragma-grid.net/" target="_blank">Pacific Rim Application and Grid Middleware Assembly (PRAGMA)</a> community. Highly collaborative and community-oriented, PRAGMA Rice works with a rice genome group from the International Rice Research Institute in the Philippines, uses software services from the National Institute of Advanced Industrial Science and Technology (AIST) in Japan and connects cyberinfrastructure across the Pacific Rim region and the United States.</p>
+                        
+                        <br>
+                        <p class="lead">The goals of the project are:</p><p class="lead"><ul class="lead">
+                        <li>Harmonize attributes and embed metadata in persistent identifiers (PID) for multiple data objects to harvest, preserve and cite data from varied scientific domains.</li>
+                        <li>Provide a framework with both repository and PID service for long-term access and findability of data.</li>
+                        <li>Propose a method to automatically harvest data from scientific workflows and improve reproducibility of workflow execution.</li></ul></p>
+			</div>
+       </div>
+  	</div>
+    
+
+    <!-- /.content-section-a -->
+	<hr></hr>
+	<a  name="contact"></a>
+    <div class="banner">
+        <div class="container">
+			<div class="row">
+                <div class="col-lg-12">
+					<div align="center"><h3>Funding Sources</h3></div>
+					<div align="center" id="d2i-sponsor-footer" style="padding-left: 10px;">
+                    	<a href="http://www.aist.go.jp/index_en.html" target="_blank"><img alt="AIST Logo" src="images/aist.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <!-- <a href="http://irri.org/" target="_blank"><img alt="IRRI Logo" src="images/irri.jpg" style="height: 90px; padding: 10px;" /></a> -->
+                        <!-- <a href="http://lillyendowment.com" target="_blank"><img alt="LifeMapper Logo" src="images/lifemapper.jpg" style="height: 90px; padding: 10px;" /></a>-->
+                        <a href="http://www.pragma-grid.net/" target="_blank"><img alt="Pragma Logo" src="images/pragma.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <a href="https://www.rd-alliance.org/" target="_blank"><img alt="RDA Logo" src="images/rda.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <a href="http://d2i.indiana.edu/" target="_blank"><img alt="Data to Insight Center Logo" src="images/d2i.png" style="height: 90px; padding: 10px;" /></a>
+                     </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div align="center"><h5>Research Data Alliance US - MacArthur Foundation: RDA Recommendations Adoption Project </h5></div>
+                    <div align="center"><h5>Pacific Rim Applications and Grid Middleware Assembly NSF OCI-1234983</h5></div>
+                    <div align="center"><h5>Advanced Industrial Science And Technology ICT International Team</h5></div>
+				</div>
+			</div>
+        </div>
+        <!-- /.container -->
+
+    </div>
+    
+    </br>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" style="text-align:left;padding-top:15px;">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="help.html">Overview</a>
+                        </li>
+                        <li>
+                            <a href="" id="data_repo_footer">Data Repository</a>
+                        </li>
+                        <li>
+                            <a href="download.html">Download</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                        <div class="col-lg-6" style="text-align:right;"><p class="copyright text-muted small">Copyright &copy; Data to Insight Center, Indiana University 2016. All Rights Reserved</p>
+                </div>
+                </div>
+            </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="javascript/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="javascript/bootstrap.min.js"></script>
+
+</body>
+
+<script>
+  var data_repo_url = hostURL + "search.html?DataTypePID=" + dataTypePID + "&DataTypeName=" + dataTypeName;
+		
+  document.getElementById("data_repo").href = data_repo_url;
+  document.getElementById("data_repo_middle").href = data_repo_url;
+  document.getElementById("data_repo_footer").href = data_repo_url;
+	
+  document.getElementById("galaxy_server").href = galaxyURL;
+</script>
+
+</html>

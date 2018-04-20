@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Help</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	
+	<script src="javascript/config.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav" style="height:110px;">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="index.html"><img src="images/new_logo.png" width="350px" height="80px"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:30px 0px 0px 0px;">
+                <ul class="nav navbar-nav navbar-right" style="font-size:17px;">
+                	<li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="help.html">Overview</a>
+                    </li>
+                    <li>
+                        <a href="" id="data_repo">Data Repository</a>
+                    </li> 
+                    <li>
+                        <a href="download.html">Download</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+  
+
+    <!-- Page Content -->
+
+	<a  name="services"></a>
+    <div class="content-section-b">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <br><br>
+                    <h2 class="section-heading" style="padding-top:60px;">Project Collaboration</h2>
+                    <p class="lead">Globally unique Persistent IDs (PIDs) promise to make research data easier to manage. The RDA Recommendations, Persistent Identifier Types
+(PIT) and Data Type Registry (DTR), are enabling solutions. A group of us in the Pacific Rim Applications and Grid Middleware Assembly
+(PRAGMA), a strong network of member institutions around the Pacific Rim, adopted PIT and DTR into a application that runs Galaxy workflows
+on PRAGMA VMs running on the PRAGMA Cloud Testbed.</p>
+                </div>
+                <br>
+                <br>
+                <div class="col-lg-5 col-lg-offset-1 col-sm-6">
+                    <img class="images-responsive" src="images/collaboration.png" alt="" style="padding-top:120px;" width="500px" height="500px">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">RDA PIT/DTR Service</h2>
+                    <p class="lead">Identity and interoperability of PIDs resolved
+among different systems and providers is
+needed. RDA PIT working group allows
+providers agree on a <a href="https://rd-alliance.org/groups/pid-information-types-wg.html">common API</a>,
+register their information types in a <a href="https://rd-alliance.org/groups/data-type-registries-wg.html">common
+data type registry</a> and agree on some
+core types, such as EUDAT profile with useful metadata units.</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="images-responsive" src="images/pit-dtr-service.png" alt="" width="600px" height="350px">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Service Deployment</h2>
+                    <p class="lead">In this project, we provide a framework with both repository and PID service (PRAGMA Data Identity Service and PRAGMA Data Repository) to provide long-term access and findability to heterogeneous data objects (DOs) across scientific domains. </p><p><h3>Application</h3><ul><li>Rice genomics Tassel5 workflow, a Galaxy based interactive workflow that enables collaborators to do their own GWAS analysis of their own phenotyping data with 3K Rice Genomes using common analysis framework</li><li>IRRI is willing to provide analysis framework for free, but wants researchers to share results back to IRRI. IRRI is interested in reproducibility of results as well</li></ul></p>
+
+<p><h3>Deployment</h3><ul><li>Deployed PRAGMA data identity service, data repository and RDA PIT/DTR service on one VM cluster in the National Institute of Advanced Industrial Science and Technology (AIST), Tsukuba, Japan;</li><li>On Rice Genomics Workflow VM in SDSC, US, we set up Galaxy workflow server with Tassel5 workflow and data identity service client and GUI;</li><li>CNRI in Virginia, US provides one Handle V8 instance with a persistent Handle prefix for our evaluation.</li></ul></p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-1 col-sm-6">
+                    <img class="images-responsive" src="images/tassel5.png" alt="" width="600px" height="400px"><br /><br /><br />
+                    <img class="images-responsive" src="images/deployment.png" alt="" width="600px" height="400px">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+	<a  name="contact"></a>
+    <div class="banner">
+        <div class="container">
+			<div class="row">
+                <div class="col-lg-12">
+					<div align="center"><h3>Funding Sources</h3></div>
+					<div align="center" id="d2i-sponsor-footer" style="padding-left: 10px;">
+                    	<a href="http://www.aist.go.jp/index_en.html" target="_blank"><img alt="AIST Logo" src="images/aist.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <!-- <a href="http://irri.org/" target="_blank"><img alt="IRRI Logo" src="images/irri.jpg" style="height: 90px; padding: 10px;" /></a> -->
+                        <!-- <a href="http://lillyendowment.com" target="_blank"><img alt="LifeMapper Logo" src="images/lifemapper.jpg" style="height: 90px; padding: 10px;" /></a>-->
+                        <a href="http://www.pragma-grid.net/" target="_blank"><img alt="Pragma Logo" src="images/pragma.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <a href="https://www.rd-alliance.org/" target="_blank"><img alt="RDA Logo" src="images/rda.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <a href="http://d2i.indiana.edu/" target="_blank"><img alt="Data to Insight Center Logo" src="images/d2i.png" style="height: 90px; padding: 10px;" /></a>
+                     </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div align="center"><h5>Research Data Alliance US - MacArthur Foundation: RDA Recommendations Adoption Project </h5></div>
+                    <div align="center"><h5>Pacific Rim Applications and Grid Middleware Assembly NSF OCI-1234983</h5></div>
+                    <div align="center"><h5>Advanced Industrial Science And Technology ICT International Team</h5></div>
+				</div>
+			</div>
+        </div>
+        <!-- /.container -->
+
+    </div>
+    </br>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" style="text-align:left;padding-top:15px;">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="help.html">Overview</a>
+                        </li>
+                        <li>
+                            <a href="" id="data_repo_footer">Data Repository</a>
+                        </li>
+                        <li>
+                            <a href="download.html">Download</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                        <div class="col-lg-6" style="text-align:right;"><p class="copyright text-muted small">Copyright &copy; Data to Insight Center, Indiana University 2016. All Rights Reserved</p>
+                </div>
+                </div>
+            </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="javascript/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="javascript/bootstrap.min.js"></script>
+
+</body>
+
+<script>
+  var data_repo_url = hostURL + "search.html?DataTypePID=" + dataTypePID + "&DataTypeName=" + dataTypeName;
+		
+  document.getElementById("data_repo").href = data_repo_url;
+  document.getElementById("data_repo_footer").href = data_repo_url;
+	
+</script>
+
+</html>

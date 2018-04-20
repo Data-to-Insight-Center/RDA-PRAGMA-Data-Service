@@ -1,0 +1,298 @@
+/* Copyright (C) YOOtheme GmbH, YOOtheme Proprietary Use License (http://www.yootheme.com/license) */
+
+/* Force vertical scrollbar, force body height to fit at least the browser window, prevent iOS text size adjust on device orientation change */
+html {
+	overflow-y: scroll;
+	min-height: 100%;
+}
+
+/* Create a stacking context to prevent z-index issues */
+body {
+	position: relative;
+	margin: 0;
+}
+
+/* Remove background from selected images */
+img::selection { background: transparent; }
+img::-moz-selection { background: transparent; }
+
+/* Remove borders */
+iframe { border: 0; }
+
+/* Consistency of cursor style, Corrects inability to style clickable 'input' types in iOS */
+button[disabled],
+input[disabled] { cursor: default; }
+
+
+/* HTML5 display definitions
+----------------------------------------------------------------------------------------------------*/
+
+summary { display: block; }
+[hidden] { display: none; }
+
+
+/* New Base Values
+----------------------------------------------------------------------------------------------------*/
+
+/* Block Space */
+p, hr, dl,
+blockquote, pre,
+fieldset, figure { margin: 15px 0; }
+
+h1, h2, h3, h4, h5, h6 { margin: 25px 0 15px 0; }
+
+/* Lists */
+dl { padding-left: 30px }
+dd { margin-left: 40px; }
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+
+h1 { font-size: 36px; line-height: 36px; }
+h2 { font-size: 24px; line-height: 24px; }
+h3 { font-size: 18px; line-height: 18px; }
+h4, h5, h6 { font-size: 16px; line-height: 16px; }
+
+/* Links */
+a, a:hover { text-decoration: none; }
+
+/* Text-level Semantics */
+b { font-weight: bold; }
+
+small { font-size: 11px; }
+
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+
+abbr[title] { border-color: inherit; }
+
+dfn[title] {
+	border-bottom: 1px dotted; 
+	cursor: help;
+}
+dfn[title] { font-style: normal; }
+
+/* Horizontal Rule */
+hr {
+	display: block;
+	height: 1px;
+	padding: 0;
+	border-top: 1px solid;
+	border-bottom: 0;
+}
+
+/* Quotes */
+q, blockquote {
+	quotes: '\201C' '\201D' '\2018' '\2019';
+	font-family: "Times New Roman", Times, serif;
+	font-style: italic;
+}
+	
+blockquote {
+	padding: 0 20px;
+	font-size: 16px;
+	line-height: 22px;
+}
+blockquote p { margin: 0;}
+
+/* Code */
+code { word-spacing: -2px; }
+
+pre {
+	padding: 10px;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+/* Tables */
+th, td { padding: 1px; }
+
+/* Forms */
+form, textarea { margin: 0; }
+
+button,
+input[type='button'],
+input[type='submit'] { padding: 2px 3px; }
+
+
+/* Bootstrap resets
+----------------------------------------------------------------------------------------------------*/
+
+/* scaffolding.less */
+body {
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	background-color: inherit;
+}
+
+/* reset.less */
+img { vertical-align: baseline; }
+
+/* code.less */
+pre, code { font-family: "Courier New", Monaco, monospace; }
+pre {
+	border-radius: 0;
+	color: inherit;
+}
+code {
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	background: none;
+	color: inherit;
+	font-size: inherit;
+	white-space: normal;
+}
+
+/* forms.less */
+form.box label {
+	display: inline-block;
+	margin: 0;
+	font: inherit;
+}
+
+form.box legend {
+	display: inline-block;
+	width: auto;
+	margin-bottom: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+}
+
+form.box input,
+form.box select,
+form.box textarea,
+form.box button,
+form.short input,
+form.short select,
+form.short textarea,
+form.short button,
+.searchbox input { font: 12px Arial, Helvetica, sans-serif; }
+
+form.box input,
+form.box select,
+form.box textarea,
+form.short input,
+form.short select,
+form.short textarea,
+.searchbox input {
+	height: auto;
+	width: auto;
+	margin: auto;
+	padding: 2px;
+	border: 1px solid #ddd;
+	border-radius: 0;
+	background: #fff;
+	box-shadow: none;
+	color: inherit;
+	vertical-align: baseline;
+	-webkit-transition: none;
+	transition: none;
+}
+
+form.box input:focus,
+form.box select:focus,
+form.box textarea:focus,
+form.short input:focus,
+form.short select,
+form.short textarea:focus,
+.searchbox input:focus {
+	border-color: #ddd;
+	box-shadow: none;
+}
+
+.searchbox input {
+	height: 30px;
+	width: 100%;
+	border: none;
+}
+
+form.box input[type="radio"], 
+form.box input[type="checkbox"] { margin: 4px 4px 0; }
+
+/* type.less */
+li { line-height: inherit; }
+
+dl.separator dt { font-weight: inherit; }
+
+dl.separator dt,
+dl.separator dd { line-height: inherit; }
+
+blockquote { border-left: none; }
+
+q:before { content: open-quote; }
+q:after { content: close-quote; }
+
+.menu-dropdown .small { font-size: inherit; }
+
+/* sprites.less */
+.module .module-title .icon { margin-top: 0; }
+
+/* labels-badges.less */
+.module .badge {
+	padding: 0;
+	border-radius: 0;
+	background-color: transparent;
+	color: inherit;
+	font: inherit;
+	text-shadow: none;
+	vertical-align: baseline;
+}
+.module .badge:empty { display: block; }
+
+/* 
+ * Pagination reset only for Bootstrap 2.1. Need to be removed for Bootstrap 2.3
+ */
+
+#system .pagination a,
+#system .pagination strong {
+	background: none;
+	float: none;
+}
+
+
+/* New style-related Base Values
+----------------------------------------------------------------------------------------------------*/
+
+body {
+	font: normal 14px/20px Arial, Helvetica, sans-serif;
+	color: #999999;
+}
+
+h1, h2, h3, h4, h5, h6 { text-transform: uppercase; }
+
+h1 { font-size: 30px; line-height: 30px; }
+h2 { font-size: 27px; line-height: 27px; }
+h3 { font-size: 23px; line-height: 23px; }
+h4 { font-size: 18px; line-height: 18px; }
+h5 { font-size: 16px; line-height: 16px; }
+h6 { font-size: 14px; line-height: 14px; }
+
+h1, h2 { color: #707070; }
+h3, h4, h5, h6 { color: #888; }
+
+a:hover,
+em { color: #5C5C5C; }
+
+mark,
+ins { color: #FFF; }
+
+hr { border-top-color: #DDD; }
+
+strong { color: #707070; }
+.bg-colored strong { text-shadow: 0 -1px 0 rgba(0,0,0,0.5); }
+
+code { line-height: 12px; }
+
+pre {
+	border: 1px solid #DBDBDB;
+	background: #FBFBFB;
+	box-shadow: inset 1px 0px 17px rgba(20, 20, 20, 0.08);
+	color: #878787;
+}
+
+::-moz-selection { color: #fff; }
+::selection { color: #fff; }
+

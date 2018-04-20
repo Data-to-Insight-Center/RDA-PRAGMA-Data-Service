@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Landing Page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	
+	<script src="javascript/config.js"></script>
+    
+    <style>
+	.btn-primary{
+		height:50px;
+		font-size:18px;
+	}
+	</style>
+	
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav" style="height:110px;">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="index.html"><img src="images/new_logo.png" width="350px" height="80px"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:30px 0px 0px 0px;">
+                <ul class="nav navbar-nav navbar-right" style="font-size:17px;">
+                	<li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="help.html">Overview</a>
+                    </li>
+                    <li>
+                        <a href="" id="data_repo">Data Repository</a>
+                    </li> 
+                    <li>
+                        <a href="download.html">Download</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    <div class="container"> 
+        <div class="row" style="padding-top:130px;">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <h2>Repository Indexing <span style="color:#4ECAF0">beta</span></h2>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="container"> 
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <h3>PID: <span style="font-size:20px;font-weight:500">11723/6b9a2faa-0910-4d32-9cb7-cc4a3d3dc8e9</span></h2>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="container"> 
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              </br>
+              <button type="submit" class="btn btn-primary" onclick="showMetadata()" id="show_metadata">Show/Hide PID Metadata</button>              
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="container"> 
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              </br>
+              <div id="metadata" onFocus="this.value=''" style="display:none;">
+              <textarea id="metadata_text" class="form-control" title="Metadata in JSON format" rows="25" cols="450" style="margin-bottom:20px;">Metadata in JSON format</textarea>
+                  <div>
+                      <button type="submit" class="btn btn-primary" style="margin-right:20px;">Download Data</button> 
+                      <button type="submit" class="btn btn-primary">Download Metadata</button>
+       			  </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+	<hr></hr>
+	<a  name="contact"></a>
+    <div class="banner">
+        <div class="container">
+			<div class="row">
+                <div class="col-lg-12">
+					<div align="center"><h3>Funding Sources</h3></div>
+					<div align="center" id="d2i-sponsor-footer" style="padding-left: 10px;">
+                    	<a href="http://www.aist.go.jp/index_en.html" target="_blank"><img alt="AIST Logo" src="images/aist.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <!-- <a href="http://irri.org/" target="_blank"><img alt="IRRI Logo" src="images/irri.jpg" style="height: 90px; padding: 10px;" /></a> -->
+                        <!-- <a href="http://lillyendowment.com" target="_blank"><img alt="LifeMapper Logo" src="images/lifemapper.jpg" style="height: 90px; padding: 10px;" /></a>-->
+                        <a href="http://www.pragma-grid.net/" target="_blank"><img alt="Pragma Logo" src="images/pragma.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <a href="https://www.rd-alliance.org/" target="_blank"><img alt="RDA Logo" src="images/rda.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                        <a href="http://d2i.indiana.edu/" target="_blank"><img alt="Data to Insight Center Logo" src="images/d2i.png" style="height: 90px; padding: 10px;" /></a>
+                     </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div align="center"><h5>Research Data Alliance US - MacArthur Foundation: RDA Recommendations Adoption Project </h5></div>
+                    <div align="center"><h5>Pacific Rim Applications and Grid Middleware Assembly NSF OCI-1234983</h5></div>
+                    <div align="center"><h5>Advanced Industrial Science And Technology ICT International Team</h5></div>
+				</div>
+			</div>
+        </div>
+
+    </div>
+    
+    </br>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" style="text-align:left;padding-top:15px;">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="help.html">Overview</a>
+                        </li>
+                        <li>
+                            <a href="" id="data_repo_footer">Data Repository</a>
+                        </li>
+                        <li>
+                            <a href="download.html">Download</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                        <div class="col-lg-6" style="text-align:right;"><p class="copyright text-muted small">Copyright &copy; Data to Insight Center, Indiana University 2016. All Rights Reserved</p>
+                </div>
+                </div>
+            </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="javascript/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascript/daterangepicker.js"></script>
+    
+    <script type="text/javascript">
+		/* Calender functionality */
+		$(function() {
+			$('input[name="daterange"]').daterangepicker({
+				timePicker: true,
+				timePickerIncrement: 30,
+				locale: {
+					format: 'MM/DD/YYYY'
+				}
+			});
+		});
+	</script>
+
+	<script>
+        function showMetadata() {
+            var my_disply = document.getElementById('metadata').style.display;
+            if(my_disply == "block")
+                  document.getElementById('metadata').style.display = "none";
+            else
+                  document.getElementById('metadata').style.display = "block";
+         }
+		
+		var data_repo_url = hostURL + "search.html?DataTypePID=" + dataTypePID + "&DataTypeName=" + dataTypeName;
+		
+  		document.getElementById("data_repo").href = data_repo_url;
+  		document.getElementById("data_repo_footer").href = data_repo_url;
+    </script>
+
+</body>
+
+</html>
+

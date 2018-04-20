@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html>
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head>
+      <style type="text/css">
+         div#apreloader{background:#3bc7ab;}#apreloader-text{color:#ffffff;}
+         .cube,
+         .double-bounce1, .double-bounce2,
+         .sticks > div,
+         .cube1, .cube2,
+         .round,
+         .dot1, .dot2,
+         .straightdots > div,
+         .container1 > div, .container2 > div, .container3 > div,
+         .movingBallLineG, .movingBallG,
+         .windows8 .wBall .wInnerBall {
+         background-color: #ffffff;
+         } #apreloader-content-wrap span#apreloader-text{ font-size: 20px;}
+      </style>      
+      <link rel="stylesheet" href="css/w3.css">
+      <link rel="stylesheet" href="css/base.css" />
+      <link rel="stylesheet" href="css/layout.css" />
+      <link rel="stylesheet" href="css/menus.css" />
+      
+      <link rel="stylesheet" href="css/custom.css" />
+      <link rel="stylesheet" href="css/responsive.css" />
+      <style>
+         .wrapper { max-width: 980px; }
+         #maininner { width: 100%; }
+         #menu .dropdown { width: 250px; }
+         #menu .columns2 { width: 500px; }
+         #menu .columns3 { width: 750px; }
+         #menu .columns4 { width: 1000px; }
+         body#page.gen3-frontpage #block-bottom-a {
+         margin: 0px !important;
+         }span.glyphicon {
+         font-size: 80px;
+         }.width16 {
+         width: 50%;
+         }.w3-btn-floating, .w3-btn-floating-large {
+         	background-color: #4A722D !important;
+         }.w3-dark-gray, .w3-hover-dark-gray:hover {
+			background-color: #335B15 !important;
+		 }.content-section-h {
+			border-bottom:1px solid #E7E7E7;
+			padding:10px 0px 10px;
+		}
+    
+		/* Make the image fit the box */
+		#boxshadow img {
+			width: 140px;
+			border: 1px solid #ffffff;
+			border-radius:50%;
+		}#rcorners {
+			background-color:#F8F8F8;
+			border-radius: 5%;
+			border:#cccccc 1px solid;
+			background-repeat: repeat;
+			padding: 15px 20px 20px 20px;
+		}#block-header {
+		  border-bottom:0px solid #E0E0E0;
+		}::selection {
+		  background: #a8d1ff; /* WebKit/Blink Browsers */
+		}
+		::-moz-selection {
+		  background: #a8d1ff; /* Gecko Browsers */
+		}
+      </style>
+      
+      
+      <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+    
+	<link rel="stylesheet" type="text/css" href="css/daterangepicker.css" />
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <script src="commons/jquery-latest.js" type="text/javascript"></script>
+    <script src="commons/bootstrap.min.js"></script>
+    <script src="javascript/config.js"></script>
+    <script src="javascript/bundle.js"></script>
+    <script type="text/javascript" src="javascript/RepoIndex.js"></script>
+    <script type="text/javascript" src="javascript/moment.min.js"></script>
+   </head>
+   <body id="page" class="page body-dark isblog gen3-frontpage">
+      <div id="block-header">
+         <div class="block-header wrapper max-width80">
+            <header id="header" class="clearfix">
+               <a id="logo" href="irri-index.html">
+                  <div><img src="images/IRRI-logo.png" alt="IRRI logo" width="100" height="80" /></div>
+               </a>
+               <div id="banner">
+                  <ul class="menu menu-sidebar">
+                     <li class="level1 item933"><a href="irri-index.html" class="level1" style="text-decoration: none"><span style="font-size:15px">Home</span></a></li>
+					 <li class="level1 item933"><a href="" class="level1" style="text-decoration: none" id="galaxy_server"><span style="font-size:15px">Genomics Analysis Tool</span></a></li>
+                     <li class="level1 item1582"><a href="" class="level1" style="text-decoration: none" id="data_repo"><span style="font-size:15px">Data Repository</span></a></li>                     
+                     <li class="level1 item936"><a href="irri-contact.html" class="level1" style="text-decoration: none"><span style="font-size:15px">Contact</span></a></li>
+                  </ul>
+               </div>
+            </header>
+         </div>
+      </div>
+      
+     <div class="container"> 
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="input-group">
+              <h2>Data Repository <span style="color:forestgreen">beta</span></h2>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-7" style="padding-top:15px;">
+          
+	      <form id="search" method="POST">	
+              <input type="text" class="form-control" placeholder="Search Data Object Persistent Identifier (PID)" id="searchpid">
+             <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit" name="searchbtn" style="background-color:green;">Go</button>
+              </span>
+	      </form>
+         
+          </div><!-- /.col-lg-6 -->
+        </div>
+    </div>
+    
+    </br>
+    
+    <div class="container"> 
+        <div class="row">
+          <div class="col-lg-3" id="rcorners">
+              <h3 style="padding-bottom:10px;">Filter by</h3>
+              <form id="filter" method="POST">
+                  <div class="form-group">
+                      <h4><label for="creator">Creator:</label></h4>
+                      <input type="text" class="form-control" id="creator" placeholder="Enter creator name">
+                          <span style="color: #aaaaaa; font-size: 12px; padding: 0px 0px 0px 5px;">Ex: quzhou</span>
+                          </div>
+                  <div class="form-group">
+                      <h4><label for="timerange">Time Range:</label></h4>
+                      <input type="text" id="daterange" class="form-control" value="" placeholder="Choose time range"/>
+                      <span style="color: #aaaaaa; font-size: 12px; padding: 0px 0px 0px 5px;">Ex: 01/04/2016 - 04/04/2016 [mm/dd/yyyy]</span>
+                  </div>
+                  <div class="form-group">
+                      <h4><label for="workflow">Workflow:</label></h4>
+                      <input type="text" class="form-control" id="workflow" placeholder="Enter workflow">
+                          <span style="color: #aaaaaa; font-size: 12px; padding: 0px 0px 0px 5px;">Ex: quzhou_GLM_20160915T14:23:46</span>
+                          </div>
+                  <div class="form-group" align="right">
+                      <button type="submit" class="btn btn-primary" name="filter" style="background-color:green;">Filter</button>
+                  </div>
+              </form>
+          </div><!-- /.col-lg-3 -->
+          
+          <div class="col-lg-1" style="padding-top:20px;">
+            <div class="input-group">
+            </div>
+          </div>
+          
+          <div class="col-lg-8" style="padding-top:20px;">
+              <h4 class="DataType"></h4>
+              <br>
+              <h4 class="performance"></h4>
+              
+              <!--<nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                  </ul>
+              </nav>-->
+              <div class="searchResult">
+              <!--<div class="col-lg-12" style="border:#000000 1px solid"></div>
+              
+              <div class="col-lg-8">
+              	<h4 style="font-size:16px;">quzhou_GLM_20160915T14:23:46</h4>
+                <h4 style="font-size:16px;">DOI: <span style="font-size:14px;font-weight:500">11723/6b9a2faa-0910-4d32-9cb7-cc4a3d3dc8e9</h5></span></h4>
+                <h4 style="font-size:16px;">DO Name: <span style="font-size:14px;font-weight:500">quzhou_GLM_20160915T14:23:46</span></h4>
+                <h4 style="font-size:16px;">Creator: <span style="font-size:14px;font-weight:500">quzhou</span></h4>
+                <h4 style="font-size:16px;">Timestamp: <span style="font-size:14px;font-weight:500">2016-09-15 T14:23:46</span></h4>
+                <h4 style="font-size:16px;">Description: <span style="font-size:14px;font-weight:500">(Draw from Data Type Registry)</span></h4></br>  
+              </div>
+              
+              <div class="col-lg-4" style="padding-top:60px">
+              	<h5><a href="">Download Data Object</a></h5>
+                <h5><a href="">Download Metadata Object</a></h5>
+              </div>
+              
+              <div class="col-lg-12" style="border:#000000 1px solid"></div>
+              
+              <div class="col-lg-8">
+              	<h4 style="font-size:16px;">quzhou_GLM_20160915T14:23:46</h4>
+                <h4 style="font-size:16px;">DOI: <span style="font-size:14px;font-weight:500">11723/6b9a2faa-0910-4d32-9cb7-cc4a3d3dc8e9</h5></span></h4>
+                <h4 style="font-size:16px;">DO Name: <span style="font-size:14px;font-weight:500">quzhou_GLM_20160915T14:23:46</span></h4>
+                <h4 style="font-size:16px;">Creator: <span style="font-size:14px;font-weight:500">quzhou</span></h4>
+                <h4 style="font-size:16px;">Timestamp: <span style="font-size:14px;font-weight:500">2016-09-15 T14:23:46</span></h4>
+                <h4 style="font-size:16px;">Description: <span style="font-size:14px;font-weight:500">(Draw from Data Type Registry)</span></h4></br>
+              </div>
+              
+              <div class="col-lg-4" style="padding-top:60px">
+              	<h5><a href="">Download Data Object</a></h5>
+                <h5><a href="">Download Metadata Object</a></h5>
+              </div>
+              
+              <div class="col-lg-12" style="border:#000000 1px solid"></div>
+              <div class="col-lg-8">
+              	<h4 style="font-size:16px;">quzhou_GLM_20160915T14:23:46</h4>
+                <h4 style="font-size:16px;">DOI: <span style="font-size:14px;font-weight:500">11723/6b9a2faa-0910-4d32-9cb7-cc4a3d3dc8e9</h5></span></h4>
+                <h4 style="font-size:16px;">DO Name: <span style="font-size:14px;font-weight:500">quzhou_GLM_20160915T14:23:46</span></h4>
+                <h4 style="font-size:16px;">Creator: <span style="font-size:14px;font-weight:500">quzhou</span></h4>
+                <h4 style="font-size:16px;">Timestamp: <span style="font-size:14px;font-weight:500">2016-09-15 T14:23:46</span></h4>
+                <h4 style="font-size:16px;">Description: <span style="font-size:14px;font-weight:500">(Draw from Data Type Registry)</span></h4></br>
+              </div>
+              
+              <div class="col-lg-4" style="padding-top:60px">
+              	<h5><a href="">Download Data Object</a></h5>
+                <h5><a href="">Download Metadata Object</a></h5>
+              </div>
+              
+              <div class="col-lg-12" style="border:#000000 1px solid;"></div>
+              <div class="col-lg-12">
+              <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                  </ul>
+              </nav>
+              </div>-->
+          </div><!-- /.col-lg-8 -->
+        </div>
+    </div><!-- /.container -->
+	</div>  
+      
+      <div id="block-bottom-b" class="bg-dark bg-colored">
+         <div class="block-bottom-b wrapper max-width80">
+            <section id="bottom-b" class="grid-block">
+               <div class="grid-box width100 grid-v">
+                  <div align="center">
+                     <h3 class="module-title" style="background: #4A722D; color: white; text-align: center; padding: 14px; display: block;">Funding Sources</h3>
+                  </div>
+                  <div align="center" id="d2i-sponsor-footer" style="padding:0px 20px 0px 20px;">
+                     <a href="http://www.aist.go.jp/index_en.html" target="_blank"><img alt="AIST Logo" src="images/aist.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                     <a href="http://www.pragma-grid.net/" target="_blank"><img alt="Pragma Logo" src="images/pragma.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                     <a href="https://www.rd-alliance.org/" target="_blank"><img alt="RDA Logo" src="images/rda.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                     <a href="http://d2i.indiana.edu/" target="_blank"><img alt="Data to Insight Center Logo" src="images/d2i.png" style="height: 90px; padding: 10px;" /></a>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div align="center" style="padding:15px 0px 0px 0px">
+                     <p style="font-size:14px;font-weight:500">Research Data Alliance US - MacArthur Foundation: RDA Recommendations Adoption Project </p>
+                     <p style="font-size:14px;font-weight:500">Pacific Rim Applications and Grid Middleware Assembly NSF OCI-1234983</p>
+                     <p style="font-size:14px;font-weight:500">Advanced Industrial Science And Technology ICT International Team</p>
+                  </div>
+               </div>
+            </section>
+         </div>
+      </div>
+      <div id="block-bottom-c" class="bg-white">
+         <div class="block-bottom-c wrapper max-width80">
+            <section id="bottom-c" class="grid-block">
+               <div class="grid-box width100 grid-v">
+                  <div class="module mod-box mod-box-default  deepest">
+                     <ul  id="mainlevel">
+                        <li>
+                           <span class="mainlevel"><a href="irri-index.html">Home</a></span>
+                        </li>
+                        <li>
+                           <span class="mainlevel"><a href="" id="galaxy_server_footer">Genomics Analysis Tool</a></span>
+                        </li>
+                        <li>
+                           <span class="mainlevel"><a href="" id="data_repo_footer">Data Repository</a></span>
+                        </li>
+                        <li>
+                           <span class="mainlevel"><a href="irri-contact.html">Contact</a></span>
+                        </li>
+                        <li style="float:right">
+                           <span class="mainlevel">Copyright © Data to Insight Center, Indiana University 2017. All Rights Reserved</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </section>
+         </div>
+      </div>
+   </body>
+
+<script type="text/javascript" language="javascript">
+
+	  document.getElementById("galaxy_server").href = galaxyURL;
+	  document.getElementById("galaxy_server_footer").href = galaxyURL;
+		
+	  var data_repo_url = hostURL + "irri-search.html?DataTypePID=" + dataTypePID + "&DataTypeName=" + dataTypeName;
+		
+	  document.getElementById("data_repo").href = data_repo_url;
+	  document.getElementById("data_repo_footer").href = data_repo_url;
+
+</script>
+</html>

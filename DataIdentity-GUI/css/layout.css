@@ -1,0 +1,216 @@
+/* Copyright (C) YOOtheme GmbH, YOOtheme Proprietary Use License (http://www.yootheme.com/license) */
+
+/* Grid and Clearing Tools
+----------------------------------------------------------------------------------------------------*/
+
+.clearfix:before,
+.clearfix:after,
+.grid-block:before,
+.grid-block:after,
+.deepest:before,
+.deepest:after {
+	content: "";
+    display: table;
+}
+.clearfix:after,
+.grid-block:after,
+.deepest:after { clear: both; }
+
+.grid-box { float: left; }
+
+/* Grid Units */
+.width16 { width: 16.666%; }
+.width20 { width: 20%; }
+.width25 { width: 25%; }
+.width33 { width: 33.333%; }
+.width40 { width: 40%; }
+.width50 { width: 50%; }
+.width60 { width: 60%; }
+.width66 { width: 66.666%; }
+.width75 { width: 75%; }
+.width80 { width: 80%; }
+.width100 { width: 100%; }
+
+[class*='width'] {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Create new Block Formatting Contexts */
+.bfc-o { overflow: hidden; }
+.bfc-f {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	float: left;
+}
+
+/* Align Boxes */
+.float-left { float: left; }
+.float-right { float: right; }
+
+/* Grid Gutter */
+.grid-gutter.grid-block { margin: 0 -15px; }
+.grid-gutter > .grid-box > * { margin: 0 15px; }
+
+.grid-gutter > .grid-box > * > :first-child { margin-top: 0; }
+.grid-gutter > .grid-box > * > :last-child { margin-bottom: 0; }
+
+
+/* Layout Defaults
+----------------------------------------------------------------------------------------------------*/
+
+/* Center Page */
+.wrapper {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: auto;
+}
+
+/* Header */
+#header { position: relative; }
+
+#toolbar .float-left .module,
+#toolbar .float-left > time {
+	margin: 0 15px 0 0;
+	float: left;
+}
+
+#toolbar .float-right .module {
+	margin: 0 0 0 15px;
+	float: right;
+}
+
+#headerbar .module {
+	max-width: 300px;
+	margin-right: 0;
+	float: right;
+}
+
+#logo, #logo > img,
+#menu { float: left; }
+#search { float: right; }
+
+#banner {
+	position: absolute;
+	top: 0;
+	right: -200px;
+}
+
+/* Footer */
+#footer {
+	position: relative;
+	text-align: center;
+}
+
+/* Absolute */
+#absolute {
+	position: absolute;
+	z-index: 15;
+	width: 100%;
+}
+
+
+/* Spacing
+----------------------------------------------------------------------------------------------------*/
+
+.module { margin: 10px; }
+
+#breadcrumbs,
+#content { margin: 20px 10px; }
+
+#block-header + * #breadcrumbs { margin: 0 10px 20px 10px; }
+
+#footer .module { margin: 0; }
+
+/* Layout
+----------------------------------------------------------------------------------------------------*/
+
+/* Blocks */
+#block-header + * { padding-top: 20px; }
+#block-header { 
+	border-bottom: 1px solid #E0E0E0; 
+	background: #FFF; 
+}
+
+.wrapper.max-width65 { max-width: 65%; }
+.wrapper.max-width80 { max-width: 80%; }
+.wrapper.max-width100 { max-width: 100%; }
+
+/* Backgrounds */
+.bg-white,
+.bg-colored { padding: 20px 0;} 
+
+.bg-colored {
+	border-top: 1px solid rgba(0,0,0,0.15);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.bg-colored h1,
+.bg-colored h2,
+.bg-colored h3,
+.bg-colored h4,
+.bg-colored h5,
+.bg-colored h6,
+.bg-colored { color: #FFF; }
+
+.bg-colored a {
+	color: #FFF;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+}
+
+.bg-colored code { color: #FFF; } 
+
+.bg-white + .bg-white { margin-top: -40px; }
+.bg-white { background: #FFF; }
+
+.bg-dark a:hover { 
+	color: #B0B6BB;
+	color: rgba(255,255,255,0.65);
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.25); 
+}
+
+/* Header */
+#header { padding: 0 10px; }
+
+#logo { height: 72px; }
+#logo > img {
+	width: auto;
+	max-height: 100%;
+}
+
+#menubar {
+	margin-bottom: -1px;
+	float: right;
+}
+
+/* Footer */
+#footer {
+	padding: 10px;
+	line-height: 18px;
+	text-align: left;
+	font-size: 12px;
+}
+
+/* ToTop Scroller */
+#totop-scroller {
+	display: block;
+	position: absolute;
+	top: 13px;
+	right: 10px;
+	z-index: 1;
+	width: 34px;
+	height: 34px;
+	background: url(../images/totop_scroller.png) 0 0 no-repeat;
+	text-decoration: none;
+	opacity: 0.7
+}
+
+#totop-scroller:hover { 
+	opacity: 1;
+	background-position: 0 -40px; 
+}
+

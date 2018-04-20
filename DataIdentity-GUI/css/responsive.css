@@ -1,0 +1,257 @@
+/* Copyright (C) YOOtheme GmbH, YOOtheme Proprietary Use License (http://www.yootheme.com/license) */
+
+/* Responsive Utility Classes
+----------------------------------------------------------------------------------------------------*/
+
+.hidden-desktop { display: none; }
+
+/* Only Phones */
+@media (max-width: 767px) {
+	.hidden-desktop { display: block; }
+	.hidden-phone { display: none; }
+}
+
+/* Only Tablets (Portrait) */
+@media (min-width: 768px) and (max-width: 959px) {
+	.hidden-desktop { display: block; }
+	.hidden-tablet { display: none; }
+}
+
+
+/* Responsive Content
+----------------------------------------------------------------------------------------------------*/
+
+#header-responsive { display: none; }
+
+
+/* Layout Breakpoints
+----------------------------------------------------------------------------------------------------*/
+
+/* All except large Screens */
+@media (max-width: 1220px) {
+
+	#banner { display: none; }
+
+}
+
+/* Only Phones and Tablets (Portrait) */
+@media (max-width: 959px) {
+
+	/* Layout */
+	#maininner,
+	#sidebar-a,
+	#sidebar-b {
+		width: 100%;
+		left: auto;
+		right: auto;
+	}
+
+}
+
+/* Only Tablets (Portrait) and Phones (Landscape) */
+@media (min-width: 480px) and (max-width: 959px) {
+
+	/* Layout */
+	.width16,
+	.width20,
+	.width25,
+	.width40,
+	.width60,
+	.width75,
+	.width80 { width: 50%; }
+
+	.width50 .width50 { width: 100%; }
+
+	.sidebars-1 #sidebar-a .width100,
+	.sidebars-1 #sidebar-b .width100 { width: 50%; }
+
+	#sidebar-a .width100:nth-child(odd):last-child,
+	#sidebar-b .width100:nth-child(odd):last-child,
+	.width20:nth-child(odd):last-child { width: 100%; }
+
+	.sidebars-2 #sidebar-a,
+	.sidebars-2 #sidebar-b { width: 50%; }
+	.sidebars-2.sidebar-b-left:not(.sidebar-a-left) #sidebar-a { float: right; } /* Keep Sidebar order */
+
+	.grid-gutter > .grid-box:nth-child(n+3) > * { margin-top: 30px; }
+
+	/* Tools */
+	.width50 .align-left,
+	.width50 .alignleft,
+	.width50 .align-right,
+	.width50 .alignright {
+		margin: 0 auto 15px auto;
+		float: none;
+	}
+
+}
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	/* Layout */
+	.width33,
+	.width66 { width: 100%; }
+
+	/* Header */
+	#header-responsive { display: block; }
+
+	#header-responsive .logo,
+	#header-responsive .searchbox {
+		display: inline-block;
+		width: 45%;
+		vertical-align: middle;
+	}
+
+	#header-responsive .logo { margin-right: 10%; }
+
+	#header-responsive .searchbox {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	/* Menu */
+	.menu-responsive {
+		width: 100%;
+		font-size: 14px;
+	}
+
+
+}
+
+/* Only Phones (Landscape) */
+@media (min-width: 480px) and (max-width: 767px) {
+}
+
+/* Only Phones (Portrait) */
+@media (max-width: 479px) {
+
+	/* Base */
+	body { word-wrap: break-word; }
+
+	/* Layout */
+	.width16,
+	.width20,
+	.width25,
+	.width40,
+	.width50,
+	.width60,
+	.width75,
+	.width80 { width: 100%; }
+
+	.grid-gutter > .grid-box:nth-child(n+2) > * { margin-top: 30px; }
+
+	/* Tools */
+	.align-left,
+	.alignleft,
+	.align-right,
+	.alignright {
+		margin: 0 auto 15px auto;
+		float: none;
+	}
+
+}
+
+
+/* Fix Viewport for IE10 Snap Mode
+----------------------------------------------------------------------------------------------------*/
+
+@media (max-width: 400px) {
+	@-ms-viewport{
+		width: 320px;
+	}
+}
+
+
+/* Breakpoints
+----------------------------------------------------------------------------------------------------*/
+
+/* All except large Screens */
+@media (max-width: 1220px) {
+
+}
+
+/* Only Phones and Tablets (Portrait) */
+@media (max-width: 959px) {
+
+	/* Layout */
+	.wrapper.max-width65,
+	.wrapper.max-width80 { max-width: 100%; }
+
+	.bg-colored { padding: 0; }
+
+	/* Modules */
+	.grid-h .mod-box-transparent { margin: 0; }
+
+}
+
+/* Only Tablets (Portrait) */
+@media (min-width: 768px) and (max-width: 959px) {
+
+
+
+}
+
+/* Only Tablets (Portrait) and Phones (Landscape) */
+@media (min-width: 480px) and (max-width: 959px) {
+
+	/* Layout */
+	#search { display: none; }
+
+
+}
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	/* Layout */
+	#toolbar,
+	#headerbar,
+	#logo,
+	#search,
+	#menubar,
+	#breadcrumbs  { display: none; }
+
+	#header { margin-bottom: 20px; } 
+
+	/* System */
+	.searchbox { border: none; }
+
+
+}
+
+/* Only Phones (Landscape) */
+@media (min-width: 480px) and (max-width: 767px) {
+
+
+
+}
+
+/* Only Phones (Portrait) */
+@media (max-width: 479px) {
+
+	/* System */
+	#system .items .item,
+	#system .items .item:first-child {
+		margin-top: 12px;
+		padding-top: 18px;
+		border-top-width: 1px;
+	}
+
+	#system .items :first-child .item:first-child {
+		margin-top: 0;
+		padding-top: 0;
+		border-width: 0;
+	}
+
+	#system .items .leading .item {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		border-width: 0;
+	}
+
+	.searchbox { padding: 0 0 0 38px; }
+
+
+}

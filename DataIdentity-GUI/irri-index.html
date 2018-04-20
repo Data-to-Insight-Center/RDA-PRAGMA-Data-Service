@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html>
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head>
+      <style type="text/css">
+         div#apreloader{background:#3bc7ab;}#apreloader-text{color:#ffffff;}
+         .cube,
+         .double-bounce1, .double-bounce2,
+         .sticks > div,
+         .cube1, .cube2,
+         .round,
+         .dot1, .dot2,
+         .straightdots > div,
+         .container1 > div, .container2 > div, .container3 > div,
+         .movingBallLineG, .movingBallG,
+         .windows8 .wBall .wInnerBall {
+         background-color: #ffffff;
+         } #apreloader-content-wrap span#apreloader-text{ font-size: 20px;}
+      </style>      
+      <link rel="stylesheet" href="css/w3.css">
+      <link rel="stylesheet" href="css/base.css" />
+      <link rel="stylesheet" href="css/layout.css" />
+      <link rel="stylesheet" href="css/menus.css" />
+      <link rel="stylesheet" href="css/custom.css" />
+      <link rel="stylesheet" href="css/responsive.css" />
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+  	  <script src="javascript/jquery.js"></script>
+      <script src="javascript/bootstrap.min.js"></script>
+	  <script src="javascript/config.js"></script>
+      <style>
+         .wrapper { max-width: 980px; }
+         #maininner { width: 100%; }
+         #menu .dropdown { width: 250px; }
+         #menu .columns2 { width: 500px; }
+         #menu .columns3 { width: 750px; }
+         #menu .columns4 { width: 1000px; }
+         body#page.gen3-frontpage #block-bottom-a {
+         margin: 0px !important;
+         }span.glyphicon {
+         font-size: 80px;
+         }.width16 {
+         width: 50%;
+         }.w3-btn-floating, .w3-btn-floating-large {
+         	background-color: #4A722D !important;
+         }.w3-dark-gray, .w3-hover-dark-gray:hover {
+			background-color: #335B15 !important;
+		 }.btn-primary{
+            border-color:#006400 !important;
+		 }::selection {
+		    background: #a8d1ff; /* WebKit/Blink Browsers */
+		 }::-moz-selection {
+		    background: #a8d1ff; /* Gecko Browsers */
+		 }
+		.jumbotron {
+		  background-color:#EEEEEE !important;
+		  margin-bottom:0px !important;
+		  padding-bottom:10px !important;
+		  padding-top:10px !important;
+          background-image: url("images/rice1.jpg");
+          border-radius:15px;
+        }.bg-colored a {
+			text-shadow: rgba(0, 0, 0, 0) 0 0px 0 !important;
+		}
+      </style>
+      
+      <style>
+          #hoverleft{
+              position: absolute;
+              top: 130px;
+              left: 120px;
+              display: none;
+          }
+      </style>
+      <style>
+          #hoverright{
+              position: absolute;
+              top: 130px;
+              left: 1480px;
+              display: none;
+          }
+      </style>
+
+    <style>
+    .fixed-ratio-resize { /* basic responsive img */
+        max-width: 100%;
+        height: auto;
+        width: auto; /* IE8 */
+    }
+    </style>
+   </head>
+   <body id="page" class="page body-dark isblog gen3-frontpage">
+      <div id="block-header">
+         <div class="block-header wrapper max-width80">
+            <header id="header" class="clearfix">
+               <a id="logo" href="irri-index.html">
+                  <div><img src="images/IRRI-logo.png" alt="IRRI logo" width="100" height="80" /></div>
+               </a>
+               <div id="banner">
+                  <ul class="menu menu-sidebar">
+                     <li class="level1 item933"><a href="irri-index.html" class="level1" style="text-decoration: none"><span style="font-size:15px">Home</span></a></li>
+                     <li class="level1 item933"><a href="" class="level1" style="text-decoration: none" id="galaxy_server"><span style="font-size:15px">Genomics Analysis Tool</span></a></li>
+                     <li class="level1 item1582"><a href="" class="level1" style="text-decoration: none" id="data_repo"><span style="font-size:15px">Data Repository</span></a></li>
+                     <li class="level1 item936"><a href="irri-contact.html" class="level1" style="text-decoration: none"><span style="font-size:15px">Contact</span></a></li>
+                  </ul>
+               </div>
+            </header>
+         </div>
+          <!--<img id="hoverleft" src="images/hover_left.png"/>
+          <img id="hoverright" src="images/hover_right.png"/>-->
+      </div>
+      
+      <div class="block-top-b wrapper max-width80">
+      <!-- Main component for a primary marketing message or call to action -->
+		  <div class="jumbotron container-fluid vertical-center">
+				<div class="col-sm-6 col-md-6 col-lg-6">
+				  <h1 style="color: #ffffff !important;font-size: 36px;"><b>
+					IRRI Rice Genomes Tool & Data Repository
+					  </b></h1>
+				  <p style="color: #ffffff !important;font-size: 18px;">
+					Learn about <strong style="color: #ffffff !important;">IRRI Rice Genomic Analysis Tool</strong> and use our <strong style="color: #ffffff !important;">Data Repository</strong> to search for published outputs from Galaxy Tassel workflows
+				  </p>
+				  <div class="container-fluid vertical-center">
+					<a class="btn btn-lg btn-primary" href="" role="button" id="toolbutton" style="background-color:green; margin: 5px">Genomics Analysis Tool</a>
+					<a class="btn btn-lg btn-primary" href="" role="button" style="background-color:green; margin: 5px" id="repobutton">Data Repository</a>
+				  </div>
+				</div>
+			    <div class="col-sm-6 col-md-6 col-lg-6 container-fluid vertical-center" style="margin:0px 0px 0px 0px">
+				  <div class="img"><img src="images/diagram-right-banner.png" class="img-responsive"/></div>
+			    </div>
+			</div>
+      </div>
+      
+      <!--<div class="block-top-b wrapper max-width80">
+         <div class="w3-content" style="position:relative">
+            <div class="w3-display-container mySlides">
+                <a href="http://rocks-53.sdsc.edu:8080/" target="_blank"><img id="banner1" align="center" src="images/banner_1.png" style="width:54%"></a>
+               <a href="http://rocks-53.sdsc.edu:8079/testGUI/irri-search.html?DataTypePID=20.5000.343/1af9b7467412d3982998&DataTypeName=IRRI%20Rice%20Genomes%20tassel" target="_blank"><img align="center" src="images/banner_2.png" id="banner2" style="width:39%"></a>
+            </div>
+            <script>
+                var img1 = document.getElementById("banner1"),
+                img2 = document.getElementById("hoverleft");
+                
+                img1.onmouseover = function(){
+                    img2.style.display = "block";
+                }
+            
+            img1.onmouseout = function(){
+                img2.style.display = "none";
+            }
+            </script>
+            <script>
+                var img3 = document.getElementById("banner2"),
+                img4 = document.getElementById("hoverright");
+                
+                img3.onmouseover = function(){
+                    img4.style.display = "block";
+                }
+            
+            img3.onmouseout = function(){
+                img4.style.display = "none";
+            }
+            </script>
+
+            <div class="w3-display-container mySlides">
+               <center><iframe width="90%" height="340" src="https://www.youtube.com/embed/kNb229n8zxc" frameborder="1" allowfullscreen></iframe></center>
+            </div>
+            <a class="w3-btn-floating w3-hover-dark-grey" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">❮</a>
+            <a class="w3-btn-floating w3-hover-dark-grey" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">❯</a>
+         </div>
+         <script>
+            var slideIndex = 1;
+            showDivs(slideIndex);
+            
+            function plusDivs(n) {
+                showDivs(slideIndex += n);
+            }
+            
+            function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = x.length}
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex-1].style.display = "block";
+            }
+         </script>
+         <!-- /.intro-header
+      </div> -->
+      <!--<div id="block-main" class="bg-white">
+         <div class="block-main wrapper max-width80">
+            <div id="main" class="grid-block">
+               <div id="maininner" class="grid-box">
+                  <section id="innertop" class="grid-block">
+                     <div class="grid-box width100 grid-v">
+                        <div class="module mod-box mod-box-default  deepest">
+                           <div class="fpfeedmain">
+                              <h3 class="module-title" style="background: #4A722D; color: white; text-align: center; padding: 14px; display: block;">Features</h3>
+                              <div id="block-top-b" class="bg-color1 bg-colored">
+                                 <div class="block-top-b wrapper max-width80">
+                                    <section id="top-b" class="grid-block">
+                                       <div class="grid-box width16 grid-h">
+                                          <div align="center">
+                                             <span><a href="http://rocks-53.sdsc.edu:8080/" target="_blank"><img src="images/f4.png" alt="Genomics Analysis Tool" /></a></span>
+                                             <span>
+                                                <h4><a href="http://rocks-53.sdsc.edu:8080/" target="_blank" style="color:#1e1e1e">Genomics Analysis Tool</a></h4>
+                                             </span>
+                                             <span style="color:#1e1e1e">Use or analyse genomics data.</span>
+                                          </div>
+                                       </div>
+                                       
+                                       <div class="grid-box width16 grid-h">
+                                          <div align="center">
+                                             <span><a href="http://rocks-53.sdsc.edu:8079/testGUI/irri-search.html?DataTypePID=20.5000.343/1af9b7467412d3982998&DataTypeName=IRRI%20Rice%20Genomes%20tassel%20workflow"><img src="images/f2.png" alt="Data Repository" /></a></span>
+                                             <span>
+                                                <h4><a href="http://rocks-53.sdsc.edu:8079/testGUI/irri-search.html?DataTypePID=20.5000.343/1af9b7467412d3982998&DataTypeName=IRRI%20Rice%20Genomes%20tassel%20workflow" style="color:#1e1e1e">Data Repository</a></h4>
+                                             </span>
+                                             <span style="color:#1e1e1e">Reuse public data and workflows.</span>
+                                          </div>
+                                       </div>
+                                       
+                                    </section>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+               </div>
+               <!-- maininner end -->
+            </div>
+            <!-- main end -->
+         </div>
+      </div>
+      <div id="block-bottom-a" class="bg-color2 bg-colored">
+         <div class="block-bottom-a wrapper max-width80">
+            <section id="bottom-a" class="grid-block">
+               <div class="grid-box width100 grid-h">
+                  <div>
+                     <h3 class="module-title" style="background: #4A722D; color: white; text-align: center; padding: 14px; display: block;">What is PRAGMA Rice?</h3><br>
+                     <div style="padding:0px 20px 0px 20px;">
+                        <div class="col-sm-6 col-md-6 col-lg-6" align="left">
+                        <h5 style="color:#1e1e1e;line-height: 25px;">PRAGMA Rice is supported by funding from several institutions to implement the outputs from the Research Data Alliance by utilizing resources of the <a href="http://www.pragma-grid.net/" target="_blank" style="color:#0088cc;text-decoration: none;">Pacific Rim Application and Grid Middleware Assembly (PRAGMA)</a> community. Highly collaborative and community-oriented, PRAGMA Rice works with a rice genome group from the International Rice Research Institute in the Philippines, uses software services from the National Institute of Advanced Industrial Science and Technology (AIST) in Japan and connects cyberinfrastructure across the Pacific Rim region and the United States.</h5>
+                        <h5 style="color:#1e1e1e">The goals of the project are:</h5>
+                       
+                        <h5 style="line-height: 25px; " >
+                           <ul>
+                              <li>Harmonize attributes and embed metadata in persistent identifiers (PID) for multiple data objects to harvest, preserve and cite data from varied scientific domains.</li>
+                              <li>Provide a framework with both repository and PID service for long-term access and findability of data.</li>
+                              <li>Propose a method to automatically harvest data from scientific workflows and improve reproducibility of workflow execution.</li>
+                           </ul>
+                        </h5>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6" align="right" style="padding-top: 20px;">
+                            <center><iframe width="90%" height="350" src="https://www.youtube.com/embed/kNb229n8zxc" frameborder="1" allowfullscreen></iframe></center>
+                        </div>
+                        <br>
+
+                     </div>
+                </div>
+               </div>
+            </section>
+         </div>
+      </div>
+      <div id="block-bottom-b" class="bg-dark bg-colored">
+         <div class="block-bottom-b wrapper max-width80">
+            <section id="bottom-b" class="grid-block">
+               <div class="grid-box width100 grid-v">
+                  <div align="center">
+                     <h3 class="module-title" style="background: #4A722D; color: white; text-align: center; padding: 14px; display: block;">Funding Sources</h3>
+                  </div>
+                  <div align="center" id="d2i-sponsor-footer" style="padding:0px 20px 0px 20px;">
+                     <a href="http://www.aist.go.jp/index_en.html" target="_blank"><img alt="AIST Logo" src="images/aist.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                     <a href="http://www.pragma-grid.net/" target="_blank"><img alt="Pragma Logo" src="images/pragma.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                     <a href="https://www.rd-alliance.org/" target="_blank"><img alt="RDA Logo" src="images/rda.jpg" style="height: 90px; padding: 10px;" /></a> &nbsp; &nbsp;
+                     <a href="http://d2i.indiana.edu/" target="_blank"><img alt="Data to Insight Center Logo" src="images/d2i.png" style="height: 90px; padding: 10px;" /></a>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div align="center">
+                     <p style="color:#000000">Research Data Alliance US - MacArthur Foundation: RDA Recommendations Adoption Project </p>
+                     <p style="color:#000000">Pacific Rim Applications and Grid Middleware Assembly NSF OCI-1234983</p>
+                     <p style="color:#000000">Advanced Industrial Science And Technology ICT International Team</p>
+                  </div>
+               </div>
+            </section>
+         </div>
+      </div>
+      <div id="block-bottom-c" class="bg-white">
+         <div class="block-bottom-c wrapper max-width80">
+            <section id="bottom-c" class="grid-block">
+               <div class="grid-box width100 grid-v">
+                  <div class="module mod-box mod-box-default  deepest">
+                     <ul  id="mainlevel">
+                        <li>
+                           <span class="mainlevel"><a href="irri-index.html">Home</a></span>
+                        </li>
+                        <li>
+                           <span class="mainlevel"><a href="" id="galaxy_server_footer">Genomics Analysis Tool</a></span>
+                        </li>
+                        <li>
+                           <span class="mainlevel"><a href="" id="data_repo_footer">Data Repository</a></span>
+                        </li>
+                        <li>
+                           <span class="mainlevel"><a href="irri-contact.html">Contact</a></span>
+                        </li>
+                        <li style="float:right">
+                           <span class="mainlevel">Copyright © Data to Insight Center, Indiana University 2017. All Rights Reserved</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </section>
+         </div>
+      </div>
+   </body>
+	<script type="text/javascript" language="javascript">
+	  window.onload = function() {
+		  document.getElementById("toolbutton").onmouseover = function()
+		  {
+			  this.style.backgroundColor = "darkgreen";
+			  this.syle.cursor="pointer";
+		  }
+
+		  document.getElementById("toolbutton").onmouseout = function()
+		  {
+			  this.style.backgroundColor = "green";
+		  }
+
+		  document.getElementById("repobutton").onmouseover = function()
+		  {
+			  this.style.backgroundColor = "darkgreen";
+			  this.syle.cursor="pointer";
+		  }
+
+		  document.getElementById("repobutton").onmouseout = function()
+		  {
+			  this.style.backgroundColor = "green";
+		  }
+		}
+
+
+	  document.getElementById("galaxy_server").href = galaxyURL;
+	  document.getElementById("toolbutton").href = galaxyURL;
+	  document.getElementById("galaxy_server_footer").href = galaxyURL;
+		
+	  var data_repo_url = hostURL + "irri-search.html?DataTypePID=" + dataTypePID + "&DataTypeName=" + dataTypeName;
+		
+	  document.getElementById("data_repo").href = data_repo_url;
+	  document.getElementById("repobutton").href = data_repo_url;
+	  document.getElementById("data_repo_footer").href = data_repo_url;
+
+
+	  </script>
+</html>
