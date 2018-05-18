@@ -10,8 +10,13 @@ import java.util.Map.Entry;
 import javax.ws.rs.*;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import edu.indiana.pragma.util.Constants;
 import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
@@ -242,12 +247,28 @@ public class DataIdentityController {
 		// Connect to mongoDB and list all DataType and names
 		// return list of type definitions from PIT service
 		try {
-			RestTemplate restTemplate = new RestTemplate();
 			List<String> dataTypes = pid_repository.listDataType();
 			List<TypeDefinition> dataTypes_definition = new ArrayList<TypeDefinition>();
+
+			// Create Web Client for POST, GET;
+			Client client = Client.create();
+
 			for (String datatype : dataTypes) {
-				final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + datatype,
-						TypeDefinition.class);
+				// Get PIT and data type definition from PIT service
+				WebResource webResource = client.resource(pit_uri.trim() + "generic/" + datatype);
+
+				ClientResponse cli_response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+				if (cli_response.getStatus() != 200) {
+					throw new RuntimeException("Failed : HTTP error code : " + cli_response.getStatus());
+				}
+
+				String typeDefString = cli_response.getEntity(String.class).trim();
+				//System.out.println(typeDefString);
+				ObjectMapper mapper = new ObjectMapper();
+				mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+				TypeDefinition typeDef = new TypeDefinition("", "", "");
+				typeDef = mapper.readValue(typeDefString, TypeDefinition.class);
 				dataTypes_definition.add(typeDef);
 			}
 			// Construct return message
@@ -281,9 +302,25 @@ public class DataIdentityController {
 		PIDRecord record = pid_repository.findRecordByPID(pid);
 		String pidMetadataType = record.getPIDMetadataType();
 
-		RestTemplate restTemplate = new RestTemplate();
-		final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + pidMetadataType,
-				TypeDefinition.class);
+		// Create Web Client for POST, GET;
+		Client client = Client.create();
+
+		// Get PIT and data type definition from PIT service
+		WebResource webResource = client.resource(pit_uri.trim() + "generic/" + pidMetadataType);
+
+		ClientResponse cli_response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+		if (cli_response.getStatus() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : " + cli_response.getStatus());
+		}
+
+		String typeDefString = cli_response.getEntity(String.class).trim();
+		//System.out.println(typeDefString);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		TypeDefinition typeDef = new TypeDefinition("", "", "");
+		typeDef = mapper.readValue(typeDefString, TypeDefinition.class);
 		Map<String, PropertyDefinition> propertiesDef = typeDef.getProperties();
 
 		boolean exist = false;
@@ -321,9 +358,26 @@ public class DataIdentityController {
 			// Get PID metadata type definition from PIT service
 			PIDRecord record = pid_repository.findRecordByPID(pid);
 			String pidMetadataType = record.getPIDMetadataType();
-			RestTemplate restTemplate = new RestTemplate();
-			final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + pidMetadataType,
-					TypeDefinition.class);
+
+			// Create Web Client for POST, GET;
+			Client client = Client.create();
+
+			// Get PIT and data type definition from PIT service
+			WebResource webResource = client.resource(pit_uri.trim() + "generic/" + pidMetadataType);
+
+			ClientResponse cli_response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+			if (cli_response.getStatus() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : " + cli_response.getStatus());
+			}
+
+			String typeDefString = cli_response.getEntity(String.class).trim();
+			//System.out.println(typeDefString);
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+			TypeDefinition typeDef = new TypeDefinition("", "", "");
+			typeDef = mapper.readValue(typeDefString, TypeDefinition.class);
 			Map<String, PropertyDefinition> propertiesDef = typeDef.getProperties();
 
 			// Use PID metadata type definition to resolve PID metadata to human
@@ -338,7 +392,6 @@ public class DataIdentityController {
 
 			parsed_pid_metadata.put("pid", pid);
 
-			ObjectMapper mapper = new ObjectMapper();
 			String result = mapper.writeValueAsString(parsed_pid_metadata);
 			MessageResponse response = new MessageResponse(true, result);
 			return response;
@@ -365,9 +418,26 @@ public class DataIdentityController {
 			// Get PID metadata type definition from PIT service
 			PIDRecord record = pid_repository.findRecordByPID(pid);
 			String pidMetadataType = record.getPIDMetadataType();
-			RestTemplate restTemplate = new RestTemplate();
-			final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + pidMetadataType,
-					TypeDefinition.class);
+
+			// Create Web Client for POST, GET;
+			Client client = Client.create();
+
+			// Get PIT and data type definition from PIT service
+			WebResource webResource = client.resource(pit_uri.trim() + "generic/" + pidMetadataType);
+
+			ClientResponse cli_response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+			if (cli_response.getStatus() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : " + cli_response.getStatus());
+			}
+
+			String typeDefString = cli_response.getEntity(String.class).trim();
+			//System.out.println(typeDefString);
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+			TypeDefinition typeDef = new TypeDefinition("", "", "");
+			typeDef = mapper.readValue(typeDefString, TypeDefinition.class);
 			Map<String, PropertyDefinition> propertiesDef = typeDef.getProperties();
 
 			// Use PID metadata type definition to resolve PID metadata to human
@@ -382,7 +452,6 @@ public class DataIdentityController {
 			parsed_pid_metadata.put("_target", pid_metadata.get("_target"));
 			parsed_pid_metadata.put("pid", pid);
 
-			ObjectMapper mapper = new ObjectMapper();
 			String result = mapper.writeValueAsString(parsed_pid_metadata);
 			MessageResponse response = new MessageResponse(true, result);
 			return response;
@@ -409,9 +478,25 @@ public class DataIdentityController {
 		else if (pidProvider.equals(PIDProvider.ark))
 			pid_metadata = EZIDUtils.resolveEZID(ezid_server, pid);
 
-		RestTemplate restTemplate = new RestTemplate();
-		final TypeDefinition typeDef = restTemplate.getForObject(pit_uri.trim() + "generic/" + pidMetadataType,
-				TypeDefinition.class);
+		// Create Web Client for POST, GET;
+		Client client = Client.create();
+
+		// Get PIT and data type definition from PIT service
+		WebResource webResource = client.resource(pit_uri.trim() + "generic/" + pidMetadataType);
+
+		ClientResponse cli_response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+		if (cli_response.getStatus() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : " + cli_response.getStatus());
+		}
+
+		String typeDefString = cli_response.getEntity(String.class).trim();
+		//System.out.println(typeDefString);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		TypeDefinition typeDef = new TypeDefinition("", "", "");
+		typeDef = mapper.readValue(typeDefString, TypeDefinition.class);
 		Map<String, PropertyDefinition> propertiesDef = typeDef.getProperties();
 
 		// Use PID metadata type definition to resolve PID metadata to human
@@ -429,7 +514,6 @@ public class DataIdentityController {
 
 		parsed_pid_metadata.put("pid", pid);
 
-		ObjectMapper mapper = new ObjectMapper();
 		String result = mapper.writeValueAsString(parsed_pid_metadata);
 		MessageResponse response = new MessageResponse(true, result);
 		return response;
