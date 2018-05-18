@@ -5,15 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
-import com.mongodb.util.JSON;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.sun.jersey.api.client.ClientResponse;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import edu.indiana.pragma.util.MongoDB;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.Client;
@@ -21,7 +17,6 @@ import edu.indiana.pragma.container.PIDRecord;
 import edu.indiana.pragma.util.Constants;
 
 import javax.ws.rs.core.CacheControl;
-import javax.ws.rs.core.Response;
 
 
 public class PIDRepository {
@@ -38,9 +33,7 @@ public class PIDRepository {
 		pidResource = Client.create().resource(Constants.pitURL);
 	}
 	public void addRecord(PIDRecord record) {
-		BasicDBObject document = new BasicDBObject();
-		document.put(record);
-		pidCollection.insert(document);
+		pidCollection.insertOne(record);
 	}
 
 	public List<PIDRecord> listAll() {
@@ -78,50 +71,31 @@ public class PIDRepository {
 
 	public PIDRecord findRecordByPID(String pid) {
 
+		BasicDBObject whereQuery = new BasicDBObject();
+		List<PIDRecord> pids = new ArrayList<PIDRecord>();
+		whereQuery.put("PID", pid);
 
-
-		FindIterable<Document> iter = pidCollection.find(new Document("PID",pid));
-		return iter.toString();
+		FindIterable<Document> iter_pid = pidCollection.find(whereQuery);
+		iter_pid.projection(new Document("_id", 0));
+		MongoCursor<Document> cursor = iter_pid.iterator();
+		while (cursor.hasNext()) {
+			pids.add((PIDRecord) cursor.next());
+		}
+		return pids.get(0);
 	}
 
 	public PIDRecord findRecordByrepoID(String repoID) {
-		return PIDTemplate.find(Query.query(Criteria.where("repoID").is(repoID)), PIDRecord.class).get(0);
-	}
+		BasicDBObject whereQuery = new BasicDBObject();
+		List<PIDRecord> repo_ids = new ArrayList<PIDRecord>();
+		whereQuery.put("repoID", repoID);
 
-	public boolean deleteRecordByPID(String pid) {
-
-
-		Bson condition = new Document("$eq", pid);
-		Bson filter = new Document("PID", condition);
-		pidCollection.deleteOne(filter);
-
-		if (!PIDTemplate.exists(Query.query(Criteria.where("PID").is(pid)), PIDRecord.class))
-			return false;
-		else {
-			PIDTemplate.remove(Query.query(Criteria.where("PID").is(pid)), PIDRecord.class);
-			return true;
+		FindIterable<Document> iter_repo_ids = pidCollection.find(whereQuery);
+		iter_repo_ids.projection(new Document("_id", 0));
+		MongoCursor<Document> cursor = iter_repo_ids.iterator();
+		while (cursor.hasNext()) {
+			repo_ids.add((PIDRecord) cursor.next());
 		}
+		return repo_ids.get(0);
 	}
 
-	public boolean deleteRecordByrepoID(String repoID) {
-		if (!PIDTemplate.exists(Query.query(Criteria.where("repoID").is(repoID)), PIDRecord.class))
-			return false;
-		else {
-			PIDTemplate.remove(Query.query(Criteria.where("repoID").is(repoID)), PIDRecord.class);
-			return true;
-		}
-	}
-
-	public boolean existRecordByPID(String pid) {
-		return (PIDTemplate.exists(Query.query(Criteria.where("PID").is(pid)), PIDRecord.class));
-	}
-
-	public boolean existRecordByrepoID(String repoID) {
-		return (PIDTemplate.exists(Query.query(Criteria.where("repoID").is(repoID)), PIDRecord.class));
-
-		DBObject query = new BasicDBObject("repoID", new BasicDBObject(
-				"$exists", true).append("$eq", repoID));
-
-		DBCursor repo_id = pidCollection.find(query);
-	}
 }
