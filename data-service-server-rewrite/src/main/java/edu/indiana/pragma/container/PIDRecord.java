@@ -1,6 +1,8 @@
 package edu.indiana.pragma.container;
 
-public class PIDRecord {
+import org.bson.Document;
+
+public class PIDRecord extends Document {
 	private String id;
 
 	private String PID;
