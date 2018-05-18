@@ -13,6 +13,9 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
+
+  ~ @creator quzhou@umail.iu.edu
+  ~ @rewritten by kunarath@iu.edu
   -->
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
     <display-name>edu.indiana.pragma</display-name>
@@ -35,13 +38,5 @@
         <servlet-name>jersey-serlvet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-    <!--<filter>-->
-    <!--<filter-name>CorsFilter</filter-name>-->
-    <!--<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-    <!--<filter-name>CorsFilter</filter-name>-->
-    <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
 
 </web-app>

@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2015 The Trustees of Indiana University
+ * Copyright 2018 The Trustees of Indiana University
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,9 @@
  * limitations under the License.
  *
  *
- * @author charmadu@umail.iu.edu
+ * @creator kunarath@iu.edu
  */
-
-package edu.indiana.pragma.util;
+package edu.indiana.pragma.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

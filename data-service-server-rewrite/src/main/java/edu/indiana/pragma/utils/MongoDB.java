@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2015 University of Michigan
+ * Copyright 2018 The Trustees of Indiana University
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,9 @@
  * limitations under the License.
  *
  *
- *
- * @author myersjd@umich.edu
+ * @creator kunarath@iu.edu
  */
-
-
-package edu.indiana.pragma.util;
+package edu.indiana.pragma.utils;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;

@@ -1,3 +1,23 @@
+/*
+ *
+ * Copyright 2018 The Trustees of Indiana University
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ * @creator quzhou@umail.iu.edu
+ * @rewritten by kunarath@iu.edu
+ */
 package edu.indiana.pragma;
 
 import java.io.IOException;
@@ -14,7 +34,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import edu.indiana.pragma.util.Constants;
+import edu.indiana.pragma.utils.Constants;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -41,7 +61,6 @@ public class DataIdentityController {
 	private String admin_record = Constants.adminRecord;
 	private String admin_id = Constants.adminId;
 	private String admin_pkey = Constants.adminPkey;
-	private String handle_uri = Constants.handleURI;
 	private String handle_resolve_uri = Constants.handleresolveURI;
 	private String ezid_server = Constants.ezidServer;
 	private String ezid_shoulder = Constants.ezidShoulder;

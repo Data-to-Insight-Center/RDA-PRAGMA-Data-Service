@@ -1,9 +1,27 @@
+/*
+ *
+ * Copyright 2018 The Trustees of Indiana University
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ * @creator quzhou@umail.iu.edu
+ */
 package edu.indiana.pragma.utils;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class EZIDUtils {
 	static class Response {
@@ -124,42 +142,5 @@ public class EZIDUtils {
 		Response r = issueRequest("GET", server, "id/" + URLEncoder.encode(id, "UTF-8"), null);
 		return r.metadata;
 	}
-
-	// public static void main(String[] args) {
-	// try {
-	// Map<String, String> metadata = new HashMap<String, String>();
-	// metadata.put("20.5000.347/c175379b0389b2d6057b",
-	// "2016-07-27T16:45:16.029Z");
-	// metadata.put("20.5000.347/93e4f2c8ca863a4d1094",
-	// "http://localhost:8081/pragma-data-repo/repo/find/metadata?ID=5798e51cd4c6596b3addc0c3");
-	// metadata.put("20.5000.347/0ad9630c9cbe8beb439f",
-	// "http://localhost:9002/landingpage.html?ID=5798e51cd4c6596b3addc0c3");
-	// metadata.put("20.5000.347/ab52e293a33f38278d85", "NULL");
-	// metadata.put("20.5000.347/d8fcd1cd020581d6d23f",
-	// "d7803a38208203d57a83e10ef8b0451e");
-	// metadata.put("20.5000.347/72d03896830a95f68cc8", "NULL");
-	// metadata.put("_target",
-	// "http://localhost:9002/landingpage.html?ID=5798e51cd4c6596b3addc0c3");
-	// String PID = registerEZID("https://ezid.cdlib.org",
-	// "shoulder/ark:/99999/fk4", "iusead", "d2icenter",
-	// (HashMap<String, String>) metadata);
-	//
-	// System.out.println("PID:" + PID);
-	//
-	// Map<String, String> pid_metadata = resolveEZID("https://ezid.cdlib.org",
-	// PID);
-	//
-	// for (Entry<String, String> entry : pid_metadata.entrySet()) {
-	// System.out.println(entry.getKey() + ":" + entry.getValue());
-	// }
-	// } catch (UnsupportedEncodingException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// }
 
 }

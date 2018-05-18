@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Build-Jdk: 1.7.0_101
-Build-By: Quan (Gabriel) Zhou
+Build-By: kunarath@iu.edu
 Created-By: Apache Maven 3.0.5
