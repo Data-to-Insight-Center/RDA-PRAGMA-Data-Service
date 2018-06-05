@@ -11,7 +11,7 @@ The features of this client include:
 
 3. Plug & Play model - With minor updates to clients such framework can be used to harvest DO from applications across domains;
 
-## Installation Guide
+# Installation Guide
 
 ## Software Dependencies
 
@@ -19,8 +19,8 @@ The features of this client include:
 2. JDK V1.6 or higher 
 3. Galaxy Workflow Tassel5 Toolset
 
-##Building the Source
-Check Out Source Codes:
+## Building the Source
+Check out source codes:
 ```
 git clone https://github.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service.git
 ```
@@ -35,5 +35,5 @@ vi ClientConfig.properties
 ```
 Move config and Data-service-client-galaxy.tar file into Galaxy Tassel5 toolshed folder.
 
-## Contributing
+# Contributing
 This software release is under Apache 2.0 licence.
