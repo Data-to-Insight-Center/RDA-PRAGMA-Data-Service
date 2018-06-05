@@ -2,7 +2,7 @@
 
 A minimal RESTful API and service that links PID management (through PIT service and DTR service) to repositories.
 
-## Installation Guide
+# Installation Guide
 
 ## Software Dependencies
 
@@ -12,7 +12,7 @@ A minimal RESTful API and service that links PID management (through PIT service
 
 ## Building the Source
 
-Check out source Codes:
+Check out source codes:
 ```
 git clone https://github.com/Data-to-Insight-Center/RDA-PRAGMA-Data-Service.git
 ```
@@ -45,5 +45,5 @@ mvn clean install -Dmaven.test.skip=true
 cp ./target/pragma-dataidentity-server.war <tomcat>/webapps/
 ```
 
-## Contributing
+# Contributing
 This software release is under Apache 2.0 licence.
