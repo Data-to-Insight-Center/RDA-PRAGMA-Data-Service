@@ -2,7 +2,7 @@
 
 A frontend layer. UI design and JS scripts which send AJAX call to middle layer web services and display response in users' browser.
 
-## Installation Guide
+# Installation Guide
 
 ## Software Dependencies
 
@@ -32,5 +32,5 @@ Run python SimpleHttpServer with POST enabled
 nohup python SimpleServer.py &
 ```
 
-## Contributing
+# Contributing
 This software release is under Apache 2.0 licence.
