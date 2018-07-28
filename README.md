@@ -1,6 +1,6 @@
 # PRAGMA Data Identity Service
 
-Scientific workflows produce data that contribute to published results. In an effort to make the data products more shareable, we piloted PID services as part of the Pacific Rim Applications and Grid Middleware (PRAGMA) project. The services work with VMs created through PRAGMA cloud VM (http://www.pragma-grid.net/), and export data objects and their provenance from the VMs at conclusion of execution. These data objects are assigned a persistent ID using the Handle system.   
+Scientific workflows produce data that contribute to published results. In an effort to make the data products more shareable, we piloted persistent ID (PID) services as part of the Pacific Rim Applications and Grid Middleware (PRAGMA) project. The services work with VMs created through PRAGMA cloud VM (http://www.pragma-grid.net/), and export data objects and their provenance from the VMs at conclusion of execution. These data objects are assigned a persistent ID using the Handle system.   
 
 The pilot data service leverages two recommendations from the Research Data Alliance (RDA, https://rd-alliance.org/): Persistent Identifier Information Type (PIT) and Data Type Registry (DTR). The objective of the project is to enhance sharing of data objects specifically from genomic analyses by the International Rice Research Institute (http://irri.org/) community. 
 
