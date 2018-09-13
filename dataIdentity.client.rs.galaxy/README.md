@@ -35,7 +35,7 @@ Update clientConfig.properties file for individual Galaxy Workflow instance:
 ```
 vi ClientConfig.properties
 ```
-Move config and dataIdentity.client.rs.galaxy.tar file into Galaxy Tassel5 toolshed folder.
+Move config and dataIdentity.client.rs.galaxy.jar file into Galaxy Tassel5 toolshed folder.
 
 ## Configure Galaxy Tassel5
 Follow this link to setup the Galaxy. 
@@ -44,13 +44,13 @@ https://galaxyproject.org/admin/get-galaxy/
 By default, it is configured into 8080 port. Few things need to be considered during the Galaxy setup, that are listed below.
 Before run the “run.sh” file make sure you did the following.
 * Copy the below files into this directory path (/root/galaxy/shed_tools/toolshed.g2.bx.psu.edu/repos/dereeper/tassel5/652aafd88060/tassel5)
-  1. admpriv.bin (It’s in the config directory)
-  2. ClientConfig.properties (It’s in the config directory)
-  3. dataIdentity.client.galaxy-0.1.0.jar (after you build the “DataIdentity-Client-Galaxy” it will produce this jar file into the target folder)
+  1. admpriv.bin
+  2. ClientConfig.properties
+  3. dataIdentity.client.rs.galaxy.jar (after you build the “DataIdentity-Client-Galaxy” it will produce this jar file into the target folder)
 
 * Update the configuration for the below files
-  1. tassel.sh (This is the updated file, Initial file is named as old-tassel.sh)
-  2. tassel.xml (This is the updated file, Initial file is named as old-tassel.xml)
+  1. tassel.sh
+  2. tassel.xml
 
 # Contributing
 This software release is under Apache 2.0 licence.
