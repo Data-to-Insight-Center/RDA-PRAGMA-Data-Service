@@ -1,6 +1,6 @@
 # Data Identity GUI
 
-It is a website for IRRI data products. A frontend layer. UI design and JS scripts which send AJAX call to middle layer web services and display response in users' browser. 
+It is a website frontend layer for IRRI data products. UI design(HTML and CSS) and JS scripts which send AJAX call to middle layer web services and display response in users' browser. 
 
 ## Installation Guide
 
@@ -18,7 +18,7 @@ cd ./DataIdentity-GUI
 ## Deploy Data Identity client frontend layer UI
 Configure frontend and middleware connections
 ```
-vi Data-Service-client/javascript/config.js
+vi DataIdentity-GUI/javascript/config.js
 ```
 
 Deploy DataIdentity-GUI directory under Tomcat container
